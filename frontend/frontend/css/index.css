@@ -73,3 +73,7 @@ body {
 .btn-tournament:hover {
 	background-color: #cecece;
 }
+
+.active-lang {
+	display: none;
+}

@@ -48,3 +48,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	router();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+	// Get all elements with the class 'lang-item'
+	const langItems = document.querySelectorAll('.lang-item');
+	// Loop through each lang-item element and attach a click event listener
+	langItems.forEach(langItem => {
+		langItem.addEventListener('click', () => {
+			// Remove all "active-lang" classes
+			langItems.forEach(langItem => { langItem.classList.remove("active-lang");});
+			// Your event handling code goes here
+			console.log('Language item clicked:', langItem.id);
+			langItem.classList.add("active-lang");
+			document.querySelector('#selectedImg').src = langItem.querySelector('img')?.src;
+		});
+	});
+});
