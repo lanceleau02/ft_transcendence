@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Batpong</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+	<!-- CSS -->
+	<link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.css' %}">
+	<link rel="stylesheet" href="{% static 'css/index.css' %}">
+	<!-- FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+</head>
+<body>
+	<!-- BOOTSTRAP -->
+	<script src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
+	<!-- HEADER -->
+	<header>
+		<!-- NAVBAR -->
+		<nav class="navbar navbar-expand-md py-2">
+			<div class="container-fluid">
+				<!-- LOGO -->
+				<a class="navbar-brand me-auto" href="/">
+					<img src="{% static 'img/logo.png' %}" alt="" width="90vh" height="55vh">
+				</a>
+				<!-- BURGER MEMU -->
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<!-- PAGES -->
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mx-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="/" data-link>Batpong</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/batcave" data-link>Batcave</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="/batprofile" data-link>Batprofile</a>
+						</li>
+					</ul>
+				</div>
+				<!-- LANGUAGE -->
+				<ul class="navbar-nav d-flex">
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<img src="{% static 'img/english.png' %}" alt="" width="50vh" height="25vh">
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<li>
+								<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" alt="" width="50vh" height="25vh">	French</a>
+							</li>
+							<li>
+								<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" alt="" width="50vh" height="25vh">	Spanish</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<!-- PROFILE -->
+				<a class="navbar-brand" href="#">
+					<img src="{% static 'img/batman_pp.png' %}" alt="" width="50vh" height="50vh">
+				</a>
+			</div>
+		</nav>
+	</header>
+	<!-- JAVASCRIPT -->
+	<div id="app"></div>
+	<script type="module" src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
