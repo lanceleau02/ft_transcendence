@@ -24,7 +24,7 @@
 			<div class="container-fluid">
 				<!-- LOGO -->
 				<a class="navbar-brand me-auto" href="/">
-					<img src="{% static 'img/logo.png' %}" alt="" width="90vh" height="55vh">
+					<img src="{% static 'img/logo.png' %}" width="90vh" height="55vh">
 				</a>
 				<!-- BURGER MEMU -->
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,21 +48,24 @@
 				<ul class="navbar-nav d-flex">
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-							<img src="{% static 'img/english.png' %}" alt="" width="50vh" height="25vh">
+							<img id="selectedImg" src="{% static 'img/english.png' %}" width="50vh" height="25vh">
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<li>
-								<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" alt="" width="50vh" height="25vh">	French</a>
+							<li class="lang-item active-lang" id="lang-eng">
+								<a class="dropdown-item" href="#"><img src="{% static 'img/english.png' %}" width="50vh" height="25vh">	English</a>
 							</li>
-							<li>
-								<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" alt="" width="50vh" height="25vh">	Spanish</a>
+							<li class="lang-item" id="lang-fr">
+								<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" width="50vh" height="25vh">	French</a>
+							</li>
+							<li class="lang-item" id="lang-es">
+								<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" width="50vh" height="25vh">	Spanish</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<!-- PROFILE -->
 				<a class="navbar-brand" href="#">
-					<img src="{% static 'img/batman_pp.png' %}" alt="" width="50vh" height="50vh">
+					<img src="{% static 'img/batman_pp.png' %}" width="50vh" height="50vh">
 				</a>
 			</div>
 		</nav>
