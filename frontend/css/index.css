@@ -18,8 +18,9 @@ body {
 
 .nav-item {
 	font-family: Aclonica;
-	padding-left: 35px;
-	padding-right: 35px;
+/* 	padding-left: 35px;
+	padding-right: 35px; */
+	justify-content: space-between;
 }
 
 .nav-link:hover,
