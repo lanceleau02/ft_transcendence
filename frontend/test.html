@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Batpong</title>
+	<link rel="icon" type="image/x-icon" href="img/favicon.png">
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.css">
+	<link rel="stylesheet" href="css/index.css">
+	<!-- FONTS -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
+</head>
+<body>
+	<!-- BOOTSTRAP -->
+	<script src="js/bootstrap/bootstrap.bundle.js"></script>
+	<div class="vertical" style="border-right: 5px solid magenta; height: 100vh; position: absolute; left: 50%;"></div>
+	<!-- HEADER -->
+	<header>
+		<nav class="navbar navbar-expand-md">
+			<div class="container-fluid">
+				<!-- LOGO -->
+				<div class="col-md-2">
+					<a class="navbar-brand" href="/">
+						<img src="img/logo.png" width="90vh" height="55vh">
+					</a>
+				</div>
+				<!-- MENU -->
+				<div class="col-md-8">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+						<ul class="navbar-nav mx-auto">
+							<li class="nav-item">
+								<a class="nav-link active" href="/" data-link>Batpong</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="/batcave" data-link>Batcave</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="/batprofile" data-link>Batprofile</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2 box-menus">
+					<!-- LANGUAGE -->
+					<div class="lang">
+						<ul class="navbar-nav">
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									<img id="selectedImg" src="img/english.png" width="50vh" height="25vh">
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li class="lang-item active-lang" id="lang-eng">
+										<a class="dropdown-item" href="#"><img src="img/english.png" width="50vh" height="25vh">	English</a>
+									</li>
+									<li class="lang-item" id="lang-fr">
+										<a class="dropdown-item" href="#"><img src="img/french.png" width="50vh" height="25vh">	French</a>
+									</li>
+									<li class="lang-item" id="lang-es">
+										<a class="dropdown-item" href="#"><img src="img/spanish.png" width="50vh" height="25vh">	Spanish</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					<!-- PROFILE -->
+					<div class="profil">
+						<a class="navbar-brand" href="#">
+							<img class="pp" src="img/batman_pp.png" width="50vh" height="50vh">
+						</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<!-- JAVASCRIPT -->
+	<div id="app"></div>
+	<script type="module" src="js/index.js"></script>
+</body>
+</html>

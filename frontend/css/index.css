@@ -13,7 +13,7 @@ body {
 }
 
 .navbar-nav {
-	background-color: #FFFF00;
+    background-color: #FFFF00;
 }
 
 .nav-item {
@@ -77,3 +77,36 @@ body {
 .active-lang {
 	display: none;
 }
+
+
+.box-menus {
+	background-color: red;
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.profil {
+	display:grid;
+}
+
+/* .pp {
+	flex: auto;
+} */
+
+
+
+
+/* .pp {
+	background-color: blue;
+	padding-left: 0px;
+} */
+
+
+
+/* .box-menus .btn {
+	background-color: blue;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+} */
