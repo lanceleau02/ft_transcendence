@@ -35,5 +35,5 @@ volumes:
   postgres_data:
 
 networks:
-    inception:
+    ft_transcendence:
         driver: bridge

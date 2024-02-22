@@ -6,7 +6,7 @@ up:
 down:
 	docker compose -f docker-compose.yml down
 
-clean:
+clean: down
 	docker system prune -af
 
 fclean: clean
