@@ -25,12 +25,10 @@
 				<a class="navbar-brand" href="/">
 					<img src="{% static 'img/logo.png' %}" width="100px">
 				</a>
-			
 				<!-- BURGER MENU -->
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-
 				<!-- MENU -->
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav justify-content-center w-100">
@@ -78,8 +76,10 @@
 			</div>
 		</nav>
 	</header>
-	<!-- JAVASCRIPT -->
-	<div id="app"></div>
-	<script type="module" src="{% static 'js/index.js' %}"></script>
+	<main>
+		<!-- JAVASCRIPT -->
+		<div id="app"></div>
+		<script type="module" src="{% static 'js/index.js' %}"></script>
+	</main>
 </body>
 </html>

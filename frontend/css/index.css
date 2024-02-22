@@ -13,7 +13,7 @@
 /* ************************************************************************** */
 
 body {
-	background-image: url("./../img/bg.png");
+	background-color: #202020;
 }
 
 /* ************************************************************************** */
@@ -24,13 +24,16 @@ body {
 	background-color: #FFFF00;
 }
 
+.navbar-brand {
+	margin-right: 70px;
+}
+
 .nav-item {
 	font-family: Aclonica;
 	padding-left: 25px;
 }
 
-.nav-link:hover,
-.nav-link:focus {
+.nav-link:hover {
 	text-decoration: underline;
 	text-underline-position: under;
 	text-decoration-thickness: 2px;
@@ -46,49 +49,22 @@ body {
 	text-decoration: none;
 }
 
-.active-lang {
-	display: none;
-}
-
-.navbar-brand {
-	margin-right: 70px;
-}
-
 .lang {
 	margin-right: 20px;
+}
+
+.active-lang {
+	display: none;
 }
 
 /* ************************************************************************** */
 /*                                    MAIN                                    */
 /* ************************************************************************** */
 
-.centered-container {
-	margin-top: 35px;
-	width: 100vw;
-	height: 70vh;
-	justify-content: center;
-	align-items: center;
-}
-
-.btn-play,
-.btn-play:active {
-	background-color: #FFFF00;
-	font-family: Aclonica;
-	font-size: 30px;
-	border-radius: 20px;
-}
-
-.btn-play:hover {
-	background-color: #aaaa00;
-}
-
-.btn-tournament {
-	background-color: #FFFFFF;
-	font-family: Aclonica;
-	font-size: 30px;
-	border-radius: 20px;
-}
-
-.btn-tournament:hover {
-	background-color: #cecece;
+main {
+	background-color: #202020;
+	background-image: url("./../img/logo.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 }
