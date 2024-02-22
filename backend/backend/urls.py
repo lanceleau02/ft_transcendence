@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home),
     path('batcave', mainViews.batcave),
-    path('batprofile', mainViews.batprofile),
     path('batpong/', mainViews.batpong),
+    path('batprofile', mainViews.batprofile),
 ]
