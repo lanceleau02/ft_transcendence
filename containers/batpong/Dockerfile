@@ -17,4 +17,4 @@ COPY ./start.sh /app/start.sh
 
 RUN chmod +x /app/start.sh
 
-CMD ["./containers/start.sh"]
+CMD ["./containers/batpong/start.sh"]
