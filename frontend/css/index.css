@@ -12,9 +12,9 @@
 /*                                    BODY                                    */
 /* ************************************************************************** */
 
-body {
+/* body {
 	background-color: #202020;
-}
+} */
 
 /* ************************************************************************** */
 /*                                   HEADER                                   */
@@ -25,7 +25,7 @@ body {
 }
 
 .navbar-brand {
-	margin-right: 70px;
+	margin-right: 50px;
 }
 
 .nav-item {
@@ -62,9 +62,9 @@ body {
 /* ************************************************************************** */
 
 main {
-	background-color: #202020;
-	background-image: url("./../img/logo.png");
-	background-size: contain;
+	background-color: white;
+/* 	background-image: url("./../img/logo.png");
+	background-size: cover;
 	background-repeat: repeat;
-	background-position: center;
+	background-position: center; */
 }
