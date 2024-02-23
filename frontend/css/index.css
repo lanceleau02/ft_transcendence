@@ -65,6 +65,6 @@ main {
 	background-color: #202020;
 	background-image: url("./../img/logo.png");
 	background-size: contain;
-	background-repeat: no-repeat;
+	background-repeat: repeat;
 	background-position: center;
 }
