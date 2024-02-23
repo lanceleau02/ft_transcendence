@@ -5,7 +5,7 @@ services:
     image: batpong
     container_name: Batpong
     build:
-      context: containers/
+      context: containers/batpong
     ports:
       - "8000:8000"
     volumes:
