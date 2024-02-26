@@ -8,10 +8,10 @@
 	font-style: normal;
 }
 
-.comic-neue-bold-italic {
+.comic-neue-bold {
 	font-family: "Comic Neue", cursive;
 	font-weight: 700;
-	font-style: bold;
+	font-style: normal;
 }
 
 /* ************************************************************************** */

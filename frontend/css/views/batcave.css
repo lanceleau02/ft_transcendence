@@ -26,23 +26,36 @@
 .label h3 {
 	text-align: center;
 	font-size: 1.4rem;
+	padding-top: 5px;
 	transform: skew(-25deg);
+	font-family: "Comic Neue";
+	font-weight: 400;
 }
 
 .label {
     float: left;
 	margin-top: -22px;
 	width: fit-content;
-	padding: 0 30px;
+	padding: 0 20px;
 	height: 35px;
 	transform: skew(25deg);
 	background: #FFEEA7;
-	font-family: "Comic Neue";
 }
 
-.violet-truc {
+.box {
 	height: 100%;
 	margin: 0 30px;
-	background-color: blueviolet;
 	border: #fff 7px solid;
+}
+
+.name {
+	background-color: blueviolet;
+}
+
+.stats {
+	background-color: coral;
+}
+
+.history {
+	background-color: #457BA1;
 }
