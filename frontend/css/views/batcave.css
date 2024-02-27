@@ -36,8 +36,9 @@
 	font-size: 1.4rem;
 	padding-top: 5px;
 	transform: skew(-25deg);
-	font-family: "Comic Neue";
+	font-family: "Comic Sans MS";
 	font-weight: 400;
+	color: black;
 }
 
 .label {
@@ -55,6 +56,7 @@
 	height: 100%;
 	margin: 0 30px;
 	border: #fff 7px solid;
+	font-family: "Comic Sans MS";
 }
 
 .dots-top-left {
@@ -73,7 +75,7 @@
 }
 
 .name {
-	background-color: blueviolet;
+	background-color: #484887;
 }
 
 .stats {
@@ -98,16 +100,10 @@
 	background-color: aqua;
 	width: 85%;
 	height: 35%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .curve-graph {
 	background-color: chartreuse;
 	width: 85%;
 	height: 35%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
