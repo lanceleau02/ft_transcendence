@@ -23,6 +23,14 @@
     float: right;
 }
 
+.section:nth-child(even) .label {
+	transform: skew(-25deg);
+}
+
+.section:nth-child(even) .label h3 {
+	transform: skew(25deg);
+}
+
 .label h3 {
 	text-align: center;
 	font-size: 1.4rem;
@@ -58,4 +66,19 @@
 
 .history {
 	background-color: #457BA1;
+}
+
+.graphic-view {
+	height: 100%;
+	margin-bottom: 10px;
+}
+
+.graph {
+	height: 100%;
+	background-color: black;
+}
+
+.pie-chart {
+	background-color: aqua;
+	width: 85%;
 }
