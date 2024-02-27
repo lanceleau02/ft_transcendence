@@ -24,4 +24,5 @@ urlpatterns = [
     path('batcave', mainViews.batcave),
     path('batpong/', mainViews.batpong),
     path('batprofile', mainViews.batprofile),
+    path('signup', mainViews.signup),
 ]
