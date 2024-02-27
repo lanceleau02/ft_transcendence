@@ -1,6 +1,7 @@
 import Batpong from "./views/Batpong.js";
 import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
+import Signup from "./views/Signup.js";
 
 const navigateTo = url => {
 	history.pushState(null, null, url);
@@ -12,6 +13,7 @@ const router = async () => {
 		{ path: "/", view: Batpong },
 		{ path: "/batcave", view: Batcave },
 		{ path: "/batprofile", view: Batprofile },
+		{ path: "/signup", view: Signup },
 	];
 	
 	// Test each route for potential match
