@@ -51,9 +51,25 @@
 }
 
 .box {
+	position: relative;
 	height: 100%;
 	margin: 0 30px;
 	border: #fff 7px solid;
+}
+
+.dots-top-left {
+	width: 15vh;
+	position: absolute;
+	transform: rotate(180deg);
+	top: 0;
+	left: 0;
+}
+
+.dots-bottom-right {
+	width: 15vh;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 }
 
 .name {
@@ -81,4 +97,17 @@
 .pie-chart {
 	background-color: aqua;
 	width: 85%;
+	height: 35%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.curve-graph {
+	background-color: chartreuse;
+	width: 85%;
+	height: 35%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
