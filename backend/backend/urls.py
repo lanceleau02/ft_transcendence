@@ -21,9 +21,10 @@ from authentication import views as authenticationViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', mainViews.home),
-    path('batcave', mainViews.batcave),
+    path('', mainViews.home, name='batpong'),
+    path('batcave', mainViews.batcave, name='batcave'),
     path('batpong/', mainViews.batpong),
     path('batprofile', mainViews.batprofile),
-    path('signup', authenticationViews.signup),
+    path('login', authenticationViews.signin, name='login'),
+    path('signup', authenticationViews.signup, name='signup')
 ]

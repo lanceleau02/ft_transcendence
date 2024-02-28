@@ -2,9 +2,11 @@
 <link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
 
 {% block content %}
+    <p>{{ message }}</p>
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <button type="submit" >Register</button>
+        <button type="submit" >Sign in</button>
     </form>
+    <p>Not a member yet?</p><a class="nav-link active" href="/signup" data-link>Sign up now!</a>
 {% endblock content %}

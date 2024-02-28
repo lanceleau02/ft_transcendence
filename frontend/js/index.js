@@ -1,7 +1,8 @@
 import Batpong from "./views/Batpong.js";
 import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
-import Signup from "./views/Signup.js";
+import Login from "./views/Login.js";
+import Signup from "./views/Signup.js"
 
 const navigateTo = url => {
 	history.pushState(null, null, url);
@@ -13,6 +14,7 @@ const router = async () => {
 		{ path: "/", view: Batpong },
 		{ path: "/batcave", view: Batcave },
 		{ path: "/batprofile", view: Batprofile },
+		{ path: "/login", view: Login },
 		{ path: "/signup", view: Signup },
 	];
 	

@@ -35,10 +35,10 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav justify-content-center w-100">
 						<li class="nav-item">
-							<a class="nav-link active" href="/" data-link>Batpong</a>
+							<a class="nav-link active" href="{% url 'batpong' %}" data-link>Batpong</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="/batcave" data-link>Batcave</a>
+							<a class="nav-link active" href="{% url 'batcave' %}" data-link>Batcave</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link active" href="/batprofile" data-link>Batprofile</a>
@@ -69,7 +69,7 @@
 						</div>
 						<!-- PROFILE -->
 						<div class="profil">
-							<a href="/signup" data-link>
+							<a href="/login" data-link>
 								<img src="{% static 'img/batman_pp.png' %}" width="50px">
 							</a>
 						</div>
