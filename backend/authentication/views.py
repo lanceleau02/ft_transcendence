@@ -7,12 +7,9 @@ from django.contrib import messages
 logger = logging.getLogger(__name__)
 
 def signin(request):
-    logger.debug("JE SUIS PAS ENCORE CO PUTAIN DE MERDE")
     if request.method == 'POST':
-        logger.debug("JE SUIS PAS ENCORE COplusun PUTAIN DE MERDE")
         form = forms.LoginForm(request.POST)
         if form.is_valid():
-                logger.debug("JE SUIS PAS ENCORE COplusdeux PUTAIN DE MERDE")
                 email=form.cleaned_data['email']
                 username=form.cleaned_data['username']
                 password=form.cleaned_data['password']

@@ -3,7 +3,7 @@
 
 {% block content %}
     <p>{{ message }}</p>
-    <form method="post">
+    <form method="post" action="{% url 'login' %}">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Sign in</button>
