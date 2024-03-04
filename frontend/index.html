@@ -20,12 +20,12 @@
 	<!-- BOOTSTRAP -->
 	<script src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
 	<!-- HEADER -->
-	<header>
-		<nav class="navbar navbar-expand-md">
+	<header class="py-4">
+		<nav class="navbar navbar-expand-md fixed-top">
 			<div class="container-fluid">
 				<!-- LOGO -->
 				<a class="navbar-brand" href="/">
-					<img src="{% static 'img/logo.png' %}" width="100px">
+					<img src="{% static 'img/logo.png' %}" width="100">
 				</a>
 				<!-- BURGER MENU -->
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,17 +51,17 @@
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<img id="selectedImg" src="{% static 'img/english.png' %}" width="50vh" height="25vh">
+										<img id="selectedImg" src="{% static 'img/english.png' %}" width="50" height="25">
 									</a>
 									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 										<li class="lang-item active-lang" id="lang-eng">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/english.png' %}" width="50vh" height="25vh">	English</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/english.png' %}" width="50" height="25">	English</a>
 										</li>
 										<li class="lang-item" id="lang-fr">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" width="50vh" height="25vh">	French</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" width="50" height="25">	French</a>
 										</li>
 										<li class="lang-item" id="lang-es">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" width="50vh" height="25vh">	Spanish</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" width="50" height="25">	Spanish</a>
 										</li>
 									</ul>
 								</li>
@@ -70,7 +70,7 @@
 						<!-- PROFILE -->
 						<div class="profil">
 							<a href="/login" data-link>
-								<img src="{% static 'img/batman_pp.png' %}" width="50px">
+								<img src="{% static 'img/batman_pp.png' %}" width="50">
 							</a>
 						</div>
 					</div>
