@@ -8,6 +8,5 @@
 <form method="post">
 	{% csrf_token %}
 	{{ formPassword.as_p }}
-	<div>{{ user.email }}</div>
 	<button type="submit">Update</button>
 </form>

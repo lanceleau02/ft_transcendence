@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50, label='Username')
@@ -16,7 +17,24 @@ class UpdateUsername(forms.ModelForm):
         model = get_user_model()
         fields = ['username']
 
-class UpdatePassword(forms.ModelForm):
-    class Meta:
-        model = get_user_model()
-        fields = ['password']
+class CustomPasswordChangeForm(PasswordChangeForm):
+    new_password1 = forms.CharField(label="New password", strip=False, widget=forms.PasswordInput, required=False)
+    new_password2 = forms.CharField(label="Confirm new password", strip=False, widget=forms.PasswordInput, required=False)
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+        self.fields['new_password1'].required = False
+        self.fields['new_password2'].required = False
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get('new_password1')
+        password2 = cleaned_data.get('new_password2')
+        if password1 or password2:
+            if not password1:
+                raise forms.ValidationError("New password is required.")
+            if not password2:
+                raise forms.ValidationError("Confirm new password is required.")
+            if password1 != password2:
+                raise forms.ValidationError("The two password fields didn't match.")
+        return cleaned_data
