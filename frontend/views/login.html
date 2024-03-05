@@ -10,3 +10,7 @@
     </form>
     <p>Not a member yet?</p><a class="nav-link active" href="/signup" data-link>Sign up now!</a>
 {% endblock content %}
+
+{% if message %}
+    <p>{{ message }}</p>
+{% endif %}

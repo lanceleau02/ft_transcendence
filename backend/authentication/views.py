@@ -10,16 +10,15 @@ def signin(request):
     if request.method == 'POST':
         form = forms.LoginForm(request.POST)
         if form.is_valid():
-                email=form.cleaned_data['email']
                 username=form.cleaned_data['username']
                 password=form.cleaned_data['password']
-                user = authenticate(request, email=email, username=username, password=password)
+                user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
                     return redirect('batpong')
                 else:
                     message = 'Identifiants invalides.'
-                    return render(request, 'views/login.html', {'form': form})
+                    return render(request, 'views/index.html', {'form': form})
     else:
         form = forms.LoginForm()
         return render(request, 'views/login.html', context={'form': form})
