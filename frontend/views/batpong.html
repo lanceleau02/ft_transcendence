@@ -1,12 +1,10 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
 
-<section>
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col">
-				<iframe style="width: 100%; height: 100%;" src="https://sethclydesdale.github.io/browser-pong/" allowfullscreen></iframe>
-			</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col p-0 overflow-hidden" style="height: calc(100vh - 85.08px);">
+			<iframe class="w-100 h-100" src="https://sethclydesdale.github.io/browser-pong/" allowfullscreen></iframe>
 		</div>
 	</div>
-</section>
+</div>
