@@ -3,9 +3,16 @@
 	padding-top: 40px;
 	background-color: #90D0C3;
 }
+/* 
+.section {
+    height: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+} */
 
 .section {
-	height: 20%;
+	height: 10%;
 	width: 90%;
 	margin-bottom: 10px;
 	display: flex;
