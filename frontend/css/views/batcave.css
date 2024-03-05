@@ -1,36 +1,105 @@
 #batcave {
 	height: calc(100vh - 85.08px);
-	padding-top: 40px;
 	background-color: #90D0C3;
 }
 
-.section {
+/* ************************************************************************** */
+/*                               TOURNAMENT NAME                              */
+/* ************************************************************************** */
+
+.tournament-name {
 	height: 20%;
 	width: 90%;
-	margin-bottom: 10px;
-	display: flex;
-    flex-direction: column;
 }
 
-.section:not(:first-of-type) {
+.tournament-name .box {
+	background-color: #484887;
+}
+
+.tournament-name .name {
+	font-size: x-large;
+}
+
+/* ************************************************************************** */
+/*                                PLAYER STATS                                */
+/* ************************************************************************** */
+
+.player-stats {
 	height: 40%;
+	width: 90%;
 }
 
-.section:nth-child(odd) {
-	align-self: end;
-}
-
-.section:nth-child(odd) .label {
-    align-self: flex-end;
-}
-
-.section:nth-child(even) .label {
+.player-stats .label {
 	transform: skew(-25deg);
-	align-self: flex-start;
 }
 
-.section:nth-child(even) .label h3 {
+.player-stats .label h3 {
 	transform: skew(25deg);
+}
+
+.player-stats .box {
+	background-color: coral;
+}
+
+.player-stats .stats {
+	font-size: x-large;
+}
+
+/* ************************************************************************** */
+/*                                MATCH HISTORY                               */
+/* ************************************************************************** */
+
+.match-history {
+	height: 40%;
+	width: 90%;
+}
+
+.match-history .box {
+	background-color: #457BA1;
+}
+
+.match-history .history {
+	justify-content: center;
+	font-size: x-large;
+}
+
+/* ************************************************************************** */
+/*                                GRAPHIC VIEW                                */
+/* ************************************************************************** */
+
+.graphic-view {
+    height: 100%;
+}
+
+.graphic-view .box {
+	height: 100%;
+	width: 90%;
+	background-color: black;
+}
+
+.pie-chart {
+	height: 35%;
+	width: 85%;
+	background-color: aqua;
+}
+
+.curve-graph {
+	height: 35%;
+	width: 85%;
+	background-color: chartreuse;
+}
+
+/* ************************************************************************** */
+/*                                    LABEL                                   */
+/* ************************************************************************** */
+
+.label {
+	height: 35px;
+	width: fit-content;
+	margin-top: -22px;
+	z-index: 1;
+	transform: skew(25deg);
+	background-color: #FFEEA7;
 }
 
 .label h3 {
@@ -43,30 +112,17 @@
 	color: black;
 }
 
-.label {
-    float: left;
-	margin-top: -22px;
-	width: fit-content;
-	padding: 0 20px;
-	height: 35px;
-	transform: skew(25deg);
-	background: #FFEEA7;
-	z-index: 1;
-	position: relative;
-	align-self: center;
-}
+/* ************************************************************************** */
+/*                                    BOX                                     */
+/* ************************************************************************** */
 
 .box {
-	position: relative;
 	height: 100%;
 	margin: 0 30px;
+	margin-top: -1em;
+	color: #fff;
 	border: #fff 7px solid;
 	font-family: "Comic Sans MS";
-	margin-top: -1em;
-	display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 .dots-top-left {
@@ -84,49 +140,6 @@
 	right: 0;
 }
 
-.tournament-name {
-	font-size: 2rem;
-}
-
-.name {
-	background-color: #484887;
-}
-
-.stats {
-	background-color: coral;
-}
-
-.history {
-	background-color: #457BA1;
-}
-
-.graphic-view {
-    height: 100%;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.graph {
-	height: 100%;
-	background-color: black;
-	position: relative;
-	margin-top: -1em;
-	width: 90%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-    align-items: center;
-}
-
-.pie-chart {
-	background-color: aqua;
-	width: 85%;
-	height: 35%;
-}
-
-.curve-graph {
-	background-color: chartreuse;
-	width: 85%;
-	height: 35%;
+.img-type {
+	height: 5rem;;
 }

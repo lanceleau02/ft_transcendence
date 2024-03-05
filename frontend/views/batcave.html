@@ -2,52 +2,68 @@
 <link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
 
 <div class="container-fluid">
-	<div id="batcave" class="row">
+	<div id="batcave" class="row pt-5">
 		<div class="col-md-7 d-flex flex-column justify-content-around">
-			<div class="section">
-				<div class="label">
+			<div class="tournament-name d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-end px-4">
 					<h3><b>T</b>OURNAMENT NAME</h3>
 				</div>
-				<div class="box name">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<div>{{ user.username }}</div>
+					<div class="name">{{ user.username }}</div>
 				</div>
 			</div>
 
-			<div class="section">
-				<div class="label">
+			<div class="player-stats d-flex flex-column mb-2">
+				<div class="label align-self-start px-4">
 					<h3><b>P</b>LAYER STATS</h3>
 				</div>
-				<div class="box stats">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<div>WIN/LOSS RATIO</div>
-					<div>PLAYED GAMES</div>
-					<div>WIN RATIO</div>
+					<div class="stats">
+						<div>WIN/LOSS RATIO</div>
+						<div>PLAYED GAMES: 3</div>
+						<div>WIN RATIO: 67%</div>
+					</div>
 				</div>
 			</div>
 
-			<div class="section">
-				<div class="label">
+			<div class="match-history d-flex flex-column align-self-end mb-4">
+				<div class="label align-self-end px-4">
 					<h3><b>M</b>ATCH HISTORY</h3>
 				</div>
-				<div class="box history">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<div class="">FIRST WIN</div>
-					<div class="">SECOND WIN</div>
-					<div class="">THIRD WIN</div>
+					<div class="history">
+						<div class="first">
+							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+							<div class="name-type">VICTORY</div>
+							<div class="score">11 - 5</div>
+						</div>
+						<div class="second">
+							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
+							<div class="name-type">DEFEAT</div>
+							<div class="score">9 - 11</div>
+						</div>
+						<div class="third">
+							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+							<div class="name-type">VICTORY</div>
+							<div class="score">11 - 5</div>
+						</div>
+					</div>
 				</div>
 			</div>
 
 		</div>
 		<div class="col-md-5 d-flex flex-column justify-content-around">
-			<div class="graphic-view">
-				<div class="label">
+			<div class="graphic-view d-flex flex-column mb-4">
+				<div class="label align-self-center px-4">
 					<h3><b>G</b>RAPHIC VIEW</h3>
 				</div>
-				<div class="box graph">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<div class="pie-chart d-flex justify-content-center align-items-center">PIE CHART</div>
 					<div class="curve-graph d-flex justify-content-center align-items-center">CURVE GRAPH</div>
 				</div>
