@@ -1,4 +1,4 @@
-<h2>Update User Information</h2>
+<!-- <h2>Update User Information</h2>
 <form method="post">
 	{% csrf_token %}
 	{{ formUsername.as_p }}
@@ -9,4 +9,49 @@
 	{% csrf_token %}
 	{{ formPassword.as_p }}
 	<button type="submit">Update</button>
-</form>
+</form> -->
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/batprofile.css' %}">
+
+<div class="container-fluid">
+	<div id="batprofile" class="row pt-5">
+		<div class="col-md-7 d-flex flex-column justify-content-around">
+			<div class="nickname d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-end px-4">
+					<h3><b>N</b>ICKNAME</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="name">{{ user.username }}</div>
+				</div>
+			</div>
+
+			<div class="email d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-start px-4">
+					<h3><b>E</b>MAIL ADDRESS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="address">{{ user.email }}</div>
+				</div>
+			</div>
+
+			<div class="password d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-end px-4">
+					<h3><b>P</b>ASSWORD</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="pass">{{ user.password }}</div>
+				</div>
+				<div class="label align-self-center px-4">
+					<a><b>C</b>HANGE PASSWORD...</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
