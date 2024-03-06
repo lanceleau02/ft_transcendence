@@ -65,16 +65,6 @@
 	overflow: clip;
 }
 
-.password .label a {
-	text-align: center;
-	font-size: 1.4rem;
-	padding-top: 5px;
-	transform: skew(25deg);
-	font-family: "Comic Sans MS";
-	font-weight: 400;
-	color: black;
-}
-
 /* ************************************************************************** */
 /*                                    LABEL                                   */
 /* ************************************************************************** */
@@ -88,7 +78,8 @@
 	background-color: #FFEEA7;
 }
 
-.label h3 {
+.label h3,
+.label a {
 	text-align: center;
 	font-size: 1.4rem;
 	padding-top: 5px;

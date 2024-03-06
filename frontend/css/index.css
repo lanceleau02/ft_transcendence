@@ -58,15 +58,3 @@
 .active-lang {
 	display: none;
 }
-
-/* ************************************************************************** */
-/*                                    MAIN                                    */
-/* ************************************************************************** */
-
-main {
-	background-color: white;
-/* 	background-image: url("./../img/logo.png");
-	background-size: cover;
-	background-repeat: repeat;
-	background-position: center; */
-}
