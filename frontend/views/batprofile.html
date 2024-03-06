@@ -5,6 +5,7 @@
 	<div>{{ user.username }}</div>
 	<button type="submit">Update</button>
 </form>
+
 <form method="post">
 	{% csrf_token %}
 	{{ formPassword.as_p }}
@@ -55,3 +56,14 @@
 		</div>
 	</div>
 </div>
+
+<!-- <form method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ formAvatar.as_p }}
+	<button type="submit">Envoyer</button>
+</form>
+
+{% if avatar_url %}
+<h2>Avatar actuel :</h2>
+<img src="{{ avatar_url }}" alt="Avatar">
+{% endif %} -->
