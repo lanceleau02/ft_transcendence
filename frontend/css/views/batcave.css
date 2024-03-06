@@ -16,7 +16,7 @@
 	background-color: #484887;
 }
 
-.tournament-name .name {
+.tournament-name .box .name {
 	font-size: x-large;
 }
 
@@ -41,8 +41,12 @@
 	background-color: coral;
 }
 
-.player-stats .stats {
+.player-stats .box .stats {
 	font-size: x-large;
+}
+
+.player-stats .box .stats .img-type {
+	height: 4rem;
 }
 
 /* ************************************************************************** */
@@ -58,9 +62,18 @@
 	background-color: #457BA1;
 }
 
-.match-history .history {
+.match-history .box .history {
 	justify-content: center;
 	font-size: x-large;
+}
+
+.match-history .box .history .img-type {
+	height: 4rem;
+}
+
+.match-history .box .history .second .img-type {
+	padding-right: 5%;
+	margin-left: -3%;
 }
 
 /* ************************************************************************** */
@@ -77,13 +90,13 @@
 	background-color: black;
 }
 
-.pie-chart {
+.graphic-view .box .pie-chart {
 	height: 35%;
 	width: 85%;
 	background-color: aqua;
 }
 
-.curve-graph {
+.graphic-view .box .curve-graph {
 	height: 35%;
 	width: 85%;
 	background-color: chartreuse;
@@ -126,7 +139,7 @@
 }
 
 .dots-top-left {
-	width: 10vh;
+	width: 10vw;
 	position: absolute;
 	transform: rotate(180deg);
 	top: 0;
@@ -134,12 +147,8 @@
 }
 
 .dots-bottom-right {
-	width: 10vh;
+	width: 10vw;
 	position: absolute;
 	bottom: 0;
 	right: 0;
-}
-
-.img-type {
-	height: 5rem;;
 }

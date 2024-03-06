@@ -23,9 +23,13 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="stats">
-						<div>WIN/LOSS RATIO</div>
-						<div>PLAYED GAMES: 3</div>
-						<div>WIN RATIO: 67%</div>
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+							<div><b>2 - 1</b></div>
+							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
+						</div>
+						<div class="mb-4">PLAYED GAMES: <b>3</b></div>
+						<div>WIN RATIO: <b>67%</b></div>
 					</div>
 				</div>
 			</div>
@@ -38,20 +42,26 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="history">
-						<div class="first">
+						<div class="first d-flex mb-3">
 							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
-							<div class="name-type">VICTORY</div>
-							<div class="score">11 - 5</div>
+							<div class="d-flex flex-column align-items-center">
+								<div class="name-type">VICTORY</div>
+								<div class="score">11 - 5</div>
+							</div>
 						</div>
-						<div class="second">
+						<div class="second d-flex mb-3">
 							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
-							<div class="name-type">DEFEAT</div>
-							<div class="score">9 - 11</div>
+							<div class="d-flex flex-column align-items-center">
+								<div class="name-type">DEFEAT</div>
+								<div class="score">9 - 11</div>
+							</div>
 						</div>
-						<div class="third">
+						<div class="third d-flex">
 							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
-							<div class="name-type">VICTORY</div>
-							<div class="score">11 - 5</div>
+							<div class="d-flex flex-column align-items-center">
+								<div class="name-type">VICTORY</div>
+								<div class="score">11 - 5</div>
+							</div>
 						</div>
 					</div>
 				</div>
