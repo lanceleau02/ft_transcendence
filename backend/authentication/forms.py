@@ -18,7 +18,7 @@ class UpdateUsername(forms.ModelForm):
         fields = ['username']
 
 class AvatarForm(forms.Form):
-    avatar = forms.FileField(label='Choose an avatar', required=False)
+    avatar = forms.ImageField(label='Choose an avatar', required=False)
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField(label="New password", strip=False, widget=forms.PasswordInput, required=False)
