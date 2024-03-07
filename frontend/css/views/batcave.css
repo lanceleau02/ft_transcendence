@@ -1,6 +1,6 @@
-body {
+#batcave {
+	height: calc(100vh - 85.08px);
 	background-color: #90D0C3;
-	padding-bottom: 40px;
 }
 
 /* ************************************************************************** */
@@ -8,6 +8,7 @@ body {
 /* ************************************************************************** */
 
 .tournament-name {
+	height: 20%;
 	width: 90%;
 }
 
@@ -24,6 +25,7 @@ body {
 /* ************************************************************************** */
 
 .player-stats {
+	height: 40%;
 	width: 90%;
 }
 
@@ -52,6 +54,7 @@ body {
 /* ************************************************************************** */
 
 .match-history {
+	height: 40%;
 	width: 90%;
 }
 
@@ -68,10 +71,17 @@ body {
 	height: 4rem;
 }
 
+.match-history .box .history .second {
+	margin-left: -3vw;
+}
 
 .match-history .box .history .second .img-type {
 	padding-right: 5%;
 	margin-left: -3%;
+}
+
+.match-history .box .history .third {
+	margin-left: -6vw;
 }
 
 /* ************************************************************************** */
@@ -128,6 +138,7 @@ body {
 /* ************************************************************************** */
 
 .box {
+	height: 100%;
 	padding: 20px 0;
 	margin: 0 30px;
 	margin-top: -1em;
@@ -149,12 +160,4 @@ body {
 	position: absolute;
 	bottom: 0;
 	right: 0;
-}
-
-.second {
-	margin-left: -3vw;
-}
-
-.third {
-	margin-left: -6vw;
 }
