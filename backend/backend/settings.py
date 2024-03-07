@@ -160,3 +160,6 @@ LOGGING = {
      }, 
  }
 
+# fotoblog/settings.py
+MEDIA_URL = '/backend/media/'
+MEDIA_ROOT = BASE_DIR.joinpath('backend/media/')
