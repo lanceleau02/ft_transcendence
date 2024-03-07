@@ -30,7 +30,6 @@ def batprofile(request):
 		if formAvatar.is_valid():
 			user.avatar = formAvatar.cleaned_data['avatar']
 			user.save()
-			avatar_url = user.avatar.url if user.avatar else None
 			return render(request, 'index.html')
 	else:
 		formUsername = UpdateUsername()
