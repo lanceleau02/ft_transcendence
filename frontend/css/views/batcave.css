@@ -71,9 +71,17 @@
 	height: 4rem;
 }
 
+.match-history .box .history .second {
+	margin-left: -3vw;
+}
+
 .match-history .box .history .second .img-type {
 	padding-right: 5%;
 	margin-left: -3%;
+}
+
+.match-history .box .history .third {
+	margin-left: -6vw;
 }
 
 /* ************************************************************************** */
@@ -107,7 +115,7 @@
 /* ************************************************************************** */
 
 .label {
-	height: 35px;
+	height: 40px;
 	width: fit-content;
 	margin-top: -22px;
 	z-index: 1;
@@ -131,6 +139,7 @@
 
 .box {
 	height: 100%;
+	padding: 20px 0;
 	margin: 0 30px;
 	margin-top: -1em;
 	color: #fff;
@@ -139,7 +148,7 @@
 }
 
 .dots-top-left {
-	width: 10vw;
+	width: 125px;
 	position: absolute;
 	transform: rotate(180deg);
 	top: 0;
@@ -147,7 +156,7 @@
 }
 
 .dots-bottom-right {
-	width: 10vw;
+	width: 125px;
 	position: absolute;
 	bottom: 0;
 	right: 0;
