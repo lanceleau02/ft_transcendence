@@ -6,7 +6,7 @@
 		<div class="col-md-7 d-flex flex-column justify-content-around">
 			<div class="username d-flex flex-column align-self-end mb-5">
 				<div class="label align-self-end px-4">
-					<h3><b>N</b>ICKNAME</h3>
+					<h3><b>U</b>SERNAME</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -50,8 +50,8 @@
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<div class="pic">
-						<img src="{{user.avatar.url}}" style="width: 20%;"> 
+					<div>
+						<img class="pic" src="{{user.avatar.url}}"> 
 					</div>
 				</div>
 				<div class="label align-self-center px-4">
@@ -74,16 +74,15 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Change username...</h5>
+					<h5 class="modal-title"><b>CHANGE USERNAME...</b></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div>Current username : {{ user.username }}</div>
-					<br>
+					<div class="current-username">Your current username is <b>{{ user.username }}</b>.</div>
 					<form method="post">
 						{% csrf_token %}
 						{{ formUsername.as_p }}
-						<button type="submit button" class="btn btn-primary">Update</button>
+						<button type="submit button" class="btn btn-primary update">Update</button>
 					</form>
 				</div>
 			</div>
@@ -93,14 +92,14 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Change password...</h5>
+					<h5 class="modal-title"><b>CHANGE PASSWORD...</b></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="post">
 						{% csrf_token %}
 						{{ formPassword.as_p }}
-						<button type="submit button" class="btn btn-primary">Update</button>
+						<button type="submit button" class="btn btn-primary update">Update</button>
 					</form>
 				</div>
 			</div>
@@ -110,18 +109,18 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title">Change profile pic...</h5>
+					<h5 class="modal-title"><b>CHANGE PROFILE PIC...</b></h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
 						{{ formAvatar.as_p }}
-						<button type="submit button" class="btn btn-primary">Update</button>
+						<button type="submit button" class="btn btn-primary update">Update</button>
 					</form>
 					{% if avatar_url %}
 					<h2>Avatar actuel :</h2>
-					<img src="{{ avatar_url }}" alt="Avatar">
+					<img class="current-avatar" src="{{ avatar_url }}">
 					{% endif %}
 				</div>
 			</div>

@@ -58,7 +58,7 @@
 }
 
 /* ************************************************************************** */
-/*                                   AVATAR                                   */
+/*                                 PROFILE PIC                                */
 /* ************************************************************************** */
 
 .profile-pic {
@@ -70,11 +70,9 @@
 	background-color: black;
 }
 
-.profile-pic .box .pass {
-	font-size: x-large;
-	-webkit-text-security: disc;
-	max-width: 12ch;
-	overflow: clip;
+.profile-pic .box .pic {
+	height: 5rem;
+	border-radius: 50%;
 }
 
 /* ************************************************************************** */
@@ -126,4 +124,32 @@
 	position: absolute;
 	bottom: 0;
 	right: 0;
+}
+
+/* ************************************************************************** */
+/*                                    MODAL                                   */
+/* ************************************************************************** */
+
+.modal-header {
+	background-color: #FFEEA7;
+	font-family: "Comic Sans MS";
+}
+
+.modal-body .errorlist {
+	visibility: hidden;
+}
+
+.modal-body p {
+	margin-bottom: 1.5rem;
+}
+
+.modal-body .current-username {
+	margin-bottom: 1.5rem;
+}
+
+.modal-body .update {
+	color: black;
+	background-color: #FFEEA7;
+	border: #ffdf60;
+	--bs-btn-active-bg: #ffe787;
 }
