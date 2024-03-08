@@ -30,6 +30,10 @@
 	margin-right: 50px;
 }
 
+.navbar .profil .pp {
+	border-radius: 50%;
+}
+
 .nav-item {
 	font-family: Aclonica;
 	padding-left: 25px;

@@ -6,7 +6,8 @@ from authentication.forms import CustomPasswordChangeForm
 from authentication.forms import AvatarForm
 
 def home(request):
-	return render(request, "index.html")
+	user = request.user
+	return render(request, "index.html", {'user': user})
 
 @login_required
 def batcave(request):
