@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from .models import User
 
 class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50, label='Username')
@@ -17,8 +18,11 @@ class UpdateUsername(forms.ModelForm):
         model = get_user_model()
         fields = ['username']
 
-class AvatarForm(forms.Form):
-    avatar = forms.ImageField(label='Choose an avatar', required=False)
+class AvatarForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['avatar']
+       # avatar = forms.ImageField(label='Choose an avatar', required=False)
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     new_password1 = forms.CharField(label="New password", strip=False, widget=forms.PasswordInput, required=False)
