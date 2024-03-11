@@ -29,7 +29,8 @@ def signup(request):
         form = forms.SignupForm(request.POST)
         if form.is_valid():
             form.save()
-            #login(request, user)
             return redirect('batpong')
+        else:
+            return render(request, 'index.html')
     return render(request, 'views/signup.html', context={'form': form})
 
