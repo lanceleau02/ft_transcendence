@@ -6,6 +6,8 @@
 	background-size: 15%;
 }
 
-.col {
-	background-color: aqua;
+.form {
+	background-color: red;
+	padding: 2%;
+	border-radius: 25px;
 }

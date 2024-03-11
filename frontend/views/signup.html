@@ -4,11 +4,13 @@
 <div class="container-fluid">
 	<div id="signup" class="row pt-5 pb-4">
 		<div class="col d-flex justify-content-center align-items-center">
-			<form method="post">
-				{{ form.as_p }}
-				{% csrf_token %}
-				<button type="submit" >Register</button>
-			</form>
+			<div class="form">
+				<form method="post">
+					{{ form.as_p }}
+					{% csrf_token %}
+					<button class="btn btn-primary" type="submit" >Register</button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
