@@ -24,15 +24,12 @@ def signin(request):
         return render(request, 'views/login.html', context={'form': form})
 
 def signup(request):
-    try:
-        form = forms.SignupForm()
-        if request.method == 'POST':
-            form = forms.SignupForm(request.POST)
-            if form.is_valid():
-                form.save()
-                #login(request, user)
-                return redirect('batpong')
-        return render(request, 'views/signup.html', context={'form': form})
-    except Exception as e:
-        logger.error(f"expception occurend: {e}")
+    form = forms.SignupForm()
+    if request.method == 'POST':
+        form = forms.SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            #login(request, user)
+            return redirect('batpong')
+    return render(request, 'views/signup.html', context={'form': form})
 

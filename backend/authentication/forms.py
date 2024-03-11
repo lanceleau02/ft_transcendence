@@ -9,9 +9,13 @@ class LoginForm(forms.Form):
 	password = forms.CharField(max_length=15, widget=forms.PasswordInput, label='Password')
 
 class SignupForm(UserCreationForm):
-	class Meta(UserCreationForm.Meta):
-		model = get_user_model()
-		fields = ('username', 'email')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password2'].help_text = None
+
+    class Meta(UserCreationForm.Meta):
+        model = get_user_model()
+        fields = ('username', 'email')
 
 class UpdateUsername(forms.ModelForm):
     class Meta:
