@@ -1,0 +1,7 @@
+#signup {
+	height: calc(100vh - 85.08px);
+	background-color: #252525;
+	background-image: url("../../img/logo.png");
+	background-repeat: space repeat;
+	background-size: 15%;
+}

@@ -1,10 +1,22 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
+<link rel="stylesheet" href="{% static 'css/views/signup.css' %}">
 
-{% block content %}
+<div class="container-fluid">
+	<div id="signup" class="row pt-5 pb-4">
+		<div class="col d-flex justify-content-center align-items-center">
+			<form method="post">
+				{{ form.as_p }}
+				{% csrf_token %}
+				<button type="submit" >Register</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-- {% block content %}
     <form method="post">
         {{ form.as_p }}
         {% csrf_token %}
         <button type="submit" >Register</button>
     </form>
-{% endblock content %}
+{% endblock content %} -->
