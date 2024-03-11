@@ -130,7 +130,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_URL = 'login'
+LOGIN_URL = 'signin'
 
 LOGGING = { 
      'version': 1, 

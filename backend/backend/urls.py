@@ -27,6 +27,6 @@ urlpatterns = [
     path('batcave', mainViews.batcave, name='batcave'),
     path('batpong/', mainViews.batpong),
     path('batprofile', mainViews.batprofile),
-    path('login', authenticationViews.signin, name='login'),
+    path('signin', authenticationViews.signin, name='signin'),
     path('signup', authenticationViews.signup, name='signup'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

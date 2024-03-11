@@ -21,7 +21,7 @@ def signin(request):
                     return render(request, 'views/index.html', {'form': form})
     else:
         form = forms.LoginForm()
-        return render(request, 'views/login.html', context={'form': form})
+        return render(request, 'views/signin.html', context={'form': form})
 
 def signup(request):
     form = forms.SignupForm()

@@ -1,0 +1,19 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/signin.css' %}">
+
+<div class="container-fluid">
+	<div id="signup" class="row pt-5 pb-4">
+		<div class="col d-flex justify-content-center align-items-center">
+			<div class="form">
+                <p>{{ message }}</p>
+                <form method="post" action="{% url 'signin' %}">
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                    <button class="btn btn-primary signin" type="submit" >Sign in</button>
+                </form>
+                <p class="ask">Not a member yet?</p>
+                <a class="nav-link active link" href="/signup" data-link>Sign up now!</a>
+			</div>
+		</div>
+	</div>
+</div>
