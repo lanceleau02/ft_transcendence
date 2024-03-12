@@ -9,6 +9,7 @@ const navigateTo = url => {
 	router();
 };
 
+
 const router = async () => {
 	const routes = [
 		{ path: "/", view: Batpong },
