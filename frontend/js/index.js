@@ -57,15 +57,25 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
 	// Get all elements with the class 'lang-item'
 	const langItems = document.querySelectorAll('.lang-item');
+
 	// Loop through each lang-item element and attach a click event listener
 	langItems.forEach(langItem => {
 		langItem.addEventListener('click', () => {
 			// Remove all "active-lang" classes
 			langItems.forEach(langItem => { langItem.classList.remove("active-lang");});
-			// Your event handling code goes here
-			console.log('Language item clicked:', langItem.id);
+
+			// Add the correct language
 			langItem.classList.add("active-lang");
 			document.querySelector('#selectedImg').src = langItem.querySelector('img')?.src;
+
+			// Select the correct language
+			if (langItem.id === 'lang-es') {
+				console.log("Selected language is Spanish (lang-es).");
+			} else if (langItem.id === 'lang-fr') {
+				console.log("Selected language is French (lang-fr).");
+			} else if (langItem.id === 'lang-eng') {
+				console.log("Selected language is English (lang-eng).");
+			}
 		});
 	});
 });

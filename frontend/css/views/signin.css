@@ -51,4 +51,6 @@ label[for="id_password"] {
 .link {
 	font-family: "Aclonica", sans-serif;
 	color: white;
+	padding-left: 10px;
+	padding-top: 4px;
 }
