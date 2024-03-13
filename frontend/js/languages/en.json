@@ -20,7 +20,5 @@
 	"sign-in-button":"Sign in",
 	"not-a-member":"Not a member yet?",
 	"sign-up-now":"Sign up now!",
-	"password-rule":"Your password must contain at least 8 characters.",
-	"password-confirm":"Password confirmation:",
 	"sign-up-button":"Sign up"
 }

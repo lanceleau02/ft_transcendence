@@ -61,26 +61,30 @@
 			</div>
 		</div>
 		<div class="col-md-5 d-flex flex-column justify-content-around">
-            <div class="graphic-view d-flex flex-column mb-4">
-                <div class="label align-self-center px-4">
-                    <h3><b>F</b>RIENDS LIST</h3>
-                </div>
-                <div class="box d-flex flex-column position-relative justify-content-center align-items-center">
-                    {% for friend in friends %}
-                        <div>{{ friend.username }}</div>
-                        <!-- Bouton pour supprimer l'ami -->
-                        <form method="post">
-                            {% csrf_token %}
-                            <input type="hidden" name="friend_id" value="{{ friend.id }}">
-                            <input type="hidden" name="action" value="remove">
-                            <button type="submit" class="btn btn-danger">Remove Friend</button>
-                        </form>
-                    {% empty %}
-                        <p>No friends yet.</p>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
+			<div class="friends-list d-flex flex-column mb-5">
+				<div class="label align-self-center px-4">
+					<h3><b>F</b>RIENDS LIST</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					{% for friend in friends %}
+					<div>{{ friend.username }}</div>
+					
+					{% empty %}
+					<p>No friends yet.</p>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="add-friend d-flex flex-column mb-3">
+				<div class="label align-self-center px-4">
+					<h3><b>A</b>DD A FRIEND</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<h5 data-bs-toggle="modal" data-bs-target="#friendModal">Search a friend...</h5>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="modal fade" tabindex="-1" id="usernameModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered">
@@ -129,6 +133,25 @@
 						{% csrf_token %}
 						{{ formAvatar.as_p }}
 						<button type="submit button" class="btn btn-primary update">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="friendModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title"><b>ADD A FRIEND</b></h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<!-- Bouton pour supprimer l'ami -->
+					<form method="post">
+						{% csrf_token %}
+						<input type="hidden" name="friend_id" value="{{ friend.id }}">
+						<input type="hidden" name="action" value="remove">
+						<button type="submit" class="btn btn-danger">Remove Friend</button>
 					</form>
 				</div>
 			</div>
