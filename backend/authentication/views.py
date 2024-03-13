@@ -20,7 +20,7 @@ def signin(request):
                     return redirect('batpong')
                 else:
                     message = 'Identifiants invalides.'
-                    return render(request, 'views/index.html', {'form': form})
+                    return render(request, 'index.html', {'form': form})
     else:
         form = forms.LoginForm()
         return render(request, 'views/signin.html', context={'form': form})
