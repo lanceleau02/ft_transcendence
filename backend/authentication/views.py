@@ -1,8 +1,10 @@
 import logging
-from django.shortcuts import render, redirect
 from . import forms
-from django.contrib.auth import login, authenticate
 from django.contrib import messages
+from authentication.models import User
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger(__name__)
 
@@ -33,4 +35,3 @@ def signup(request):
         else:
             return render(request, 'index.html')
     return render(request, 'views/signup.html', context={'form': form})
-

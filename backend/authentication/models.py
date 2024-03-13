@@ -5,6 +5,7 @@ class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
 	username = models.CharField(max_length=50, unique=True, null=True)
 	avatar = models.ImageField(default='default.png')
+	friends = models.ManyToManyField('self', blank=True)
 
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = ['email']
