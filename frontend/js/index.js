@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				console.log("Selected language is Spanish (lang-es).");
 			} else if (langItem.id === 'lang-fr') {
 				console.log("Selected language is French (lang-fr).");
-			} else if (langItem.id === 'lang-eng') {
-				console.log("Selected language is English (lang-eng).");
+			} else if (langItem.id === 'lang-en') {
+				console.log("Selected language is English (lang-en).");
 			}
 		});
 	});
