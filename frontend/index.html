@@ -15,10 +15,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Aclonica&display=swap" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 	<link href="https://db.onlinewebfonts.com/c/7cc6719bd5f0310be3150ba33418e72e?family=Comic+Sans+MS" rel="stylesheet">
+	<script type="module" src="{% static 'js/translation/translate.js' %}"></script>
 </head>
-<body>
-	<!-- BOOTSTRAP -->
-	<script src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
+<body onload="translate('en','lng-tag')">
 	<!-- HEADER -->
 	<header>
 		<nav class="navbar navbar-expand-md sticky-top">
@@ -55,13 +54,13 @@
 									</a>
 									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 										<li class="lang-item active-lang" id="lang-en">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/english.png' %}" width="50" height="25">	English</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/english.png' %}" width="50" height="25" id="enTranslator" lng-tag="english">	English</a>
 										</li>
 										<li class="lang-item" id="lang-fr">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" width="50" height="25">	French</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/french.png' %}" width="50" height="25" id="frTranslator" lng-tag="french">	French</a>
 										</li>
 										<li class="lang-item" id="lang-es">
-											<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" width="50" height="25">	Spanish</a>
+											<a class="dropdown-item" href="#"><img src="{% static 'img/spanish.png' %}" width="50" height="25" id="esTranslator" lng-tag="spanish">	Spanish</a>
 										</li>
 									</ul>
 								</li>
@@ -81,5 +80,9 @@
 		<div id="app"></div>
 		<script type="module" src="{% static 'js/index.js' %}"></script>
 	</main>
+	<!-- BOOTSTRAP -->
+	<script src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
+	<!-- TRANSLATION -->
+	<!-- <script type="module" src="{% static 'js/translation/translate.js' %}"></script> -->
 </body>
 </html>

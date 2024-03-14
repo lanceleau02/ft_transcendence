@@ -2,13 +2,13 @@ import Batpong from "./views/Batpong.js";
 import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
-import Signup from "./views/Signup.js"
+import Signup from "./views/Signup.js";
+import { Translate } from "./translation/translate.js"
 
 const navigateTo = url => {
 	history.pushState(null, null, url);
 	router();
 };
-
 
 const router = async () => {
 	const routes = [
@@ -54,6 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
 	router();
 });
 
+function translate(lng, tagAttr) {
+	var translate = new Translate();
+	translate.init(tagAttr, lng);
+	translate.process();
+	if (lng == 'en') {
+		$("#enTranslator").css('color', '#f4623a');
+		$("#frTranslator").css('color', '#f4623a');
+		$("#esTranslator").css('color', '#f4623a');
+	} else if (lng == 'fr') {
+		$("#frTranslator").css('color', '#f4623a');
+		$("#enTranslator").css('color', '#f4623a');
+		$("#esTranslator").css('color', '#f4623a');
+	} else if (lng == 'es') {
+		$("#esTranslator").css('color', '#f4623a');
+		$("#enTranslator").css('color', '#f4623a');
+		$("#frTranslator").css('color', '#f4623a');
+	}
+}
+
 document.addEventListener('DOMContentLoaded', () => {
 	// Get all elements with the class 'lang-item'
 	const langItems = document.querySelectorAll('.lang-item');
@@ -69,12 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('#selectedImg').src = langItem.querySelector('img')?.src;
 
 			// Select the correct language
-			if (langItem.id === 'lang-es') {
-				console.log("Selected language is Spanish (lang-es).");
+			if (langItem.id === 'lang-en') {
+				translate('en', 'lng-tag');
 			} else if (langItem.id === 'lang-fr') {
-				console.log("Selected language is French (lang-fr).");
-			} else if (langItem.id === 'lang-en') {
-				console.log("Selected language is English (lang-en).");
+				translate('fr', 'lng-tag');
+			} else if (langItem.id === 'lang-es') {
+				translate('es', 'lng-tag');
 			}
 		});
 	});
