@@ -24,10 +24,20 @@ document.addEventListener('DOMContentLoaded', () => {
 			let attr = langItem.getAttribute("id")
 			console.log(langItem.getAttribute("id"))
 
-			english.textContent = translations[attr].english
-			french.textContent = translations[attr].french
-			spanish.textContent = translations[attr].spanish
-			tournament_name.textContent = translations[attr].tournament_name
+			if (langItem.getAttribute("id") === 'en') {
+				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	English';
+				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	French';
+				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Spanish';
+			} else if (langItem.getAttribute("id") === 'fr') {
+				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	Anglais';
+				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	Français';
+				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Espagnol';
+			} else if (langItem.getAttribute("id") === 'es') {
+				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	Inglés';
+				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	Francés';
+				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Español';
+			}
+			tournament_name.textContent = translations[attr].tournament_name;
 		});
 	});
 });
