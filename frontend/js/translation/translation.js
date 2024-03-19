@@ -3,10 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		link = document.querySelector("a"),
 		english = document.querySelector(".english"),
 		french = document.querySelector(".french"),
-		spanish = document.querySelector(".spanish"),
-		tournament_name = document.querySelector("h3.tournament_name");
-
-	console.log("Tournament Name Element:", tournament_name);
+		spanish = document.querySelector(".spanish");
 
 	// Get all elements with the class 'lang-item'
 	const langItems = document.querySelectorAll('.lang-item');
@@ -15,36 +12,33 @@ document.addEventListener('DOMContentLoaded', () => {
 	langItems.forEach(langItem => {
 		langItem.addEventListener('click', () => {
 			// Remove all "active-lang" classes
-			langItems.forEach(langItem => { langItem.classList.remove("active-lang");});
+			langItems.forEach(langItem => {
+				langItem.classList.remove("active-lang");
+			});
 
 			// Add the correct language
 			langItem.classList.add("active-lang");
 			document.querySelector('#selectedImg').src = langItem.querySelector('img')?.src;
 
-			let attr = langItem.getAttribute("id")
-			console.log(langItem.getAttribute("id"))
-
 			if (langItem.getAttribute("id") === 'en') {
-				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	English';
-				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	French';
-				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Spanish';
+				english.innerHTML = '<img class="lang-icon" src="static/img/english.png">	English';
+				french.innerHTML = '<img class="lang-icon" src="static/img/french.png">	French';
+				spanish.innerHTML = '<img class="lang-icon" src="static/img/spanish.png">	Spanish';
 			} else if (langItem.getAttribute("id") === 'fr') {
-				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	Anglais';
-				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	Français';
-				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Espagnol';
+				english.innerHTML = '<img class="lang-icon" src="static/img/english.png">	Anglais';
+				french.innerHTML = '<img class="lang-icon" src="static/img/french.png">	Français';
+				spanish.innerHTML = '<img class="lang-icon" src="static/img/spanish.png">	Espagnol';
 			} else if (langItem.getAttribute("id") === 'es') {
-				english.innerHTML = '<img src="static/img/english.png" width="50" height="25">	Inglés';
-				french.innerHTML = '<img src="static/img/french.png" width="50" height="25">	Francés';
-				spanish.innerHTML = '<img src="static/img/spanish.png" width="50" height="25">	Español';
+				english.innerHTML = '<img class="lang-icon" src="static/img/english.png">	Inglés';
+				french.innerHTML = '<img class="lang-icon" src="static/img/french.png">	Francés';
+				spanish.innerHTML = '<img class="lang-icon" src="static/img/spanish.png">	Español';
 			}
-			tournament_name.textContent = translations[attr].tournament_name;
 		});
 	});
 });
 
 const translations = {
 	en: {
-		welcome: "Welcome to the Batpong",
 		english: "English",
 		french: "French",
 		spanish: "Spanish",
@@ -75,7 +69,6 @@ const translations = {
 		sign_up_button: "Sign up"
 	},
 	fr: {
-		welcome: "Bienvenue sur le Batpong",
 		english: "Anglais",
 		french: "Français",
 		spanish: "Espagnol",
@@ -106,7 +99,6 @@ const translations = {
 		sign_up_button: "S'enregistrer"
 	},
 	es: {
-		welcome: "Bienvenidos en el Batpong",
 		english: "Inglés",
 		french: "Francés",
 		spanish: "Español",
