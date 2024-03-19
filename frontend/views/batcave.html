@@ -1,29 +1,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
 
-<script type="text/javascript">
-	document.addEventListener('DOMContentLoaded', () => {
-		let lang = document.querySelector(".lang"),
-			link = document.querySelector("a"),
-			english = document.querySelector(".english"),
-			french = document.querySelector(".french"),
-			spanish = document.querySelector(".spanish"),
-			tournament_name = document.querySelector("h3.tournament_name");
-		
-		console.log("Tournament name:", tournament_name);
-	
-		// Get all elements with the class 'lang-item'
-		const langItems = document.querySelectorAll('.lang-item');
-	
-		// Loop through each lang-item element and attach a click event listener
-		langItems.forEach(langItem => {
-			langItem.addEventListener('click', () => {
-	
-			});
-		});
-	});
-</script>
-
 <div class="container-fluid">
 	<div id="batcave" class="row pt-5">
 		<div class="col-md-7 d-flex flex-column justify-content-around">

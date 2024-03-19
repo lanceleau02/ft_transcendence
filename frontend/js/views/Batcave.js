@@ -7,7 +7,21 @@ export default class extends AbstractView {
 	}
 
 	async executeViewScript() {
+			let lang = document.querySelector(".lang"),
+				link = document.querySelector("a"),
+				tournament_name = document.querySelector("h3.tournament_name");
+			
+			console.log("Tournament name:", tournament_name);
 		
+			// Get all elements with the class 'lang-item'
+			const langItems = document.querySelectorAll('.lang-item');
+		
+			// Loop through each lang-item element and attach a click event listener
+			langItems.forEach(langItem => {
+				langItem.addEventListener('click', () => {
+		
+				});
+			});
 	}
 
 	async getHtml() {
@@ -24,4 +38,6 @@ export default class extends AbstractView {
 		const html = await response.text();
 		return html;
 	}
+
+	
 }
