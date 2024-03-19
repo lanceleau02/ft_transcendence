@@ -6,6 +6,10 @@ export default class extends AbstractView {
 		this.setTitle("Batcave");
 	}
 
+	async executeViewScript() {
+		
+	}
+
 	async getHtml() {
 		// Fetch the HTML content from a separate file
 		const response = await fetch(document.location.origin + "/batcave");
