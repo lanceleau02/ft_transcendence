@@ -26,6 +26,10 @@
 	margin-right: 50px;
 }
 
+.logo {
+	width: 100px;
+}
+
 .navbar .profil .pp {
 	border-radius: 50%;
 }
@@ -57,4 +61,13 @@
 
 .active-lang {
 	display: none;
+}
+
+.lang-icon {
+	width: 50px;
+	height: 25px;
+}
+
+.pp {
+	width: 50px;
 }

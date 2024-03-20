@@ -3,7 +3,6 @@ import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
-import { Translate } from "./translation/translate.js"
 
 const navigateTo = url => {
 	history.pushState(null, null, url);
@@ -37,8 +36,8 @@ const router = async () => {
 	}
 
 	const view = new match.route.view();
-	//const response = await view.getHtml();
 	document.querySelector("#app").innerHTML = await view.getHtml();
+	await view.executeViewScript();
 };
 
 window.addEventListener("popstate", router);
@@ -52,49 +51,4 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	router();
-});
-
-function translate(lng, tagAttr) {
-	var translate = new Translate();
-	translate.init(tagAttr, lng);
-	translate.process();
-	if (lng == 'en') {
-		$("#enTranslator").css('color', '#f4623a');
-		$("#frTranslator").css('color', '#f4623a');
-		$("#esTranslator").css('color', '#f4623a');
-	} else if (lng == 'fr') {
-		$("#frTranslator").css('color', '#f4623a');
-		$("#enTranslator").css('color', '#f4623a');
-		$("#esTranslator").css('color', '#f4623a');
-	} else if (lng == 'es') {
-		$("#esTranslator").css('color', '#f4623a');
-		$("#enTranslator").css('color', '#f4623a');
-		$("#frTranslator").css('color', '#f4623a');
-	}
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-	// Get all elements with the class 'lang-item'
-	const langItems = document.querySelectorAll('.lang-item');
-
-	// Loop through each lang-item element and attach a click event listener
-	langItems.forEach(langItem => {
-		langItem.addEventListener('click', () => {
-			// Remove all "active-lang" classes
-			langItems.forEach(langItem => { langItem.classList.remove("active-lang");});
-
-			// Add the correct language
-			langItem.classList.add("active-lang");
-			document.querySelector('#selectedImg').src = langItem.querySelector('img')?.src;
-
-			// Select the correct language
-			if (langItem.id === 'lang-en') {
-				translate('en', 'lng-tag');
-			} else if (langItem.id === 'lang-fr') {
-				translate('fr', 'lng-tag');
-			} else if (langItem.id === 'lang-es') {
-				translate('es', 'lng-tag');
-			}
-		});
-	});
 });
