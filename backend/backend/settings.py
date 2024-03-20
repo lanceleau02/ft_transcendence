@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-xxc7591m993o0d^9*li0v^%811!r9+i(%#=tub&@fm+x$b$q00
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -70,7 +70,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -161,6 +160,11 @@ LOGGING = {
      }, 
  }
 
-# fotoblog/settings.py
 MEDIA_URL = '/backend/media/'
 MEDIA_ROOT = BASE_DIR.joinpath('media/')
+
+CSRF_COOKIE_SECURE = True
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000',
+]
