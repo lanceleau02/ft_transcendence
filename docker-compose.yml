@@ -16,6 +16,8 @@ services:
       - SQL_PWD=${SQL_PASSWORD}
       - SQL_HOST=${SQL_HOST}
       - SQL_PORT=${SQL_PORT}
+      - UID_CLIENT=${UID_CLIENT}
+      - SECRET_CLIENT=${SECRET_CLIENT}
     depends_on:
       - PostgreSQL
   

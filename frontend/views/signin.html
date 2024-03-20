@@ -11,6 +11,10 @@
 					{% csrf_token %}
 					<button class="btn btn-primary signin" type="submit" >Sign in</button>
 				</form>
+				<form method="post" action="{% url 'cursus_and_users' %}"> 
+					{% csrf_token %}
+					<button type="submit" >42_Auth</button>
+				</form>
 				<div class="d-flex flex-row align-items-center">
 					<p class="ask">Not a member yet?</p>
 					<a class="nav-link active link" href="/signup" data-link>Sign up now!</a>

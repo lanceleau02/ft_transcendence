@@ -20,6 +20,7 @@ from . import views as mainViews
 from authentication import views as authenticationViews
 from django.conf import settings
 from django.conf.urls.static import static
+from auth_API42 import views as API42Views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +30,7 @@ urlpatterns = [
     path('batprofile', mainViews.batprofile),
     path('signin', authenticationViews.signin, name='signin'),
     path('signup', authenticationViews.signup, name='signup'),
+  #  path('accounts/', include('allauth.urls')),
+    path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
+    path('callback', API42Views.callback, name='callback'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
