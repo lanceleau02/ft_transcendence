@@ -6,7 +6,7 @@
 		<div class="col-md-7 d-flex flex-column justify-content-around">
 			<div class="tournament-name d-flex flex-column align-self-end mb-2">
 				<div class="label align-self-end px-4">
-					<h3 class="tournament_name"><b>T</b>OURNAMENT NAME</h3>
+					<h3 class="tournament_name">TOURNAMENT NAME</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -17,7 +17,7 @@
 
 			<div class="player-stats d-flex flex-column mb-2">
 				<div class="label align-self-start px-4">
-					<h3><b>P</b>LAYER STATS</h3>
+					<h3 class="player_stats">PLAYER STATS</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -28,15 +28,21 @@
 							<div><b>2 - 1</b></div>
 							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
 						</div>
-						<div class="mb-4">PLAYED GAMES: <b>3</b></div>
-						<div>WIN RATIO: <b>67%</b></div>
+						<div class="d-flex">
+							<div class="mb-4 me-2 played_games">PLAYED GAMES:</div>
+							<div><b>3</b></div>
+						</div>
+						<div class="d-flex">
+							<div class="mb-4 me-2 win_ratio">WIN RATIO:</div>
+							<div><b>67%</b></div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="match-history d-flex flex-column align-self-end mb-4">
 				<div class="label align-self-end px-4">
-					<h3><b>M</b>ATCH HISTORY</h3>
+					<h3 class="match_history">MATCH HISTORY</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -45,21 +51,21 @@
 						<div class="first d-flex mb-3">
 							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
 							<div class="d-flex flex-column align-items-center">
-								<div class="name-type"><b>VICTORY</b></div>
+								<div class="name-type victory">VICTORY</div>
 								<div class="score"><b>11 - 5</b></div>
 							</div>
 						</div>
 						<div class="second d-flex mb-3">
 							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
 							<div class="d-flex flex-column align-items-center">
-								<div class="name-type"><b>DEFEAT</b></div>
+								<div class="name-type defeat">DEFEAT</div>
 								<div class="score"><b>9 - 11</b></div>
 							</div>
 						</div>
 						<div class="third d-flex">
 							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
 							<div class="d-flex flex-column align-items-center">
-								<div class="name-type"><b>VICTORY</b></div>
+								<div class="name-type victory">VICTORY</div>
 								<div class="score"><b>11 - 5</b></div>
 							</div>
 						</div>
@@ -70,7 +76,7 @@
 		<div class="col-md-5 d-flex flex-column justify-content-around">
 			<div class="graphic-view d-flex flex-column mb-4">
 				<div class="label align-self-center px-4">
-					<h3><b>G</b>RAPHIC VIEW</h3>
+					<h3 class="graphic_view">GRAPHIC VIEW</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<div class="pie-chart d-flex justify-content-center align-items-center">PIE CHART</div>

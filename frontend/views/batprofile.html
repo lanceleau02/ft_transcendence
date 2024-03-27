@@ -4,9 +4,9 @@
 <div class="container-fluid">
 	<div id="batprofile" class="row pt-5 pb-4">
 		<div class="col-md-7 d-flex flex-column justify-content-around">
-			<div class="username d-flex flex-column align-self-end mb-5">
+			<div class="user d-flex flex-column align-self-end mb-5">
 				<div class="label align-self-end px-4">
-					<h3><b>U</b>SERNAME</h3>
+					<h3 class="username">USERNAME</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -14,13 +14,13 @@
 					<div class="name">{{ user.username }}</div>
 				</div>
 				<div class="label align-self-center px-4">
-					<h3 data-bs-toggle="modal" data-bs-target="#usernameModal"><b>C</b>HANGE USERNAME...</h3>
+					<h3 class="change_username" data-bs-toggle="modal" data-bs-target="#usernameModal">CHANGE USERNAME...</h3>
 				</div>
 			</div>
 
 			<div class="email d-flex flex-column align-self-end mb-2">
 				<div class="label align-self-start px-4">
-					<h3><b>E</b>MAIL ADDRESS</h3>
+					<h3 class="email_address">EMAIL ADDRESS</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -29,9 +29,9 @@
 				</div>
 			</div>
 
-			<div class="password d-flex flex-column align-self-end mb-5">
+			<div class="pass d-flex flex-column align-self-end mb-5">
 				<div class="label align-self-end px-4">
-					<h3><b>P</b>ASSWORD</h3>
+					<h3 class="password">PASSWORD</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -39,13 +39,13 @@
 					<div class="pass">{{ user.password }}</div>
 				</div>
 				<div class="label align-self-center px-4">
-					<h3 data-bs-toggle="modal" data-bs-target="#passwordModal"><b>C</b>HANGE PASSWORD...</h3>
+					<h3 class="change_password" data-bs-toggle="modal" data-bs-target="#passwordModal">CHANGE PASSWORD...</h3>
 				</div>
 			</div>
 
 			<div class="profile-pic d-flex flex-column align-self-end mb-2">
 				<div class="label align-self-start px-4">
-					<h3><b>P</b>ROFILE PIC</h3>
+					<h3 class="profile_pic">PROFILE PIC</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
@@ -55,32 +55,32 @@
 					</div>
 				</div>
 				<div class="label align-self-center px-4">
-					<h3 data-bs-toggle="modal" data-bs-target="#avatarModal"><b>C</b>HANGE PROFILE PIC...</h3>
+					<h3 class="change_profile_pic" data-bs-toggle="modal" data-bs-target="#avatarModal">CHANGE PROFILE PIC...</h3>
 				</div>
 			</div>
 		</div>
 		<div class="col-md-5 d-flex flex-column justify-content-around">
 			<div class="friends-list d-flex flex-column mb-5">
 				<div class="label align-self-center px-4">
-					<h3><b>F</b>RIENDS LIST</h3>
+					<h3 class="friends_list">FRIENDS LIST</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					{% for friend in friends %}
 					<div>{{ friend.username }}</div>
 					
 					{% empty %}
-					<p>No friends yet.</p>
+					<p class="no_friends">No friends yet.</p>
 					{% endfor %}
 				</div>
 			</div>
 			<div class="add-friend d-flex flex-column mb-3">
 				<div class="label align-self-center px-4">
-					<h3><b>A</b>DD A FRIEND</h3>
+					<h3 class="add_friend">ADD A FRIEND</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<h5 data-bs-toggle="modal" data-bs-target="#friendModal">Search a friend...</h5>
+					<h5 class="search_friend" data-bs-toggle="modal" data-bs-target="#friendModal">Search a friend...</h5>
 				</div>
 			</div>
 		</div>
@@ -89,15 +89,18 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><b>CHANGE USERNAME...</b></h5>
+					<h5 class="modal-title change_username">CHANGE USERNAME...</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="current-username">Your current username is <b>{{ user.username }}</b>.</div>
+					<div class="d-flex mb-3">
+						<div class="me-1 current_username">Your current username is</div>
+						<div> <b>{{ user.username }}</b>.</div>
+					</div>
 					<form method="post">
 						{% csrf_token %}
 						{{ formUsername.as_p }}
-						<button type="submit button" class="btn btn-primary update">Update</button>
+						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
 			</div>
@@ -107,14 +110,14 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><b>CHANGE PASSWORD...</b></h5>
+					<h5 class="modal-title change_password">CHANGE PASSWORD...</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="post">
 						{% csrf_token %}
 						{{ formPassword.as_p }}
-						<button type="submit button" class="btn btn-primary update">Update</button>
+						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
 			</div>
@@ -124,14 +127,14 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><b>CHANGE PROFILE PIC...</b></h5>
+					<h5 class="modal-title change_profile_pic">CHANGE PROFILE PIC...</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
 						{{ formAvatar.as_p }}
-						<button type="submit button" class="btn btn-primary update">Update</button>
+						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
 			</div>
@@ -141,7 +144,7 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title"><b>ADD A FRIEND</b></h5>
+					<h5 class="modal-title add_friend">ADD A FRIEND</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
