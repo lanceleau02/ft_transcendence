@@ -66,8 +66,19 @@
 							</ul>
 						</div>
 						<!-- PROFILE -->
-						<div class="profil">
-							<img class="pp" src="{{user.avatar.url}}">
+						<div class="profile">
+							<ul class="navbar-nav">
+								<li class="nav-item dropdown btn-profile">
+									<a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+										<img class="pp" src="{{user.avatar.url}}">
+									</a>
+									<ul class="dropdown-menu signout" aria-labelledby="navbarDropdown">
+										<li>
+											<a class="dropdown-item" href="#">Sign out</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
