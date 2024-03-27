@@ -42,6 +42,20 @@ label[for="id_password"] {
 	--bs-btn-active-bg: #adad00;
 }
 
+.signin-42 {
+	margin-top: 5%;
+	background-color: #00babc;
+	border: #009396;
+	--bs-btn-hover-bg: #009396;
+	--bs-btn-active-bg: #009396;
+}
+
+.logo-42 {
+	filter: invert(100%);
+    width: 30px;
+    padding-left: 5px;
+}
+
 .ask {
 	font-family: "Aclonica", sans-serif;
 	color: white;
