@@ -15,22 +15,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
 from . import views as mainViews
-from authentication import views as authenticationViews
 from django.conf import settings
+from django.urls import path, include
 from django.conf.urls.static import static
 from auth_API42 import views as API42Views
+from authentication import views as authenticationViews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home, name='batpong'),
     path('batcave', mainViews.batcave, name='batcave'),
-    path('batpong/', mainViews.batpong),
+    path('batpong/', mainViews.batpong, name='batprofile'),
     path('batprofile', mainViews.batprofile),
     path('signin', authenticationViews.signin, name='signin'),
     path('signup', authenticationViews.signup, name='signup'),
   #  path('accounts/', include('allauth.urls')),
     path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
     path('callback', API42Views.callback, name='callback'),
+
+    path('send_friend_request/<int:userID>/', authenticationViews.send_friend_request, name='send friend request'),
+    path('accept_friend_request/<int:requestID>/', authenticationViews.accept_friend_request, name='accept friend request'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

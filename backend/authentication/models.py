@@ -5,7 +5,7 @@ class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
 	username = models.CharField(max_length=50, unique=True, null=True)
 	avatar = models.ImageField(default='default.png')
-	friends = models.ManyToManyField('self', blank=True)
+	friends = models.ManyToManyField("self", blank=True)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
 
@@ -15,7 +15,5 @@ class User(AbstractBaseUser):
 	objects = UserManager()
 
 class Friend_Request(models.Model):
-	from_user = models.ForeignKey(
-		User, related_name='from_user', on_delete=models.CASCADE)
-	to_user = models.ForeignKey(
-		User, related_name='to_user', on_delete=models.CASCADE)
+	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)
+	to_user = models.ForeignKey(User, related_name='to_user', on_delete=models.CASCADE)

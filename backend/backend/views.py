@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from authentication.models import User
 from authentication.forms import AvatarForm
 from authentication.forms import UpdateUsername
+from authentication.models import User, Friend_Request
 from django.contrib.auth.decorators import login_required
 from authentication.forms import CustomPasswordChangeForm
 
@@ -22,8 +22,6 @@ def batprofile(request):
 		formUsername = UpdateUsername(request.POST, instance=request.user)
 		formPassword = CustomPasswordChangeForm(request.user, request.POST)
 		formAvatar = AvatarForm(request.POST, request.FILES)
-		friend_id = request.POST.get('friend_id')
-		action = request.POST.get('action')
 		if formUsername.is_valid():
 			formUsername.save()
 			return render(request, 'index.html')
@@ -34,26 +32,22 @@ def batprofile(request):
 			user.avatar = formAvatar.cleaned_data['avatar']
 			user.save()
 			return render(request, 'index.html')
-
-		# Friends management
-		if action == 'add':
-			friend = User.objects.get(id=friend_id)
-			user.friends.add(friend)
-		elif action == 'remove':
-			friend = User.objects.get(id=friend_id)
-			user.friends.remove(friend)
-
 	else:
 		formUsername = UpdateUsername()
 		formPassword = CustomPasswordChangeForm(request.user, request.POST)
 		formAvatar = AvatarForm()
+		all_users = User.objects.exclude(id=request.user.id).exclude(is_superuser=True)
+		all_friend_request = Friend_Request.objects.filter(to_user=user)
 		friends = user.friends.all()
-		return render(request, 'views/batprofile.html', {
-			'formUsername': formUsername, 
-			'user': user, 'formPassword':formPassword, 
+		return render(request, "views/batprofile.html", {
+			'formUsername':formUsername, 
+			'user':user,
+			'formPassword':formPassword,
 			'formAvatar':formAvatar,
 			'avatar_url':avatar_url,
-			'friends':friends
+			'all_users':all_users,
+			'all_friend_request':all_friend_request,
+			'friends':friends,
 		})
 
 def batpong(request):
