@@ -3,6 +3,7 @@ import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
+import AbstractView from "./views/AbstractView.js";
 
 const navigateTo = url => {
 	history.pushState(null, null, url);
