@@ -7,16 +7,16 @@
 /*                                  NICKNAME                                  */
 /* ************************************************************************** */
 
-.username {
+.user {
 	height: 25%;
 	width: 90%;
 }
 
-.username .box {
+.user .box {
 	background-color: #484887;
 }
 
-.username .box .name {
+.user .box .name {
 	font-size: x-large;
 }
 
@@ -41,16 +41,16 @@
 /*                                  PASSWORD                                  */
 /* ************************************************************************** */
 
-.password {
+.pass {
 	height: 25%;
 	width: 90%;
 }
 
-.password .box {
+.pass .box {
 	background-color: #457BA1;
 }
 
-.password .box .pass {
+.pass .box .pass {
 	font-size: x-large;
 	-webkit-text-security: disc;
 	max-width: 12ch;

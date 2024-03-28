@@ -173,3 +173,5 @@ CSRF_COOKIE_SECURE = True
 CSRF_TRUSTED_ORIGINS = [
     'https://localhost:8000',
 ]
+
+LOGOUT_REDIRECT_URL = "batpong"

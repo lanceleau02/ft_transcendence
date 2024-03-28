@@ -9,15 +9,15 @@
 				<form method="post" action="{% url 'signin' %}">
 					{{ form.as_p }}
 					{% csrf_token %}
-					<button class="btn btn-primary signin" type="submit" >Sign in</button>
+					<button class="btn btn-primary signin sign_in_button" type="submit" >Sign in</button>
 				</form>
 				<form method="post" action="{% url 'cursus_and_users' %}"> 
 					{% csrf_token %}
-					<button type="submit" >42_Auth</button>
+					<button class="btn btn-primary signin-42 sign_in_with_button" type="submit">Sign in with 42</button>
 				</form>
 				<div class="d-flex flex-row align-items-center">
-					<p class="ask">Not a member yet?</p>
-					<a class="nav-link active link" href="/signup" data-link>Sign up now!</a>
+					<p class="ask not_a_member">Not a member yet?</p>
+					<a class="nav-link active link sign_up_now" href="/signup" data-link>Sign up now!</a>
 				</div>
 			</div>
 		</div>

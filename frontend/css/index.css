@@ -30,13 +30,13 @@
 	width: 100px;
 }
 
-.navbar .profil .pp {
-	border-radius: 50%;
-}
-
 .nav-item {
 	font-family: Aclonica;
 	padding-left: 25px;
+}
+
+.btn-profile {
+	padding-left: 0px;
 }
 
 .nav-link:hover {
@@ -48,6 +48,21 @@
 
 .dropdown-menu {
 	background-color: #FFFF00;
+}
+
+.dropdown-menu.languages.show {
+	margin-left: -35px;
+}
+
+.dropdown-menu.signout.show {
+	display: flex;
+	justify-content: center;
+	margin-left: -100px;
+}
+
+.sign_out_button {
+	background: none;
+	border: none;
 }
 
 .dropdown-menu> li> a:hover {
@@ -69,5 +84,6 @@
 }
 
 .pp {
+	border-radius: 50%;
 	width: 50px;
 }
