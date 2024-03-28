@@ -51,7 +51,7 @@
 									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										<img id="selectedImg" class="lang-icon" src="{% static 'img/english.png' %}">
 									</a>
-									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<ul class="dropdown-menu languages" aria-labelledby="navbarDropdown">
 										<li class="lang-item active-lang" id="en">
 											<a class="dropdown-item english"><img class="lang-icon" src="{% static 'img/english.png' %}">	English</a>
 										</li>
@@ -77,7 +77,7 @@
 										<li>
 											<form action="{% url 'logout' %}" method="post">
 											{% csrf_token %}
-											<button type="submit">Sign out</button>
+											<button class="sign_out_button" type="submit">Sign out</button>
 											</form>
 										</li>
 									</ul>

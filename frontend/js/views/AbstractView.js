@@ -29,9 +29,11 @@ export default class {
 								count++;
 								continue;
 							}
-							const element = document.querySelector(`.${key}`);
+							const element = document.querySelectorAll(`.${key}`);
 							if (element) {
-								element.textContent = translations[lang][key];
+								element.forEach(elem => {
+									elem.textContent = translations[lang][key];
+								})
 							}
 						}
 					}
@@ -71,7 +73,8 @@ const translations = {
 		sign_in_with_button: "Sign in with 42",
 		not_a_member: "Not a member yet?",
 		sign_up_now: "Sign up now!",
-		sign_up_button: "Sign up"
+		sign_up_button: "Sign up",
+		sign_out_button: "Sign out"
 	},
 	fr: {
 		english: "Anglais",
@@ -102,7 +105,8 @@ const translations = {
 		sign_in_with_button: "Se connecter avec 42",
 		not_a_member: "Pas encore membre ?",
 		sign_up_now: "Créer un compte.",
-		sign_up_button: "S'enregistrer"
+		sign_up_button: "S'enregistrer",
+		sign_out_button: "Se déconnecter"
 	},
 	es: {
 		english: "Inglés",
@@ -133,6 +137,7 @@ const translations = {
 		sign_in_with_button: "Iniciar sesión con 42",
 		not_a_member: "¿Todavía no eres miembro?",
 		sign_up_now: "¡Regístrate ahora!",
-		sign_up_button: "Registrarse"
+		sign_up_button: "Registrarse",
+		sign_out_button: "Cerrar sesión"
 	}
 };

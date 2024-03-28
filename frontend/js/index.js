@@ -5,9 +5,9 @@ import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
 import AbstractView from "./views/AbstractView.js";
 
-const navigateTo = url => {
-	history.pushState(null, null, url);
-	router();
+const navigateTo = async (url) => {
+    history.pushState(null, null, url);
+    await router(); // Ensure router is awaited to fully render the new page
 };
 
 const router = async () => {
