@@ -16,6 +16,27 @@ export default class {
 		const langItems = document.querySelectorAll('.lang-item');
 	
 		// Loop through each lang-item element and attach a click event listener
+		const langAct = document.querySelector('.active-lang').id;
+		if (translations[langAct]) {
+			// Loop through each element in translations[lang]
+			let count = 0; // Counter for skipped elements
+			for (const key in translations[langAct]) {
+				if (translations[langAct].hasOwnProperty(key)) {
+					// Skip the first three elements
+					if (count < 3) {
+						count++;
+						continue;
+					}
+					const element = document.querySelectorAll(`.${key}`);
+					if (element) {
+						element.forEach(elem => {
+							elem.textContent = translations[langAct][key];
+						})
+					}
+				}
+			}
+		}
+
 		langItems.forEach(langItem => {
 			langItem.addEventListener('click', () => {
 				const lang = langItem.getAttribute("id");
