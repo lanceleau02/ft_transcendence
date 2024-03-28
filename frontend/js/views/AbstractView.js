@@ -68,7 +68,7 @@ const translations = {
 		add_friend: "ADD A FRIEND",
 		search_friend: "Search a friend...",
 		sign_in_button: "Sign in",
-		sign_in_with_button: "Sign in with",
+		sign_in_with_button: "Sign in with 42",
 		not_a_member: "Not a member yet?",
 		sign_up_now: "Sign up now!",
 		sign_up_button: "Sign up"
@@ -99,7 +99,7 @@ const translations = {
 		add_friend: "AJOUTER UN AMI",
 		search_friend: "Chercher un ami...",
 		sign_in_button: "Se connecter",
-		sign_in_with_button: "Se connecter avec",
+		sign_in_with_button: "Se connecter avec 42",
 		not_a_member: "Pas encore membre ?",
 		sign_up_now: "Créer un compte.",
 		sign_up_button: "S'enregistrer"
@@ -130,7 +130,7 @@ const translations = {
 		add_friend: "AGREGAR UN AMIGO",
 		search_friend: "Buscar un amigo...",
 		sign_in_button: "Iniciar sesión",
-		sign_in_with_button: "Iniciar sesión con",
+		sign_in_with_button: "Iniciar sesión con 42",
 		not_a_member: "¿Todavía no eres miembro?",
 		sign_up_now: "¡Regístrate ahora!",
 		sign_up_button: "Registrarse"
