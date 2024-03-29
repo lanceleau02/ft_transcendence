@@ -83,12 +83,7 @@
 						{% for user in all_users %}
 							{% if not user.is_superuser %}
 								{% if user not in request.user.friends.all and user != request.user %}
-									<div class="users mb-3 p-2">
-										<div class="avatar"><img class="pic" src="{{user.avatar.url}}"></div>
-										<div class="name">{{user}}</div>
-										<div class=""></div>
-									</div>
-								<!-- <div class="users mb-3 p-2">{{user}} <a href="/send_friend_request/{{user.id}}/">send</a></div> -->
+									<div class="user"><img class="pic" src="{{user.avatar.url}}"> {{user}} <a href="/send_friend_request/{{user.id}}/">send friend request</a></div>
 								{% endif %}
 							{% endif %}
 						{% endfor %}
