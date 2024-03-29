@@ -101,7 +101,25 @@
 
 .all-users .box .users {
 	background-color: white;
+	border-radius: 10px;
+	width: 250px;
 	color: black;
+}
+
+.all-users .box .users .avatar {
+	width: 50px;
+	border-radius: 50%;
+}
+
+.all-users .box .users .status {
+	width: 50px;
+}
+
+.all-users .box .users .status {
+	width: 10px;
+	height: 10px;
+	background: green;
+	border-radius: 50%
 }
 
 /* ************************************************************************** */
