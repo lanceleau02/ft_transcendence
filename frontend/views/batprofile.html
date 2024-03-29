@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<div class="col-md-5 d-flex flex-column justify-content-around">
-			<div class="friends-list d-flex flex-column mb-5">
+			<div class="friends-list d-flex flex-column mb-2">
 				<div class="label align-self-center px-4">
 					<h3 class="friends_list">FRIENDS LIST</h3>
 				</div>
@@ -69,19 +69,38 @@
 						{% for friend in friends %}
 							<li>{{ friend.username }}</li>
 						{% empty %}
-							<li>No friends yet.</li>
+							No friends yet.
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="all-users d-flex flex-column mb-2">
+				<div class="label align-self-center px-4">
+					<h3 class="all_users">ALL USERS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<ul>
+						{% for user in all_users %}
+							{% if not user.is_superuser %}
+								{% if user not in request.user.friends.all and user != request.user %}
+									<div class="user"><img class="pic" src="{{request.user.friends.all.avatar.url}}"> {{user}} <a href="/send_friend_request/{{user.id}}/">send friend request</a></div>
+								{% endif %}
+							{% endif %}
 						{% endfor %}
 					</ul>
 				</div>
 			</div>
 			<div class="add-friend d-flex flex-column mb-3">
 				<div class="label align-self-center px-4">
-					<h3 class="add_friend">ADD A FRIEND</h3>
+					<h3 class="friend_request">FRIEND REQUESTS</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
-					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
-					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
-					<h5 class="search_friend" data-bs-toggle="modal" data-bs-target="#friendModal">Search a friend...</h5>
+					{% for friend_request in all_friend_request %}
+						<p>{{ friend_request.from_user.username }} sent you a friend request.</p>
+						<a href="/accept_friend_request/{{friend_request.id}}">Accept</a>
+					{% empty %}
+						<p>No friend requests.</p>
+					{% endfor %}
 				</div>
 			</div>
 		</div>
@@ -160,20 +179,3 @@
 		</div>
 	</div>
 </div>
-
-<ul class="all_users">
-	{% for user in all_users %}
-	{% if not user.is_superuser %}
-	{% if user not in request.user.friends.all and user != request.user %}
-	{{user}} <a href="/send_friend_request/{{user.id}}/">send friend request</a>
-	{% endif %}
-	{% endif %}
-	{% endfor %}
-</ul>
-
-{% for friend_request in all_friend_request %}
-	<p>{{ friend_request.from_user.username }} sent you a friend request.</p>
-	<a href="/accept_friend_request/{{friend_request.id}}">Accept</a>
-{% empty %}
-	<p>No friend requests.</p>
-{% endfor %}
