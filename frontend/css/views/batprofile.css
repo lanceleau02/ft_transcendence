@@ -99,7 +99,10 @@
 	background-color: black;
 }
 
-
+.all-users .box .users {
+	background-color: white;
+	color: black;
+}
 
 /* ************************************************************************** */
 /*                                ADD A FRIEND                                */
