@@ -28,37 +28,43 @@ class AvatarForm(forms.ModelForm):
         fields = ['avatar']
        # avatar = forms.ImageField(label='Choose an avatar', required=False)
 
+from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
+
 class CustomPasswordChangeForm(PasswordChangeForm):
-    new_password1 = forms.CharField(label="New password", strip=False, widget=forms.PasswordInput, required=False)
-    new_password2 = forms.CharField(label="Confirm new password", strip=False, widget=forms.PasswordInput, required=False)
-
-    def __init__(self, user, *args, **kwargs):
-        super().__init__(user, *args, **kwargs)
-        self.fields['new_password1'].required = False
-        self.fields['new_password2'].required = False
-
-    def clean_new_password1(self):
-        password1 = self.cleaned_data.get('new_password1')
-        if password1 and len(password1) < 8:
-            raise forms.ValidationError("Password must be at least 8 characters long.")
-        return password1
-
-    def clean_new_password2(self):
-        password1 = self.cleaned_data.get('new_password1')
-        password2 = self.cleaned_data.get('new_password2')
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("The two password fields didn't match.")
-        return password2
+    old_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
+        required=False
+    )
+    new_password1 = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
+        required=False
+    )
+    new_password2 = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
+        required=False
+    )
 
     def clean(self):
         cleaned_data = super().clean()
-        password1 = cleaned_data.get('new_password1')
-        password2 = cleaned_data.get('new_password2')
-        if password1 or password2:
-            if not password1:
-                raise forms.ValidationError("New password is required.")
-            if not password2:
-                raise forms.ValidationError("Confirm new password is required.")
-            if password1 != password2:
-                raise forms.ValidationError("The two password fields didn't match.")
+        old_password = cleaned_data.get("old_password")
+        new_password1 = cleaned_data.get("new_password1")
+        new_password2 = cleaned_data.get("new_password2")
+
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("Les nouveaux mots de passe ne correspondent pas.")
+
+        if not old_password:
+            del self._errors["old_password"]
+
         return cleaned_data
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if self.cleaned_data["new_password1"]:
+            user.set_password(self.cleaned_data["new_password1"])
+            if commit:
+                user.save()
+        return user

@@ -34,7 +34,7 @@ def batprofile(request):
 			return render(request, 'index.html')
 	else:
 		formUsername = UpdateUsername()
-		formPassword = CustomPasswordChangeForm(request.user, request.POST)
+		formPassword = CustomPasswordChangeForm(request.user)
 		formAvatar = AvatarForm()
 		all_users = User.objects.exclude(id=request.user.id).exclude(is_superuser=True)
 		all_friend_request = Friend_Request.objects.filter(to_user=user)
