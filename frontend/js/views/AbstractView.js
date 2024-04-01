@@ -155,7 +155,7 @@ const translations = {
 		friends_list: "LISTA DE AMIGOS",
 		no_friends: "Aún no tienes amigos.",
 		all_users: "TODOS LOS USUARIOS",
-		friend_requests: "SOLICITUDES DE AMISTAD",
+		friend_requests: "SOLICITUDES DE AMIGO",
 		no_friend_request: "No hay solicitud de amistad.",
 		sign_in_button: "Iniciar sesión",
 		sign_in_with_button: "Iniciar sesión con 42",

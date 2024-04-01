@@ -69,7 +69,7 @@
 						{% for friend in friends %}
 							<li>{{ friend.username }}</li>
 						{% empty %}
-							No friends yet.
+							<p class="no_friends">No friends yet.</p>
 						{% endfor %}
 					</ul>
 				</div>
@@ -86,7 +86,7 @@
 									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
 										<div><img class="avatar" src="{{user.avatar.url}}"></div>
 										<div class="name">{{user}}</div>
-										<div><a href="/send_friend_request/{{user.id}}/">Add</a></div>
+										<div><a href="/send_friend_request/{{user.id}}/" class="add">Add</a></div>
 										<div class="status"></div>
 									</div>
 								{% endif %}
@@ -97,14 +97,14 @@
 			</div>
 			<div class="add-friend d-flex flex-column mb-3">
 				<div class="label align-self-center px-4">
-					<h3 class="friend_request">FRIEND REQUESTS</h3>
+					<h3 class="friend_requests">FRIEND REQUESTS</h3>
 				</div>
 				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					{% for friend_request in all_friend_request %}
 						<p>{{ friend_request.from_user.username }} sent you a friend request.</p>
 						<a href="/accept_friend_request/{{friend_request.id}}">Accept</a>
 					{% empty %}
-						<p>No friend requests.</p>
+						<p class="no_friend_request">No friend requests.</p>
 					{% endfor %}
 				</div>
 			</div>
@@ -159,25 +159,6 @@
 						{% csrf_token %}
 						{{ formAvatar.as_p }}
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal fade" tabindex="-1" id="friendModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title add_friend">ADD A FRIEND</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<!-- Bouton pour supprimer l'ami -->
-					<form method="post">
-						{% csrf_token %}
-						<input type="hidden" name="friend_id" value="{{ friend.id }}">
-						<input type="hidden" name="action" value="remove">
-						<button type="submit" class="btn btn-danger">Remove Friend</button>
 					</form>
 				</div>
 			</div>
