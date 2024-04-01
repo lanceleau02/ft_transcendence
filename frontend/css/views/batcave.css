@@ -1,6 +1,10 @@
-#batcave {
-	height: calc(100vh - 85.08px);
+body {
+	height: 100vh;
 	background-color: #90D0C3;
+}
+
+#batprofile {
+	height: 90vh;
 }
 
 /* ************************************************************************** */
