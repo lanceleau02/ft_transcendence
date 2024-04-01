@@ -97,6 +97,7 @@
 
 .all-users .box {
 	background-color: black;
+	overflow-y: auto;
 }
 
 .all-users .box .users {

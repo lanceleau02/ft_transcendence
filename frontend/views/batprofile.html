@@ -59,7 +59,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-5 d-flex flex-column justify-content-around">
+		<div class="col-md-5 d-flex flex-column justify-content-around gy-5 gy-md-0">
 			<div class="friends-list d-flex flex-column mb-2">
 				<div class="label align-self-center px-4">
 					<h3 class="friends_list">FRIENDS LIST</h3>
@@ -78,8 +78,8 @@
 				<div class="label align-self-center px-4">
 					<h3 class="all_users">ALL USERS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
-					<ul class="p-0">
+				<div class="box d-flex flex-column position-relative align-items-center">
+					<ul class="p-0 pt-3">
 						{% for user in all_users %}
 							{% if not user.is_superuser %}
 								{% if user not in request.user.friends.all and user != request.user %}
@@ -89,7 +89,6 @@
 										<div><a href="/send_friend_request/{{user.id}}/">Add</a></div>
 										<div class="status"></div>
 									</div>
-								<!-- <div class="users mb-3 p-2">{{user}} <a href="/send_friend_request/{{user.id}}/">send</a></div> -->
 								{% endif %}
 							{% endif %}
 						{% endfor %}
