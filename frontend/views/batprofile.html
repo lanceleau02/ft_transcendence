@@ -8,7 +8,7 @@
 				<div class="label align-self-end px-4">
 					<h3 class="username">USERNAME</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="name">{{ user.username }}</div>
@@ -22,7 +22,7 @@
 				<div class="label align-self-start px-4">
 					<h3 class="email_address">EMAIL ADDRESS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="address">{{ user.email }}</div>
@@ -33,7 +33,7 @@
 				<div class="label align-self-end px-4">
 					<h3 class="password">PASSWORD</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="pass">{{ user.password }}</div>
@@ -47,7 +47,7 @@
 				<div class="label align-self-start px-4">
 					<h3 class="profile_pic">PROFILE PIC</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div>
@@ -64,7 +64,7 @@
 				<div class="label align-self-center px-4">
 					<h3 class="friends_list">FRIENDS LIST</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					<ul class="p-0">
 						{% for friend in friends %}
 							<li>{{ friend.username }}</li>
@@ -78,8 +78,8 @@
 				<div class="label align-self-center px-4">
 					<h3 class="all_users">ALL USERS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative align-items-center">
-					<ul class="p-0 pt-3">
+				<div class="box d-flex flex-column position-relative align-items-center py-5 pt-3">
+					<ul class="p-0">
 						{% for user in all_users %}
 							{% if not user.is_superuser %}
 								{% if user not in request.user.friends.all and user != request.user %}
@@ -99,7 +99,7 @@
 				<div class="label align-self-center px-4">
 					<h3 class="friend_request">FRIEND REQUESTS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
 					{% for friend_request in all_friend_request %}
 						<p>{{ friend_request.from_user.username }} sent you a friend request.</p>
 						<a href="/accept_friend_request/{{friend_request.id}}">Accept</a>
