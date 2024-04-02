@@ -4,10 +4,25 @@ from authentication.forms import UpdateUsername
 from authentication.models import User, Friend_Request
 from django.contrib.auth.decorators import login_required
 from authentication.forms import CustomPasswordChangeForm
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import logging
+import json
 
 def home(request):
 	user = request.user
 	return render(request, "index.html", {'user': user})
+
+logger = logging.getLogger(__name__)
+
+@csrf_exempt
+def lang(request):
+	user = request.user
+	body = json.loads(request.body)
+	key = body['key']
+	logger.info('Key: %s', key)
+	logger.info('Hello World')
+	return HttpResponse(json.dumps({'response': key}))
 
 @login_required
 def batcave(request):
@@ -48,7 +63,7 @@ def batprofile(request):
 			'all_users':all_users,
 			'all_friend_request':all_friend_request,
 			'friends':friends,
-		})
+        })
 
 def batpong(request):
 	return render(request, "views/batpong.html")

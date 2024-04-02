@@ -26,6 +26,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home, name='batpong'),
+	path('lang/', mainViews.lang, name='batpong'),
     path('batcave', mainViews.batcave, name='batcave'),
     path('batpong/', mainViews.batpong, name='batprofile'),
     path('batprofile', mainViews.batprofile),
