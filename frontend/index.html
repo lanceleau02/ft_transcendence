@@ -76,8 +76,8 @@
 									<ul class="dropdown-menu signout" aria-labelledby="navbarDropdown">
 										<li>
 											<form action="{% url 'logout' %}" method="post">
-											{% csrf_token %}
-											<button class="sign_out_button" type="submit">Sign out</button>
+												{% csrf_token %}
+												<button class="sign_out_button" type="submit">Sign out</button>
 											</form>
 										</li>
 									</ul>

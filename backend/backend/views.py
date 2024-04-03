@@ -1,29 +1,11 @@
-from django.shortcuts import render, redirect
-from authentication.forms import AvatarForm
-from authentication.forms import UpdateUsername
+from django.shortcuts import render
+from authentication.forms import AvatarForm, UpdateUsername, CustomPasswordChangeForm
 from authentication.models import User, Friend_Request
 from django.contrib.auth.decorators import login_required
-from authentication.forms import CustomPasswordChangeForm
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-import logging
-import json
 
 def home(request):
 	user = request.user
 	return render(request, "index.html", {'user': user})
-
-logger = logging.getLogger(__name__)
-
-@csrf_exempt
-def lang(request):
-	if request.method == 'POST':
-		body = json.loads(request.body)
-		key = body['key']
-		request.session['user_language'] = key
-		logger.info('Key: %s', key)
-		logger.info('Hello World')
-		return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @login_required
 def batcave(request):

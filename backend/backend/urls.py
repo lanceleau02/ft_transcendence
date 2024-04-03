@@ -26,17 +26,15 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mainViews.home, name='batpong'),
-	path('lang/', mainViews.lang, name='batpong'),
     path('batcave', mainViews.batcave, name='batcave'),
     path('batpong/', mainViews.batpong, name='batprofile'),
     path('batprofile', mainViews.batprofile),
     path('signin', authenticationViews.signin, name='signin'),
     path('signup', authenticationViews.signup, name='signup'),
-  #  path('accounts/', include('allauth.urls')),
+    #path('accounts/', include('allauth.urls')),
     path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
     path('callback', API42Views.callback, name='callback'),
     path('send_friend_request/<int:userID>/', authenticationViews.send_friend_request, name='send friend request'),
     path('accept_friend_request/<int:requestID>/', authenticationViews.accept_friend_request, name='accept friend request'),
-
     path('logout/', LogoutView.as_view(), name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

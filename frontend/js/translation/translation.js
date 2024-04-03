@@ -31,33 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				french.innerHTML = '<img class="lang-icon" src="static/img/french.png">	Francés';
 				spanish.innerHTML = '<img class="lang-icon" src="static/img/spanish.png">	Español';
 			}
-
-			const selectedLanguage = langItem.getAttribute("id");
-			sendKeyToBackend(selectedLanguage);
 		});
 	});
-
-	function sendKeyToBackend(key) {
-        fetch('/lang/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-			body: JSON.stringify({
-				'key': key,
-			}),
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Key sent successfully:', data);
-        })
-        .catch(error => {
-            console.error('Error sending key:', error);
-        });
-    }
 });

@@ -4,17 +4,9 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-class LoginFormEN(forms.Form):
+class LoginForm(forms.Form):
 	username = forms.CharField(max_length=50, label='Username')
 	password = forms.CharField(max_length=15, widget=forms.PasswordInput, label='Password')
-
-class LoginFormFR(forms.Form):
-	username = forms.CharField(max_length=50, label='Pseudo')
-	password = forms.CharField(max_length=15, widget=forms.PasswordInput, label='Mot de passe')
-     
-class LoginFormES(forms.Form):
-	username = forms.CharField(max_length=50, label='Nombre de usario')
-	password = forms.CharField(max_length=15, widget=forms.PasswordInput, label='Contraseña')
 
 class SignupForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -29,12 +21,15 @@ class UpdateUsername(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['username']
+        labels = {
+            'username': 'New Username'
+        }
 
 class AvatarForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['avatar']
-       # avatar = forms.ImageField(label='Choose an avatar', required=False)
+        #avatar = forms.ImageField(label='Choose an avatar', required=False)
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(

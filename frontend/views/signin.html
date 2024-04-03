@@ -7,8 +7,13 @@
 			<div class="form">
 				<p>{{ message }}</p>
 				<form method="post" action="{% url 'signin' %}">
-					{{ form.as_p }}
 					{% csrf_token %}
+					{% for field in form %}
+						<div class="d-flex flex-row align-items-center justify-content-between pb-3">
+							<label class="{{ field.auto_id }} pe-3">{{ field.label }}</label>
+							{{ field }}
+						</div>
+					{% endfor %}
 					<button class="btn btn-primary signin sign_in_button" type="submit" >Sign in</button>
 				</form>
 				<form method="post" action="{% url 'cursus_and_users' %}"> 
