@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from authentication.forms import AvatarForm
 from authentication.forms import UpdateUsername
 from authentication.models import User, Friend_Request
@@ -17,12 +17,13 @@ logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def lang(request):
-	user = request.user
-	body = json.loads(request.body)
-	key = body['key']
-	logger.info('Key: %s', key)
-	logger.info('Hello World')
-	return HttpResponse(json.dumps({'response': key}))
+	if request.method == 'POST':
+		body = json.loads(request.body)
+		key = body['key']
+		request.session['user_language'] = key
+		logger.info('Key: %s', key)
+		logger.info('Hello World')
+		return redirect(request.META.get('HTTP_REFERER', '/'))
 
 @login_required
 def batcave(request):
