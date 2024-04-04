@@ -16,25 +16,9 @@
 	border-radius: 25px;
 }
 
-[for^="id_"] {
+[class^="id_"] {
 	font-family: "Aclonica", sans-serif;
 	color: white;
-}
-
-label[for="id_username"] {
-	padding-right: 15px;
-}
-
-label[for="id_email"] {
-	padding-right: 58px;
-}
-
-label[for="id_password1"] {
-	padding-right: 18px;
-}
-
-label[for="id_password2"] {
-	padding-right: 15px;
 }
 
 .form ul li {

@@ -145,12 +145,18 @@
 				<div class="modal-body">
 					<form method="post">
 						{% csrf_token %}
-						{% for field in formPassword %}
-							<div class="pb-3">
-								<label class="{{ field.auto_id }}">{{ field.label }}</label>
-								{{ field }}
-							</div>
-						{% endfor %}
+						<div class="form-group pb-2">
+							<label for="id_old_password" class="control-label id_old_password">Current password</label>
+							<input type="password" name="old_password" class="form-control" id="id_old_password" autocomplete="off">
+						</div>
+						<div class="form-group pb-2">
+							<label for="id_new_password1" class="control-label id_new_password1">New password</label>
+							<input type="password" name="new_password1" class="form-control" id="id_new_password1" autocomplete="off">
+						</div>
+						<div class="form-group pb-3">
+							<label for="id_new_password2" class="control-label id_new_password2">Confirm new password</label>
+							<input type="password" name="new_password2" class="form-control" id="id_new_password2" autocomplete="off">
+						</div>
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
