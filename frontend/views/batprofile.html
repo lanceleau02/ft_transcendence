@@ -123,7 +123,12 @@
 					</div>
 					<form method="post">
 						{% csrf_token %}
-						{{ formUsername.as_p }}
+						{% for field in formUsername %}
+							<div class="pb-3">
+								<label class="new_username">{{ field.label }}</label>
+								{{ field }}
+							</div>	
+						{% endfor %}
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
@@ -140,7 +145,12 @@
 				<div class="modal-body">
 					<form method="post">
 						{% csrf_token %}
-						{{ formPassword.as_p }}
+						{% for field in formPassword %}
+							<div class="pb-3">
+								<label class="{{ field.auto_id }}">{{ field.label }}</label>
+								{{ field }}
+							</div>
+						{% endfor %}
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
@@ -157,7 +167,14 @@
 				<div class="modal-body">
 					<form method="post" enctype="multipart/form-data">
 						{% csrf_token %}
-						{{ formAvatar.as_p }}
+						{% for field in formAvatar %}
+							<div class="pb-3">
+								<div class="pb-3">
+									<label class="{{ field.auto_id }}">{{ field.label }}</label>
+								</div>
+								{{ field }}
+							</div>
+						{% endfor %}
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>

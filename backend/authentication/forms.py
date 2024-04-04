@@ -22,29 +22,34 @@ class UpdateUsername(forms.ModelForm):
         model = get_user_model()
         fields = ['username']
         labels = {
-            'username': 'New Username'
+            'username': 'New Username',
         }
 
 class AvatarForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['avatar']
-        #avatar = forms.ImageField(label='Choose an avatar', required=False)
+        labels = {
+            'avatar': 'Select an image:'
+        }
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False
+        required=False,
+        label="Current password"
     )
     new_password1 = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False
+        required=False,
+        label="New password"
     )
     new_password2 = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False
+        required=False,
+        label="Confirm new password"
     )
 
     def clean(self):
@@ -54,7 +59,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         new_password2 = cleaned_data.get("new_password2")
 
         if new_password1 and new_password2 and new_password1 != new_password2:
-            raise forms.ValidationError("Les nouveaux mots de passe ne correspondent pas.")
+            raise forms.ValidationError("The passwords do not match.")
 
         if not old_password:
             del self._errors["old_password"]
