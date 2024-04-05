@@ -4,7 +4,7 @@ from django.db import models
 class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
 	username = models.CharField(max_length=50, unique=True, null=True)
-	avatar = models.ImageField(default='default.png')
+	avatar = models.ImageField(default='default.jpg')
 	friends = models.ManyToManyField("self", blank=True)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)

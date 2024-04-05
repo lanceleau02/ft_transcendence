@@ -157,6 +157,10 @@ body {
 	border-radius: 50%;
 }
 
+.all-users .box .users .add-friend-icon {
+	width: 30px;
+}
+
 .all-users .box .users .status {
 	width: 50px;
 }
@@ -178,6 +182,22 @@ body {
 
 .add-friend .box {
 	background-color: black;
+}
+
+.add-friend .box .requests {
+	background-color: white;
+	border-radius: 10px;
+	width: 250px;
+	color: black;
+}
+
+.add-friend .box .requests .avatar {
+	width: 50px;
+	border-radius: 50%;
+}
+
+.add-friend .box .requests .accept-icon {
+	width: 30px;
 }
 
 /* ************************************************************************** */

@@ -67,13 +67,13 @@
 				<div class="box d-flex flex-column position-relative align-items-center py-3">
 					<ul class="p-0">
 						{% for friend in friends %}
-						<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
-							<div><img class="avatar" src="{{friend.avatar.url}}"></div>
-							<div class="name">{{ friend.username }}</div>
-							<div class="status"></div>
-						</div>
-						{% empty %}
-							<p class="no_friends">No friends yet.</p>
+							<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
+								<div><img class="avatar" src="{{friend.avatar.url}}"></div>
+								<div class="name">{{ friend.username }}</div>
+								<div class="status"></div>
+							</div>
+							{% empty %}
+								<p class="no_friends">No friends yet.</p>
 						{% endfor %}
 					</ul>
 				</div>
@@ -82,7 +82,7 @@
 				<div class="label align-self-center px-4">
 					<h3 class="all_users">ALL USERS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5 pt-3">
+				<div class="box d-flex flex-column position-relative align-items-center py-3">
 					<ul class="p-0">
 						{% for user in all_users  %}
 							{% if not user.is_superuser %}
@@ -90,13 +90,12 @@
 									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
 										<div><img class="avatar" src="{{user.avatar.url}}"></div>
 										<div class="name">{{ user }}</div>
-										<div><a href="/send_friend_request/{{user.id}}/" class="add">Add</a></div>
-										<div class="status"></div>
+										<div><a href="/send_friend_request/{{user.id}}/"><img class="add-friend-icon" src="{% static 'img/add_friend.png' %}"></a></div>
 									</div>
 								{% endif %}
 							{% endif %}
-						{% empty %}
-							<p class="no_user m-0 pt-5">No user.</p>
+							{% empty %}
+								<p class="no_user m-0 pt-5">No user.</p>
 						{% endfor %}
 					</ul>
 				</div>
@@ -105,12 +104,16 @@
 				<div class="label align-self-center px-4">
 					<h3 class="friend_requests">FRIEND REQUESTS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+				<div class="box d-flex flex-column position-relative align-items-center py-3">
 					{% for friend_request in all_friend_request %}
-						<p>{{ friend_request.from_user.username }} sent you a friend request.</p>
-						<a href="/accept_friend_request/{{friend_request.id}}">Accept</a>
-					{% empty %}
-						<p class="no_friend_request">No friend requests.</p>
+						<div class="requests d-flex justify-content-between align-items-center mb-3 p-2">
+							<div><img class="avatar" src="{{ friend_request.from_user.avatar.url }}"></div>
+							<div class="name">{{ friend_request.from_user.username }}</div>
+							<div><a href="/accept_friend_request/{{friend_request.id}}"><img class="accept-icon" src="{% static 'img/accept.png' %}"></a></div>
+							<div><a href="/accept_friend_request/{{friend_request.id}}"><img class="decline-icon" src="{% static 'img/decline.png' %}"></a></div>
+						</div>
+						{% empty %}
+							<p class="no_friend_request">No friend requests.</p>
 					{% endfor %}
 				</div>
 			</div>
