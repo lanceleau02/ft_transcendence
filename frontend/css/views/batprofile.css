@@ -41,6 +41,12 @@ body {
 	font-size: x-large;
 }
 
+@media (max-width: 900px) {
+	.email .box .address {
+		font-size: large;
+	}
+}
+
 /* ************************************************************************** */
 /*                                  PASSWORD                                  */
 /* ************************************************************************** */
@@ -88,6 +94,42 @@ body {
 
 .friends-list .box {
 	background-color: black;
+	overflow-y: auto;
+}
+
+.friends-list .box .users {
+	background-color: white;
+	border-radius: 10px;
+	width: 250px;
+	color: black;
+}
+
+.friends-list .box .users .avatar {
+	width: 50px;
+	border-radius: 50%;
+}
+
+.friends-list .box .users .status {
+	width: 50px;
+}
+
+.friends-list .box .users .status {
+	width: 15px;
+	height: 15px;
+	background: green;
+	border-radius: 50%
+}
+
+@media (max-width: 848px) {
+	.friends-list .box .users {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.friends-list .box .users {
+		width: 200px;
+	}
 }
 
 /* ************************************************************************** */

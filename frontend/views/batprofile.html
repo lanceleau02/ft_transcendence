@@ -64,10 +64,14 @@
 				<div class="label align-self-center px-4">
 					<h3 class="friends_list">FRIENDS LIST</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+				<div class="box d-flex flex-column position-relative align-items-center py-3">
 					<ul class="p-0">
 						{% for friend in friends %}
-							<li>{{ friend.username }}</li>
+						<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
+							<div><img class="avatar" src="{{friend.avatar.url}}"></div>
+							<div class="name">{{ friend.username }}</div>
+							<div class="status"></div>
+						</div>
 						{% empty %}
 							<p class="no_friends">No friends yet.</p>
 						{% endfor %}
@@ -78,19 +82,21 @@
 				<div class="label align-self-center px-4">
 					<h3 class="all_users">ALL USERS</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative align-items-center py-5 pt-3">
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5 pt-3">
 					<ul class="p-0">
-						{% for user in all_users %}
+						{% for user in all_users  %}
 							{% if not user.is_superuser %}
 								{% if user not in request.user.friends.all and user != request.user %}
 									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
 										<div><img class="avatar" src="{{user.avatar.url}}"></div>
-										<div class="name">{{user}}</div>
+										<div class="name">{{ user }}</div>
 										<div><a href="/send_friend_request/{{user.id}}/" class="add">Add</a></div>
 										<div class="status"></div>
 									</div>
 								{% endif %}
 							{% endif %}
+						{% empty %}
+							<p class="no_user m-0 pt-5">No user.</p>
 						{% endfor %}
 					</ul>
 				</div>
