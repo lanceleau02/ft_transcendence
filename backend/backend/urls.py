@@ -36,5 +36,6 @@ urlpatterns = [
     path('callback', API42Views.callback, name='callback'),
     path('send_friend_request/<int:userID>/', authenticationViews.send_friend_request, name='send friend request'),
     path('accept_friend_request/<int:requestID>/', authenticationViews.accept_friend_request, name='accept friend request'),
+    path('decline_friend_request/<int:requestID>/', authenticationViews.decline_friend_request, name='decline friend request'),
     path('logout/', LogoutView.as_view(), name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
