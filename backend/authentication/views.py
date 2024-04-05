@@ -56,3 +56,9 @@ def accept_friend_request(request, requestID):
         return render (request, 'views/batprofile.html')
     else:
         return render (request, 'views/batprofile.html')
+
+@login_required
+def decline_friend_request(request, requestID):
+    friend_request = Friend_Request.objects.get(id=requestID)
+    friend_request.delete()
+    return render (request, 'views/batprofile.html')
