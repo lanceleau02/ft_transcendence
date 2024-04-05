@@ -97,23 +97,23 @@ body {
 	overflow-y: auto;
 }
 
-.friends-list .box .users {
+.friends-list .box .friends {
 	background-color: white;
 	border-radius: 10px;
 	width: 250px;
 	color: black;
 }
 
-.friends-list .box .users .avatar {
+.friends-list .box .friends .avatar {
 	width: 50px;
 	border-radius: 50%;
 }
 
-.friends-list .box .users .status {
+.friends-list .box .friends .status {
 	width: 50px;
 }
 
-.friends-list .box .users .status {
+.friends-list .box .friends .status {
 	width: 15px;
 	height: 15px;
 	background: green;
@@ -121,13 +121,13 @@ body {
 }
 
 @media (max-width: 848px) {
-	.friends-list .box .users {
+	.friends-list .box .friends {
 		width: 225px;
 	}
 }
 
 @media (max-width: 788px) {
-	.friends-list .box .users {
+	.friends-list .box .friends {
 		width: 200px;
 	}
 }
@@ -172,6 +172,18 @@ body {
 	border-radius: 50%
 }
 
+@media (max-width: 848px) {
+	.all-users .box .users {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.all-users .box .users {
+		width: 200px;
+	}
+}
+
 /* ************************************************************************** */
 /*                                ADD A FRIEND                                */
 /* ************************************************************************** */
@@ -182,6 +194,7 @@ body {
 
 .add-friend .box {
 	background-color: black;
+	overflow-y: auto;
 }
 
 .add-friend .box .requests {
@@ -198,6 +211,22 @@ body {
 
 .add-friend .box .requests .accept-icon {
 	width: 30px;
+}
+
+.add-friend .box .requests .decline-icon {
+	width: 30px;
+}
+
+@media (max-width: 848px) {
+	.add-friend .box .requests {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.add-friend .box .requests {
+		width: 200px;
+	}
 }
 
 /* ************************************************************************** */
