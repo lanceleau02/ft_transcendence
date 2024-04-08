@@ -3,6 +3,7 @@ import Batcave from "./views/Batcave.js";
 import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
+import { translation } from "./translation/translation.js";
 
 const navigateTo = async (url) => {
     history.pushState(null, null, url);
@@ -12,10 +13,10 @@ const navigateTo = async (url) => {
 const router = async () => {
 	const routes = [
 		{ path: "/", view: Batpong },
-		{ path: "/batcave", view: Batcave },
-		{ path: "/batprofile", view: Batprofile },
-		{ path: "/signin", view: Signin },
-		{ path: "/signup", view: Signup },
+		{ path: "/batcave/", view: Batcave },
+		{ path: "/batprofile/", view: Batprofile },
+		{ path: "/signin/", view: Signin },
+		{ path: "/signup/", view: Signup },
 	];
 	
 	// Test each route for potential match
@@ -36,8 +37,9 @@ const router = async () => {
 	}
 
 	const view = new match.route.view();
+	
 	document.querySelector("#app").innerHTML = await view.getHtml();
-	await view.executeViewScript();
+	translation()
 };
 
 window.addEventListener("popstate", router);

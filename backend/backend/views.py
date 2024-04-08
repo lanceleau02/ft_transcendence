@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from authentication.forms import AvatarForm, UpdateUsername, CustomPasswordChangeForm
+from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm
 from authentication.models import User, Friend_Request
 from django.contrib.auth.decorators import login_required
 
@@ -7,13 +7,21 @@ def home(request):
 	user = request.user
 	return render(request, "index.html", {'user': user})
 
-@login_required
 def batcave(request):
-	user = request.user
-	return render(request, "views/batcave.html", {'user': user})
+	if request.GET.get('Valid') == "true":
+		if request.user.is_authenticated == False:
+			form = LoginForm()
+			return render(request, 'views/signin.html', context={'form': form})
+		user = request.user
+		return render(request, "views/batcave.html", {'user': user})
+	return render(request, "index.html")
 
 @login_required
 def batprofile(request):
+	""" if request.GET.get('Valid') == "true":
+		print("coucou")
+		if request.user.is_authenticated == True:
+			return render(request, "index.html") """
 	user = request.user
 	avatar_url = user.avatar.url if user.avatar else None
 	if request.method == 'POST':
@@ -37,16 +45,20 @@ def batprofile(request):
 		all_users = User.objects.exclude(id=request.user.id).exclude(is_superuser=True)
 		all_friend_request = Friend_Request.objects.filter(to_user=user)
 		friends = user.friends.all()
-		return render(request, "views/batprofile.html", {
-			'formUsername':formUsername, 
-			'user':user,
-			'formPassword':formPassword,
-			'formAvatar':formAvatar,
-			'avatar_url':avatar_url,
-			'all_users':all_users,
-			'all_friend_request':all_friend_request,
-			'friends':friends,
-        })
+		if request.GET.get('Valid') == "true":
+			return render(request, "views/batprofile.html", {
+				'formUsername':formUsername, 
+				'user':user,
+				'formPassword':formPassword,
+				'formAvatar':formAvatar,
+				'avatar_url':avatar_url,
+				'all_users':all_users,
+				'all_friend_request':all_friend_request,
+				'friends':friends,
+			})
+		return render(request, "index.html")
 
 def batpong(request):
-	return render(request, "views/batpong.html")
+	if request.GET.get('Valid') == "true":
+		return render(request, "views/batpong.html")
+	return render(request, "index.html")

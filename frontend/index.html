@@ -39,7 +39,7 @@
 							<a class="nav-link active" href="{% url 'batcave' %}" data-link>Batcave</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link active" href="/batprofile" data-link>Batprofile</a>
+							<a class="nav-link active" href="{% url 'batprofile' %}" data-link>Batprofile</a>
 						</li>
 					</ul>
 					<!-- PROFILE & LANGUAGE CONTAINER -->
@@ -98,6 +98,7 @@
 	<script src="{% static 'js/bootstrap/bootstrap.bundle.js' %}"></script>
 	<!-- JAVASCRIPT -->
 	<script type="module" src="{% static 'js/index.js' %}"></script>
+	<script type="module" src="{% static 'js/translation/selector.js' %}"></script>
 	<script type="module" src="{% static 'js/translation/translation.js' %}"></script>
 </body>
 </html>
