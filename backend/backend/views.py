@@ -35,6 +35,10 @@ def batprofile(request):
 		formPassword = CustomPasswordChangeForm(request.user)
 		formAvatar = AvatarForm()
 		all_users = User.objects.exclude(id=request.user.id).exclude(is_superuser=True)
+		sent_friend_requests = Friend_Request.objects.filter(from_user=request.user)
+		received_friend_requests = Friend_Request.objects.filter(to_user=request.user)
+		all_users = all_users.exclude(id__in=[fr.to_user.id for fr in sent_friend_requests])
+		all_users = all_users.exclude(id__in=[fr.from_user.id for fr in received_friend_requests])
 		all_friend_request = Friend_Request.objects.filter(to_user=user)
 		friends = user.friends.all()
 		return render(request, "views/batprofile.html", {
@@ -46,7 +50,7 @@ def batprofile(request):
 			'all_users':all_users,
 			'all_friend_request':all_friend_request,
 			'friends':friends,
-        })
+		})
 
 def batpong(request):
 	return render(request, "views/batpong.html")
