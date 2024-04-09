@@ -8,8 +8,7 @@ export default class extends AbstractView {
 
 	async getHtml() {
 		// Fetch the HTML content from a separate file
-		const response = await fetch(document.location.origin + "/batpong");
-		console.log(response)
+		const response = await fetch(document.location.origin + "/batpong/?Valid=true");
 				
 		// Ensure the fetch was successful
 		if (!response.ok) {
