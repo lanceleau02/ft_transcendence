@@ -2,6 +2,7 @@ from django.shortcuts import render
 from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm
 from authentication.models import User, Friend_Request
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 def home(request):
 	user = request.user
@@ -28,14 +29,14 @@ def batprofile(request):
 		formAvatar = AvatarForm(request.POST, request.FILES)
 		if formUsername.is_valid():
 			formUsername.save()
-			return render(request, 'index.html')
+			return JsonResponse({'success': True})
 		if formPassword.is_valid():
 			formPassword.save()
-			return render(request, 'index.html')
+			return JsonResponse({'success': True})
 		if formAvatar.is_valid():
 			user.avatar = formAvatar.cleaned_data['avatar']
 			user.save()
-			return render(request, 'index.html')
+			return JsonResponse({'success': True})
 	else:
 		formUsername = UpdateUsername()
 		formPassword = CustomPasswordChangeForm(request.user)

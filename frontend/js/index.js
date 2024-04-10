@@ -39,12 +39,12 @@ const router = async () => {
 	const view = new match.route.view();
 	
 	document.querySelector("#app").innerHTML = await view.getHtml();
-	translation()
+	translation();
 };
 
 window.addEventListener("popstate", router);
 
-document.addEventListener("DOMContentLoaded", () => {
+/* document.addEventListener("DOMContentLoaded", () => {
 	document.body.addEventListener("click", e => {
 		if (e.target.matches("[data-link]")) {
 			e.preventDefault();
@@ -53,4 +53,46 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	router();
+}); */
+
+// Ajout d'une fonction pour soumettre le formulaire via AJAX dans index.js
+const submitForm = async (formData) => {
+    try {
+        const response = await fetch('/batprofile/', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to submit form');
+        }
+
+        const data = await response.json();
+
+        // Mettez à jour l'interface utilisateur en fonction de la réponse
+        if (data.success) {
+            // Par exemple, affichez un message de succès ou mettez à jour une partie de la page
+            // document.getElementById('successMessage').textContent = 'Form submitted successfully';
+            // Rediriger vers une autre page si nécessaire
+            // window.location.href = '/path/to/success/page';
+			const updatedContentElement = document.getElementById('username');
+            // updatedContentElement.innerHTML = data.updatedContent; // Supposons que le serveur renvoie le contenu mis à jour
+			updatedContentElement.innerHTML = '<div class="name" id="username">{{ user.username }}</div>';
+			} else {
+            // Gérez les erreurs de validation ou autres
+        }
+    } catch (error) {
+        console.error('Error submitting form:', error);
+    }
+};
+
+// Modification du gestionnaire d'événements pour soumettre le formulaire via AJAX
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Empêcher le comportement de soumission de formulaire par défaut
+        const formData = new FormData(e.target);
+        await submitForm(formData);
+    });
+
+    router();
 });
