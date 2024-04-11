@@ -7,7 +7,7 @@ import { translation } from "./translation/translation.js";
 
 const navigateTo = async (url) => {
     history.pushState(null, null, url);
-    await router(); // Ensure router is awaited to fully render the new page
+    await router();
 };
 
 const router = async () => {
@@ -19,7 +19,6 @@ const router = async () => {
 		{ path: "/signup/", view: Signup },
 	];
 	
-	// Test each route for potential match
 	const potentialMatches = routes.map(route => {
 		return {
 			route: route,
@@ -44,7 +43,7 @@ const router = async () => {
 
 window.addEventListener("popstate", router);
 
-/* document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 	document.body.addEventListener("click", e => {
 		if (e.target.matches("[data-link]")) {
 			e.preventDefault();
@@ -52,47 +51,66 @@ window.addEventListener("popstate", router);
 		}
 	});
 
+	document.body.addEventListener("submit", async (e) => {
+		e.preventDefault();
+		const formData = new FormData(e.target);
+		if (e.target.getAttribute('id') === 'logoutForm') {
+			e.target.submit();
+		} else {
+			await submitForm(formData);
+		}
+	});
+
 	router();
-}); */
-
-// Ajout d'une fonction pour soumettre le formulaire via AJAX dans index.js
-const submitForm = async (formData) => {
-    try {
-        const response = await fetch('/batprofile/', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to submit form');
-        }
-
-        const data = await response.json();
-
-        // Mettez à jour l'interface utilisateur en fonction de la réponse
-        if (data.success) {
-            // Par exemple, affichez un message de succès ou mettez à jour une partie de la page
-            // document.getElementById('successMessage').textContent = 'Form submitted successfully';
-            // Rediriger vers une autre page si nécessaire
-            // window.location.href = '/path/to/success/page';
-			const updatedContentElement = document.getElementById('username');
-            // updatedContentElement.innerHTML = data.updatedContent; // Supposons que le serveur renvoie le contenu mis à jour
-			updatedContentElement.innerHTML = '<div class="name" id="username">{{ user.username }}</div>';
-			} else {
-            // Gérez les erreurs de validation ou autres
-        }
-    } catch (error) {
-        console.error('Error submitting form:', error);
-    }
-};
-
-// Modification du gestionnaire d'événements pour soumettre le formulaire via AJAX
-document.addEventListener("DOMContentLoaded", () => {
-    document.body.addEventListener("submit", async (e) => {
-        e.preventDefault(); // Empêcher le comportement de soumission de formulaire par défaut
-        const formData = new FormData(e.target);
-        await submitForm(formData);
-    });
-
-    router();
 });
+
+const submitForm = async (formData) => {
+	try {
+		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to submit form');
+		}
+
+		const data = await response.json();
+		if (data.formUsername) {
+			const newUsername = data.username;
+			const currentUsername = document.getElementById('currentUsername');
+			const username = document.getElementById('username');
+			currentUsername.innerHTML = '<div id="currentUsername"><b>' + newUsername + '</b>.</div>';
+			username.textContent = newUsername;
+		} else if (data.formPassword) {
+			window.location.href = document.location.origin + '/batpong/';
+		} else if (data.formAvatar) {
+			const newAvatar = data.avatar;
+			const avatarNavbar = document.getElementById('avatarNavbar');
+			const avatarBatprofile = document.getElementById('avatarBatprofile');
+			avatarNavbar.src = newAvatar;
+			avatarBatprofile.src = newAvatar;
+		}
+	} catch (error) {
+		console.error('Error submitting form:', error);
+	}
+
+	try {
+		const response = await fetch(document.location.origin + '/signin/?Valid=true', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to submit form');
+		}
+
+		const data = await response.json();
+
+		if (data.loginForm) {
+			window.location.href = document.location.origin + '/batpong/';
+		} 
+	} catch (error) {
+		console.error('Error submitting form:', error);
+	}
+};

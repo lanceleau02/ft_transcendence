@@ -71,11 +71,11 @@
 								<li class="nav-item dropdown btn-profile">
 									{% if user.is_authenticated %}
 									<a class="nav-link pe-0" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<img class="pp" src="{{user.avatar.url}}">
+										<img id="avatarNavbar" class="pp" src="{{user.avatar.url}}">
 									</a>
 									<ul class="dropdown-menu signout" aria-labelledby="navbarDropdown">
 										<li>
-											<form action="{% url 'logout' %}" method="post">
+											<form id="logoutForm" action="{% url 'logout' %}" method="post">
 												{% csrf_token %}
 												<button class="sign_out_button" type="submit">Sign out</button>
 											</form>

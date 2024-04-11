@@ -51,7 +51,7 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div>
-						<img class="pic" src="{{user.avatar.url}}"> 
+						<img id="avatarBatprofile" class="pic" src="{{user.avatar.url}}">
 					</div>
 				</div>
 				<div class="label align-self-center px-4">
@@ -128,7 +128,7 @@
 				<div class="modal-body">
 					<div class="d-flex mb-3">
 						<div class="me-1 current_username">Your current username is</div>
-						<div><b>{{ user.username }}</b>.</div>
+						<div id="currentUsername"><b>{{ user.username }}</b>.</div>
 					</div>
 					<form method="post">
 						{% csrf_token %}
@@ -136,7 +136,7 @@
 							<div class="pb-3">
 								<label class="new_username">{{ field.label }}</label>
 								{{ field }}
-							</div>	
+							</div>
 						{% endfor %}
 						<button type="submit button" id="formUsername" class="btn btn-primary update update_button">Update</button>
 					</form>
