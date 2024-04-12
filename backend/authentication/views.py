@@ -33,7 +33,7 @@ def signup(request):
         form = forms.SignupForm(request.POST) 
         if form.is_valid():
             form.save()
-            return JsonResponse({'signupForm':True})
+            return JsonResponse({'signupSuccess':True})
         else:
             return JsonResponse({'signupForm': True})
     if request.GET.get('Valid') == "true":

@@ -126,8 +126,9 @@ const submitForm = async (formData) => {
 
 		const data = await response.json();
 
-		if (data.signupForm) {
-			window.location.href = document.location.origin + '/batpong/';
+		if (data.signupSuccess) {
+			history.pushState(null, null, document.location.origin + '/signin/');
+			await router();
 		} 
 	} catch (error) {
 		console.error('Error submitting form:', error);
