@@ -33,9 +33,9 @@ def signup(request):
         form = forms.SignupForm(request.POST) 
         if form.is_valid():
             form.save()
-            return redirect('batcave')
+            return JsonResponse({'signupForm':True})
         else:
-            return render(request, 'index.html')
+            return JsonResponse({'signupForm': True})
     if request.GET.get('Valid') == "true":
         form = forms.SignupForm() 
         return render(request, 'views/signup.html', context={'form': form})

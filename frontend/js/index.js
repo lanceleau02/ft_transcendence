@@ -113,4 +113,23 @@ const submitForm = async (formData) => {
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}
+
+	try {
+		const response = await fetch(document.location.origin + '/signup/?Valid=true', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to submit form');
+		}
+
+		const data = await response.json();
+
+		if (data.signupForm) {
+			window.location.href = document.location.origin + '/batpong/';
+		} 
+	} catch (error) {
+		console.error('Error submitting form:', error);
+	}
 };
