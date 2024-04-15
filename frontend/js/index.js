@@ -61,6 +61,16 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	document.body.addEventListener("click", async (e) => {
+		if (e.target.matches("[data-action='send-friend-request']")) {
+			e.preventDefault();
+			const userID = e.target.dataset.userId;
+			const formData = new FormData();
+			formData.append('userID', userID);
+			await submitForm(formData, document.location.origin + '/send_friend_request/' + userID);
+		}
+	});
+
 	router();
 });
 
@@ -130,6 +140,26 @@ const submitForm = async (formData) => {
 			history.pushState(null, null, document.location.origin + '/signin/');
 			await router();
 		} 
+	} catch (error) {
+		console.error('Error submitting form:', error);
+	}
+
+	try {
+		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to submit form');
+		}
+
+		const data = await response.json();
+
+		if (data.friendRequestSent) {
+			history.pushState(null, null, document.location.origin + '/batprofile/');
+			await router();
+		}
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}

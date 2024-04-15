@@ -33,7 +33,7 @@ def signup(request):
         form = forms.SignupForm(request.POST) 
         if form.is_valid():
             form.save()
-            return JsonResponse({'signupSuccess':True})
+            return JsonResponse({'signupSuccess': True})
         else:
             return JsonResponse({'signupForm': True})
     if request.GET.get('Valid') == "true":
@@ -43,10 +43,16 @@ def signup(request):
     return render(request, 'index.html', {'form': form})
 
 def send_friend_request(request, userID):
-    from_user = request.user
-    to_user = User.objects.get(id=userID)
-    friend_request, created = Friend_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
-    return render (request, 'views/batprofile.html')
+    if request.method == 'POST':
+        from_user = request.user
+        to_user = User.objects.get(id=userID)
+        friend_request, created = Friend_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
+        if created:
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'message': 'Friend request already sent.'})
+    else:
+        return render(request, 'index.html')
 
 def accept_friend_request(request, requestID):
     friend_request = Friend_Request.objects.get(id=requestID)
