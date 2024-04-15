@@ -56,12 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		const formData = new FormData(e.target);
 		if (e.target.getAttribute('id') === 'logoutForm') {
 			e.target.submit();
-		} else {
-			await submitForm(formData);
-		}
+		} else if (e.target.getAttribute('id') === 'usernameForm' || e.target.getAttribute('id') === 'passwordForm' || e.target.getAttribute('id') === 'avatarForm') {
+			await submitFormBatprofile(formData);
+		} else if (e.target.getAttribute('id') === 'signinForm') {
+			await submitFormSignin(formData);
+		} else if (e.target.getAttribute('id') === 'signupForm') {
+			await submitFormSignup(formData);
+		//} else if (e.target.getAttribute('id') === 'signin42apiForm') {
+		//	await submitFormSignin42api(formData);
+	}
 	});
 
-	document.body.addEventListener("click", async (e) => {
+/* 	document.body.addEventListener("click", async (e) => {
 		if (e.target.matches("[data-action='send-friend-request']")) {
 			e.preventDefault();
 			const userID = e.target.dataset.userId;
@@ -69,12 +75,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			formData.append('userID', userID);
 			await submitForm(formData, document.location.origin + '/send_friend_request/' + userID);
 		}
-	});
+	}); */
 
 	router();
 });
 
-const submitForm = async (formData) => {
+const submitFormBatprofile = async (formData) => {
 	try {
 		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
 			method: 'POST',
@@ -104,7 +110,9 @@ const submitForm = async (formData) => {
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}
+};
 
+const submitFormSignin = async (formData) => {
 	try {
 		const response = await fetch(document.location.origin + '/signin/?Valid=true', {
 			method: 'POST',
@@ -123,7 +131,9 @@ const submitForm = async (formData) => {
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}
+};
 
+const submitFormSignup = async (formData) => {
 	try {
 		const response = await fetch(document.location.origin + '/signup/?Valid=true', {
 			method: 'POST',
@@ -143,7 +153,9 @@ const submitForm = async (formData) => {
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}
+};
 
+/* const submitForm = async (formData) => {
 	try {
 		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
 			method: 'POST',
@@ -163,4 +175,29 @@ const submitForm = async (formData) => {
 	} catch (error) {
 		console.error('Error submitting form:', error);
 	}
-};
+}; */
+
+/* ne marche pas .. en cours ...
+const submitFormSignin42api = async (formData) => {
+	try {
+		const response = await fetch(document.location.origin + '/signin/?Valid=true', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to get authorization URL');
+		}
+
+		const data = await response.json();
+		if (data.authorization_url) {
+            window.location.href = data.authorization_url;
+        }
+		else if (data.loginForm) {
+			window.location.href = document.location.origin + '/batpong/';
+		}
+	}
+	catch (error) {
+		console.error('Error getting authorization URL:', error);
+	}
+}*/

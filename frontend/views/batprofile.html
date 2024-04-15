@@ -130,7 +130,7 @@
 						<div class="me-1 current_username">Your current username is</div>
 						<div id="currentUsername"><b>{{ user.username }}</b>.</div>
 					</div>
-					<form method="post">
+					<form id="usernameForm" method="post">
 						{% csrf_token %}
 						{% for field in formUsername %}
 							<div class="pb-3">
@@ -152,7 +152,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form method="post">
+					<form id="passwordForm" method="post">
 						{% csrf_token %}
 						<div class="form-group pb-2">
 							<label for="id_old_password" class="control-label id_old_password">Current password</label>
@@ -180,7 +180,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<form method="post" enctype="multipart/form-data">
+					<form id="avatarForm" method="post" enctype="multipart/form-data">
 						{% csrf_token %}
 						{% for field in formAvatar %}
 							<div class="pb-3">

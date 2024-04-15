@@ -4,7 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from authentication.models import User
 from requests_oauthlib import OAuth2Session
-from django.http import HttpResponseRedirect
+#from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,11 @@ def get_cursus_and_users(request):
     request.session['oauth_state'] = state
     request.session.save()
     
-    return HttpResponseRedirect(authorization_url)
+    #return HttpResponseRedirect(authorization_url)
+    return JsonResponse({
+        'authorization_url': authorization_url,
+        'state': state
+    })
     
 def callback(request):
     state = request.GET.get('state')
@@ -30,21 +35,22 @@ def callback(request):
 
     code = request.GET.get('code')
     if not code:
-        return HttpResponseRedirect("No authorization code", status=400)
+        #return HttpResponseRedirect("No authorization code", status=400)
+        return JsonResponse({'error': 'No authorization code'}, status=400)
     if state != stored:
-        return HttpResponseRedirect("Invalid state parameter", status=400)
+        return JsonResponse({'error': 'Invalid state parameter'}, status=400)
  
     user_info = get_token(request, UID, code, redirect_uri)
     if user_info is None:
-        return HttpResponseRedirect("Erreur rec info user", status=400)
+        return JsonResponse({'error': 'Invalid data user'}, status=400)
     username = user_info.get('login')
     if username is None:
-        return HttpResponseRedirect("Erreur rec info user", status=400)
+        return JsonResponse({'error': 'Invalid data user'}, status=400)
     email = user_info.get('email')
 
     users = User.objects.filter(username=username)
     if not users.exists():
-        user = User.objects.create_user(username=username, email=email, password=None)#, backend='allauth.account.auth_backends.AuthenticationBackend')
+        user = User.objects.create_user(username=username, email=email, password=None)
         exist = User.objects.filter(username=username).exists()
         if not exist:
             return render(request, 'index.html')
@@ -57,7 +63,8 @@ def callback(request):
     user.refresh_token = token.get('refresh_token')
     user.save()
 
-    return redirect('batpong')
+    #return redirect('batpong')
+    return JsonResponse({'loginForm': True})
 
 def get_token(request, client_id, code, redirect_uri):
     token_url = 'https://api.intra.42.fr/oauth/token'

@@ -6,7 +6,7 @@
 		<div class="col d-flex justify-content-center align-items-center">
 			<div class="form">
 				<p>{{ message }}</p>
-				<form method="post" action="{% url 'signin' %}">
+				<form id="signinForm" method="post" action="{% url 'signin' %}">
 					{% csrf_token %}
 					{% for field in form %}
 						<div class="d-flex flex-row align-items-center justify-content-between pb-3">
@@ -16,7 +16,7 @@
 					{% endfor %}
 					<button class="btn btn-primary signin sign_in_button" type="submit" >Sign in</button>
 				</form>
-				<form method="post" action="{% url 'cursus_and_users' %}"> 
+				<form id="signin42apiForm" method="post" action="{% url 'cursus_and_users' %}"> 
 					{% csrf_token %}
 					<button class="btn btn-primary signin-42 sign_in_with_button" type="submit">Sign in with 42</button>
 				</form>
