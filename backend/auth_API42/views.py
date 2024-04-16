@@ -1,11 +1,13 @@
 import logging
 import os
+import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from authentication.models import User
 from requests_oauthlib import OAuth2Session
-#from django.http import HttpResponseRedirect
 from django.http import JsonResponse
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +23,6 @@ def get_cursus_and_users(request):
     request.session['oauth_state'] = state
     request.session.save()
     
-    #return HttpResponseRedirect(authorization_url)
     return JsonResponse({
         'authorization_url': authorization_url,
         'state': state
@@ -35,7 +36,6 @@ def callback(request):
 
     code = request.GET.get('code')
     if not code:
-        #return HttpResponseRedirect("No authorization code", status=400)
         return JsonResponse({'error': 'No authorization code'}, status=400)
     if state != stored:
         return JsonResponse({'error': 'Invalid state parameter'}, status=400)
@@ -47,10 +47,13 @@ def callback(request):
     if username is None:
         return JsonResponse({'error': 'Invalid data user'}, status=400)
     email = user_info.get('email')
+    
+    image = user_info.get('image', {}).get('versions', {}).get('medium')   
+    avatar = get_avatar(request, image)
 
     users = User.objects.filter(username=username)
     if not users.exists():
-        user = User.objects.create_user(username=username, email=email, password=None)
+        user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar)
         exist = User.objects.filter(username=username).exists()
         if not exist:
             return render(request, 'index.html')
@@ -63,8 +66,21 @@ def callback(request):
     user.refresh_token = token.get('refresh_token')
     user.save()
 
-    #return redirect('batpong')
-    return JsonResponse({'loginForm': True})
+    return redirect('batpong')
+
+def get_avatar(request, image):
+    response = requests.get(image)
+    image_content = response.content
+
+    uploaded_file = InMemoryUploadedFile(
+        file=ContentFile(image_content),
+        field_name='avatar',
+        name="image.jpg",
+        content_type='image/jpeg',
+        size=len(image_content),
+        charset=None
+    )
+    return uploaded_file
 
 def get_token(request, client_id, code, redirect_uri):
     token_url = 'https://api.intra.42.fr/oauth/token'

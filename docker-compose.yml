@@ -19,7 +19,8 @@ services:
       - UID_CLIENT=${UID_CLIENT}
       - SECRET_CLIENT=${SECRET_CLIENT}
     depends_on:
-      - PostgreSQL
+      PostgreSQL:
+        condition: service_healthy
   
   PostgreSQL:
     container_name : PostgreSQL
@@ -30,6 +31,11 @@ services:
       - POSTGRES_DB=${SQL_NAME}
       - POSTGRES_USER=${SQL_USER}
       - POSTGRES_PASSWORD=${SQL_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   nginx:
     container_name: nginx

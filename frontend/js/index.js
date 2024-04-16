@@ -68,8 +68,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else if (e.target.getAttribute('id') === 'signupForm') {
 			const view = new Signup(router);
 			await view.submitForm(formData);
-		/* } else if (e.target.getAttribute('id') === 'signin42apiForm') {
-			await submitFormSignin42api(formData); */
+		} else if (e.target.getAttribute('id') === 'signin42apiForm') {
+			const view = new Signin();
+			await view.submitForm42API(formData);
 		}
 	});
 

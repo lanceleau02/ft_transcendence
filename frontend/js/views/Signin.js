@@ -41,28 +41,39 @@ export default class extends AbstractView {
 		}
 	}
 
-	/* WORK IN PROGRESS
 	async submitForm42API(formData) {
 		try {
-			const response = await fetch(document.location.origin + '/signin/?Valid=true', {
+			const response1 = await fetch(document.location.origin + '/cursus-and-users', {
 				method: 'POST',
 				body: formData
 			});
-
-			if (!response.ok) {
+	
+			if (!response1.ok) {
 				throw new Error('Failed to get authorization URL');
 			}
-
-			const data = await response.json();
-			if (data.authorization_url) {
-				window.location.href = data.authorization_url;
+	
+			const data1 = await response1.json();
+			if (data1.authorization_url) {
+				window.location.href = data1.authorization_url;
+				return ;
 			}
-			else if (data.loginForm) {
-				window.location.href = document.location.origin + '/batpong/';
+	
+			const response2 = await fetch(document.location.origin + '/callback', {
+				method: 'POST',
+				body: formData
+			});
+	
+			if (!response2.ok) {
+				throw new Error('Failed to get authorization URL');
 			}
-		}
-		catch (error) {
+	
+			const data2 = await response2.json();
+			if (data2.loginForm) {
+				history.pushState(null, null, document.location.origin + '/batpong/');
+				await router();
+			}
+		} catch (error) {
 			console.error('Error getting authorization URL:', error);
 		}
-	} */
+	}
 }
