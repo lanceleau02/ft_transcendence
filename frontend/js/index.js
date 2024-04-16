@@ -44,6 +44,8 @@ const router = async () => {
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
+	
+	// SPA NAVIGATION
 	document.body.addEventListener("click", e => {
 		if (e.target.matches("[data-link]")) {
 			e.preventDefault();
@@ -51,153 +53,43 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
+	// FORMS SUBMISSION
 	document.body.addEventListener("submit", async (e) => {
 		e.preventDefault();
 		const formData = new FormData(e.target);
 		if (e.target.getAttribute('id') === 'logoutForm') {
 			e.target.submit();
 		} else if (e.target.getAttribute('id') === 'usernameForm' || e.target.getAttribute('id') === 'passwordForm' || e.target.getAttribute('id') === 'avatarForm') {
-			await submitFormBatprofile(formData);
+			const view = new Batprofile();
+			await view.submitForm(formData);
 		} else if (e.target.getAttribute('id') === 'signinForm') {
-			await submitFormSignin(formData);
+			const view = new Signin();
+			await view.submitForm(formData);
 		} else if (e.target.getAttribute('id') === 'signupForm') {
-			await submitFormSignup(formData);
-		//} else if (e.target.getAttribute('id') === 'signin42apiForm') {
-		//	await submitFormSignin42api(formData);
-	}
+			const view = new Signup(router);
+			await view.submitForm(formData);
+		/* } else if (e.target.getAttribute('id') === 'signin42apiForm') {
+			await submitFormSignin42api(formData); */
+		}
 	});
 
-/* 	document.body.addEventListener("click", async (e) => {
-		if (e.target.matches("[data-action='send-friend-request']")) {
+	// FRIEND REQUESTS
+	document.body.addEventListener("click", async (e) => {
+		const view = new Batprofile();
+		if (e.target.getAttribute('id') === 'send-friend-request') {
 			e.preventDefault();
-			const userID = e.target.dataset.userId;
-			const formData = new FormData();
-			formData.append('userID', userID);
-			await submitForm(formData, document.location.origin + '/send_friend_request/' + userID);
+			const userID = e.target.getAttribute('user-id');
+			await view.sendFriendRequest(userID);
+		} else if (e.target.getAttribute('id') === 'accept-friend-request') {
+			e.preventDefault();
+			const requestID = e.target.getAttribute('request-id');
+			await view.acceptFriendRequest(requestID);
+		} else if (e.target.getAttribute('id') === 'decline-friend-request') {
+			e.preventDefault();
+			const requestID = e.target.getAttribute('request-id');
+			await view.declineFriendRequest(requestID);
 		}
-	}); */
+	});
 
 	router();
 });
-
-const submitFormBatprofile = async (formData) => {
-	try {
-		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
-			method: 'POST',
-			body: formData
-		});
-
-		if (!response.ok) {
-			throw new Error('Failed to submit form');
-		}
-
-		const data = await response.json();
-		if (data.formUsername) {
-			const newUsername = data.username;
-			const currentUsername = document.getElementById('currentUsername');
-			const username = document.getElementById('username');
-			currentUsername.innerHTML = '<div id="currentUsername"><b>' + newUsername + '</b>.</div>';
-			username.textContent = newUsername;
-		} else if (data.formPassword) {
-			window.location.href = document.location.origin + '/batpong/';
-		} else if (data.formAvatar) {
-			const newAvatar = data.avatar;
-			const avatarNavbar = document.getElementById('avatarNavbar');
-			const avatarBatprofile = document.getElementById('avatarBatprofile');
-			avatarNavbar.src = newAvatar;
-			avatarBatprofile.src = newAvatar;
-		}
-	} catch (error) {
-		console.error('Error submitting form:', error);
-	}
-};
-
-const submitFormSignin = async (formData) => {
-	try {
-		const response = await fetch(document.location.origin + '/signin/?Valid=true', {
-			method: 'POST',
-			body: formData
-		});
-
-		if (!response.ok) {
-			throw new Error('Failed to submit form');
-		}
-
-		const data = await response.json();
-
-		if (data.loginForm) {
-			window.location.href = document.location.origin + '/batpong/';
-		} 
-	} catch (error) {
-		console.error('Error submitting form:', error);
-	}
-};
-
-const submitFormSignup = async (formData) => {
-	try {
-		const response = await fetch(document.location.origin + '/signup/?Valid=true', {
-			method: 'POST',
-			body: formData
-		});
-
-		if (!response.ok) {
-			throw new Error('Failed to submit form');
-		}
-
-		const data = await response.json();
-
-		if (data.signupSuccess) {
-			history.pushState(null, null, document.location.origin + '/signin/');
-			await router();
-		} 
-	} catch (error) {
-		console.error('Error submitting form:', error);
-	}
-};
-
-/* const submitForm = async (formData) => {
-	try {
-		const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
-			method: 'POST',
-			body: formData
-		});
-
-		if (!response.ok) {
-			throw new Error('Failed to submit form');
-		}
-
-		const data = await response.json();
-
-		if (data.friendRequestSent) {
-			history.pushState(null, null, document.location.origin + '/batprofile/');
-			await router();
-		}
-	} catch (error) {
-		console.error('Error submitting form:', error);
-	}
-}; */
-
-/* ne marche pas .. en cours ...
-const submitFormSignin42api = async (formData) => {
-	try {
-		const response = await fetch(document.location.origin + '/signin/?Valid=true', {
-			method: 'POST',
-			body: formData
-		});
-
-		if (!response.ok) {
-			throw new Error('Failed to get authorization URL');
-		}
-
-		const data = await response.json();
-		if (data.authorization_url) {
-            window.location.href = data.authorization_url;
-        }
-		else if (data.loginForm) {
-			window.location.href = document.location.origin + '/batpong/';
-		}
-	}
-	catch (error) {
-		console.error('Error getting authorization URL:', error);
-	}
-}*/

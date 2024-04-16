@@ -43,29 +43,19 @@ def signup(request):
     return render(request, 'index.html', {'form': form})
 
 def send_friend_request(request, userID):
-    if request.method == 'POST':
-        from_user = request.user
-        to_user = User.objects.get(id=userID)
-        friend_request, created = Friend_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
-        if created:
-            return JsonResponse({'success': True})
-        else:
-            return JsonResponse({'success': False, 'message': 'Friend request already sent.'})
-    else:
-        return render(request, 'index.html')
+    from_user = request.user
+    to_user = User.objects.get(id=userID)
+    friend_request, created = Friend_Request.objects.get_or_create(from_user=from_user, to_user=to_user)
+    return JsonResponse({'success': True})
 
 def accept_friend_request(request, requestID):
     friend_request = Friend_Request.objects.get(id=requestID)
     friend_request.to_user.friends.add(friend_request.from_user)
     friend_request.from_user.friends.add(friend_request.to_user)
     friend_request.delete()
-    if request.GET.get('Valid') == "true":
-        return render (request, 'views/batcave.html')
-    return render(request, 'index.html')
+    return JsonResponse({'success': True })
 
 def decline_friend_request(request, requestID):
     friend_request = Friend_Request.objects.get(id=requestID)
     friend_request.delete()
-    if request.GET.get('Valid') == "true":
-        return render (request, 'views/batprofile.html')
-    return render(request, 'index.html')
+    return JsonResponse({'success': True})

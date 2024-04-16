@@ -90,7 +90,7 @@
 									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
 										<div><img class="avatar" src="{{user.avatar.url}}"></div>
 										<div class="name">{{ user }}</div>
-										<div><a href="/send_friend_request/{{user.id}}/"><img class="add-friend-icon" src="{% static 'img/add_friend.png' %}"></a></div>
+										<div>{% csrf_token %}<a href="#"><img id="send-friend-request" user-id="{{ user.id }}" class="add-friend-icon" src="{% static 'img/add_friend.png' %}" title="Add friend"></a></div>
 									</div>
 								{% endif %}
 							{% endif %}
@@ -109,8 +109,8 @@
 						<div class="requests d-flex justify-content-between align-items-center mb-3 p-2">
 							<div><img class="avatar" src="{{ friend_request.from_user.avatar.url }}"></div>
 							<div class="name">{{ friend_request.from_user.username }}</div>
-							<div><a href="/accept_friend_request/{{friend_request.id}}"><img class="accept-icon" src="{% static 'img/accept.png' %}"></a></div>
-							<div><a href="/decline_friend_request/{{friend_request.id}}"><img class="decline-icon" src="{% static 'img/decline.png' %}"></a></div>
+							<div>{% csrf_token %}<a href="#"><img id="accept-friend-request" request-id="{{ friend_request.id }}" class="accept-icon" src="{% static 'img/accept.png' %}" title="Accept"></a></div>
+							<div>{% csrf_token %}<a href="#"><img id="decline-friend-request" request-id="{{ friend_request.id }}" class="decline-icon" src="{% static 'img/decline.png' %}" title="Decline"></a></div>
 						</div>
 						{% empty %}
 							<p class="no_friend_request">No friend requests.</p>
