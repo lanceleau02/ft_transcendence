@@ -12,7 +12,6 @@
 
 .form {
 	background-color: #252525;
-	padding: 15px;
 	border-radius: 25px;
 }
 
@@ -26,7 +25,7 @@
 	color: white;
 }
 
-.signup {
+.sign-up {
 	color: black;
 	background-color: #FFFF00;
 	border: #caca00;

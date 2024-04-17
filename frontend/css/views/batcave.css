@@ -67,7 +67,6 @@ body {
 }
 
 .match-history .box .history {
-	justify-content: center;
 	font-size: x-large;
 }
 
@@ -92,12 +91,7 @@ body {
 /*                                GRAPHIC VIEW                                */
 /* ************************************************************************** */
 
-.graphic-view {
-    height: 100%;
-}
-
 .graphic-view .box {
-	height: 100%;
 	width: 90%;
 	background-color: black;
 }

@@ -85,12 +85,12 @@ const translations = {
 		no_friend_request: "No friend request.",
 		id_username: "Username",
 		id_password: "Password",
-		sign_in_button: "Sign in",
-		sign_in_with_button: "Sign in with 42",
+		sign_in: "Sign in",
+		sign_in_42: "Sign in with 42",
 		not_a_member: "Not a member yet?",
 		sign_up_now: "Sign up now!",
-		sign_up_button: "Sign up",
-		sign_out_button: "Sign out"
+		sign_up: "Sign up",
+		sign_out: "Sign out"
 	},
 	fr: {
 		english: "Anglais",
@@ -126,12 +126,12 @@ const translations = {
 		no_friend_request: "Aucune requête d'ami.",
 		id_username: "Pseudo",
 		id_password: "Mot de passe",
-		sign_in_button: "Se connecter",
-		sign_in_with_button: "Se connecter avec 42",
+		sign_in: "Se connecter",
+		sign_in_42: "Se connecter avec 42",
 		not_a_member: "Pas encore membre ?",
 		sign_up_now: "Créer un compte.",
-		sign_up_button: "S'enregistrer",
-		sign_out_button: "Se déconnecter"
+		sign_up: "S'enregistrer",
+		sign_out: "Se déconnecter"
 	},
 	es: {
 		english: "Inglés",
@@ -167,11 +167,11 @@ const translations = {
 		no_friend_request: "No hay solicitud de amistad.",
 		id_username: "Nombre de usuario",
 		id_password: "Contraseña",
-		sign_in_button: "Iniciar sesión",
-		sign_in_with_button: "Iniciar sesión con 42",
+		sign_in: "Iniciar sesión",
+		sign_in_42: "Iniciar sesión con 42",
 		not_a_member: "¿Todavía no eres miembro?",
 		sign_up_now: "¡Regístrate ahora!",
-		sign_up_button: "Registrarse",
-		sign_out_button: "Cerrar sesión"
+		sign_up: "Registrarse",
+		sign_out: "Cerrar sesión"
 	}
 };

@@ -81,7 +81,6 @@ body {
 
 .profile-pic .box .pic {
 	height: 5rem;
-	border-radius: 50%;
 }
 
 /* ************************************************************************** */
@@ -106,7 +105,6 @@ body {
 
 .friends-list .box .friends .avatar {
 	width: 50px;
-	border-radius: 50%;
 }
 
 .friends-list .box .friends .status {
@@ -117,7 +115,6 @@ body {
 	width: 15px;
 	height: 15px;
 	background: green;
-	border-radius: 50%
 }
 
 @media (max-width: 848px) {
@@ -154,7 +151,6 @@ body {
 
 .all-users .box .users .avatar {
 	width: 50px;
-	border-radius: 50%;
 }
 
 .all-users .box .users .add-friend-icon {
@@ -163,13 +159,6 @@ body {
 
 .all-users .box .users .status {
 	width: 50px;
-}
-
-.all-users .box .users .status {
-	width: 10px;
-	height: 10px;
-	background: green;
-	border-radius: 50%
 }
 
 @media (max-width: 848px) {
@@ -206,7 +195,6 @@ body {
 
 .add-friend .box .requests .avatar {
 	width: 50px;
-	border-radius: 50%;
 }
 
 .add-friend .box .requests .accept-icon {

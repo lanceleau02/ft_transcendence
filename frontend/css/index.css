@@ -22,21 +22,12 @@
 	background-color: #FFFF00;
 }
 
-.navbar-brand {
-	margin-right: 50px;
-}
-
 .logo {
 	width: 100px;
 }
 
 .nav-item {
 	font-family: Aclonica;
-	padding-left: 25px;
-}
-
-.btn-profile {
-	padding-left: 0px;
 }
 
 .nav-link:hover {
@@ -60,18 +51,8 @@
 	margin-left: -100px;
 }
 
-.sign_out_button {
-	background: none;
-	border: none;
-}
-
 .dropdown-menu> li> a:hover {
 	background-color: #aaaa00;
-	text-decoration: none;
-}
-
-.lang {
-	margin-right: 20px;
 }
 
 .active-lang {
@@ -83,7 +64,6 @@
 	height: 25px;
 }
 
-.pp {
-	border-radius: 50%;
+.avatar {
 	width: 50px;
 }
