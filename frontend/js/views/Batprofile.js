@@ -1,9 +1,10 @@
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
-    constructor() {
+    constructor(router) {
         super();
         this.setTitle("Batprofile");
+        this.router = router;
     }
 
     async getHtml() {
@@ -70,7 +71,7 @@ export default class extends AbstractView {
 			const data = await response.json();
 	
 			if (data.success) {
-	
+                
 			}
 		} catch (error) {
 			console.error('Error sending friend request:', error);
@@ -86,8 +87,6 @@ export default class extends AbstractView {
                 method: 'POST',
                 headers: myHeaders
             });
-    
-            console.log("je suis la batard")
     
             if (!response.ok) {
                 throw new Error('Failed to accept friend request');
@@ -125,5 +124,55 @@ export default class extends AbstractView {
         } catch (error) {
             console.error('Error accepting friend request:', error);
         }
+    }
+
+    async refreshFriendRequests() {
+        try {
+            const modals = document.querySelectorAll('.modal.show');
+            if (modals.length > 0) {
+                return;
+            }
+
+            const response = await fetch(document.location.origin + '/batprofile/?Valid=true', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to refresh friend requests');
+            }
+    
+            const html = await response.text();
+            const parser = new DOMParser();
+            const htmlDocument = parser.parseFromString(html, 'text/html');
+
+            const friendRequest = htmlDocument.querySelector('.requests');
+            const friendRequestBis = document.querySelector('.requests');
+
+            const newUser = htmlDocument.querySelector('.users');
+            const newUserBis = document.querySelector('.users');
+
+            const newFriend = htmlDocument.querySelector('.friends');
+            const newFriendBis = document.querySelector('.friends');
+
+            if (friendRequest != friendRequestBis || newUser != newUserBis || newFriend != newFriendBis) {
+                history.pushState(null, null, document.location.origin + '/batprofile/');
+			    await this.router();
+            }
+        } catch (error) {
+            console.error('Error refreshing friend requests:', error);
+        }
+    }
+
+    async startAutoRefresh() {
+        setInterval(async () => {
+            await this.refreshFriendRequests();
+        }, 1000);
+    }
+
+    async onRender() {
+        await this.startAutoRefresh();
     }
 }
