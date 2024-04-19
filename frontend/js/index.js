@@ -39,12 +39,10 @@ const router = async () => {
 	
 	document.querySelector("#app").innerHTML = await view.getHtml();
 	translation();
-
 };
 
 const viewBatprofile = new Batprofile(router);
 await viewBatprofile.onRender();
-
 
 window.addEventListener("popstate", router);
 

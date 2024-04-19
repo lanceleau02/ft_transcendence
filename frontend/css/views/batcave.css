@@ -96,12 +96,6 @@ body {
 	background-color: black;
 }
 
-.graphic-view .box .pie-chart {
-	height: 35%;
-	width: 85%;
-	background-color: aqua;
-}
-
 .graphic-view .box .curve-graph {
 	height: 35%;
 	width: 85%;

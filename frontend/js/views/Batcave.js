@@ -1,4 +1,6 @@
 import AbstractView from "./AbstractView.js";
+import { pieChart } from "../visualization/pie.js";
+import { curveGraph } from "../visualization/curve.js";
 
 export default class extends AbstractView {
 	constructor() {
@@ -17,6 +19,10 @@ export default class extends AbstractView {
 
 		// Extract the HTML content from the response
 		const html = await response.text();
+
+		setTimeout(pieChart, 0);
+		setTimeout(curveGraph, 0);
+
 		return html;
 	}
 }
