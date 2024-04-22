@@ -129,7 +129,7 @@ export default class extends AbstractView {
     async refreshFriendRequests() {
         try {
             const modals = document.querySelectorAll('.modal.show');
-            if (modals.length > 0) {
+            if (modals.length > 0 || window.location.href !== document.location.origin + '/batprofile/') {
                 return;
             }
 
