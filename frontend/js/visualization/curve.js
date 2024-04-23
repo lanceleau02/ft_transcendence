@@ -1,17 +1,19 @@
 export function curveGraph() {
-    const userDataDiv = document.getElementById('userData');
-    const matchesString = userDataDiv.getAttribute('last_ten_matches');
-    console.log('Matches String:', matchesString); // Log matchesString to the console
-    
-    // Convert the comma-separated string into an array of numbers
-    const matches = matchesString.split(',').map((match, index) => {
-        const number = Number(match);
-        console.log(`Value at index ${index}:`, number); // Log each value to the console
-        return number;
-    });
-    console.log('Matches Array:', matches); // Log matches array to the console
-    
-    const data = matches.map((match, index) => ({ x: index, y: match }));
+    const userDataDiv = document.getElementById('userData')
+	const matches = userDataDiv.getAttribute('last_ten_matches')
+
+    const data = [
+        { x: 0, y: 3 },
+        { x: 1, y: 2 },
+        { x: 2, y: 1 },
+        { x: 3, y: 2 },
+        { x: 4, y: 2 },
+        { x: 5, y: 3 },
+        { x: 6, y: 2 },
+        { x: 7, y: 1 },
+        { x: 8, y: 3 },
+        { x: 9, y: 1 },
+    ];
 
     // Function to draw the curve chart
     function drawCurveChart(data) {
@@ -23,7 +25,7 @@ export function curveGraph() {
 
         // Calculate the maximum values of x and y
         const maxX = Math.max(...data.map(point => point.x));
-        const maxY = 3;
+        const maxY = Math.max(...data.map(point => point.y));
 
         // Calculate the scaling factor
         const scaleX = canvas.width / maxX;

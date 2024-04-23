@@ -3,6 +3,7 @@ from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPa
 from authentication.models import User, Friend_Request, Match
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db import models
 
 def home(request):
 	user = request.user
@@ -28,14 +29,18 @@ def batpong(request):
 			return render(request, "views/batpong.html", {'MatchForm':MatchForm})
 	return render(request, "index.html")
 
+from django.core.serializers import serialize
+
 def batcave(request):
-	if request.GET.get('Valid') == "true":
-		if request.user.is_authenticated == False:
-			form = LoginForm()
-			return render(request, 'views/signin.html', context={'form': form})
-		user = request.user
-		return render(request, "views/batcave.html", {'user': user})
-	return render(request, "index.html")
+    if request.GET.get('Valid') == "true":
+        if request.user.is_authenticated == False:
+            form = LoginForm()
+            return render(request, 'views/signin.html', context={'form': form})
+        user = request.user
+        last_ten_matches = Match.objects.filter(models.Q(winner=user) | models.Q(loser=user)).order_by('-match_date')[:10]
+        matches_json = serialize('json', last_ten_matches)  # Serialize queryset to JSON
+        return render(request, "views/batcave.html", {'user': user, 'last_ten_matches': matches_json})
+    return render(request, "index.html")
 
 def batprofile(request):
 	if request.GET.get('Valid') == "true":
