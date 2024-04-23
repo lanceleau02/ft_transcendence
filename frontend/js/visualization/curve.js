@@ -1,14 +1,17 @@
 export function curveGraph() {
-	// Sample data
-    const data = [
-        { x: 0, y: 20 },
-        { x: 1, y: 30 },
-        { x: 2, y: 25 },
-        { x: 3, y: 40 },
-        { x: 4, y: 35 },
-        { x: 5, y: 40 },
-		{ x: 6, y: 55 }
-    ];
+    const userDataDiv = document.getElementById('userData');
+    const matchesString = userDataDiv.getAttribute('last_ten_matches');
+    console.log('Matches String:', matchesString); // Log matchesString to the console
+    
+    // Convert the comma-separated string into an array of numbers
+    const matches = matchesString.split(',').map((match, index) => {
+        const number = Number(match);
+        console.log(`Value at index ${index}:`, number); // Log each value to the console
+        return number;
+    });
+    console.log('Matches Array:', matches); // Log matches array to the console
+    
+    const data = matches.map((match, index) => ({ x: index, y: match }));
 
     // Function to draw the curve chart
     function drawCurveChart(data) {
@@ -20,7 +23,7 @@ export function curveGraph() {
 
         // Calculate the maximum values of x and y
         const maxX = Math.max(...data.map(point => point.x));
-        const maxY = Math.max(...data.map(point => point.y));
+        const maxY = 3;
 
         // Calculate the scaling factor
         const scaleX = canvas.width / maxX;
@@ -31,7 +34,7 @@ export function curveGraph() {
         ctx.moveTo(data[0].x * scaleX + 25, canvas.height - data[0].y * scaleY);
 
         for (let i = 1; i < data.length; i++) {
-            ctx.lineTo(data[i].x * scaleX, canvas.height - data[i].y * scaleY - 25 );
+            ctx.lineTo(data[i].x * scaleX, canvas.height - data[i].y * scaleY);
         }
 
         // Draw a line to close the path and fill the area under the curve
@@ -54,15 +57,19 @@ export function curveGraph() {
         ctx.lineTo(25, canvas.height);
         ctx.stroke();
 
-        ctx.fillStyle = 'black';
+        ctx.fillStyle = 'white';
         ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        const legendCount = 5; // Number of legend values
+        const legendCount = 4; // Number of legend values
         for (let i = 0; i < legendCount; i++) {
             const yPos = (canvas.height - 15) - (i * (canvas.height - 30) / (legendCount - 1));
             const value = Math.round(i * maxY / (legendCount - 1));
             ctx.fillText(value.toString(), 20, yPos);
         }
+
+        ctx.fillStyle = '#fff';
+        ctx.font = '18px Comic Sans MS';
+        ctx.fillText("Scored points history", 0, 0);
     }
 
     // Call the drawCurveChart function with the data

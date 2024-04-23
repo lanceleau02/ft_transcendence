@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.db import models
+from django.http import JsonResponse
 
 class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
@@ -16,18 +17,26 @@ class User(AbstractBaseUser):
 
 	objects = UserManager()
 
-	def get_last_three_matches(self):
-		last_matches = Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:3]
-		return last_matches
+	def last_three_matches(self):
+		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:3]
+	
+	def last_ten_matches(self):
+		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:10]
 	
 	def total_matches_played(self):
-		return Match.objects.filter(Q(winner=self) | Q(loser=self)).count()
+		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).count()
 
 	def total_wins(self):
 		return Match.objects.filter(winner=self).count()
 
 	def total_losses(self):
 		return Match.objects.filter(loser=self).count()
+	
+	def win_rate(self):
+		if self.total_matches_played() > 0:
+			win_rate = (self.total_wins() / self.total_matches_played()) * 100
+			return round(win_rate, 0)
+		return 0
 
 class Friend_Request(models.Model):
 	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)

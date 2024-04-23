@@ -1,7 +1,13 @@
 export function pieChart() {
-	const victories = 58;
-	const defeats = 42;
-	
+	const userDataDiv = document.getElementById('userData')
+	const victories = userDataDiv.getAttribute('wins')
+	const defeats = userDataDiv.getAttribute('losses')
+	const total_games = userDataDiv.getAttribute('played_games')
+
+	const win_ratio = (victories / total_games) * 100
+	const lose_ratio = (defeats / total_games) * 100
+
+
 	const canvas = document.getElementById('pieChart');
 	const ctx = canvas.getContext('2d');
 	const centerX = (canvas.width) / 2;
@@ -24,16 +30,16 @@ export function pieChart() {
 	}
 	
 	function drawPieChart() {
-		const total = victories + defeats;
+		const total = win_ratio + lose_ratio;
 		let startAngle = 0;
 		let endAngle = 0;
 	
-		endAngle = (victories / total) * (Math.PI * 2);
+		endAngle = (win_ratio / total) * (Math.PI * 2);
 		drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, '#2ecc71');
 		drawText(ctx, 'Victories', centerX - 135, centerY + 120);
 		startAngle = endAngle;
 	
-		endAngle = (defeats / total) * (Math.PI * 2);
+		endAngle = (lose_ratio / total) * (Math.PI * 2);
 		drawPieSlice(ctx, centerX, centerY, radius, startAngle, startAngle + endAngle, '#e74c3c');
 		drawText(ctx, 'Defeats', centerX + 75, centerY - 100);
 	}

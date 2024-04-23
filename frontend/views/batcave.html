@@ -25,16 +25,16 @@
 					<div class="stats">
 						<div class="d-flex justify-content-between align-items-center mb-4">
 							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
-							<div><b>2 - 1</b></div>
+							<div><b>{{ user.total_wins }} - {{ user.total_losses }}</b></div>
 							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
 						</div>
 						<div class="d-flex">
 							<div class="mb-4 me-2 played_games">PLAYED GAMES:</div>
-							<div><b>3</b></div>
+							<div><b>{{ user.total_matches_played }}</b></div>
 						</div>
 						<div class="d-flex">
 							<div class="mb-4 me-2 win_ratio">WIN RATIO:</div>
-							<div><b>67%</b></div>
+							<div><b>{{ user.win_rate }}%</b></div>
 						</div>
 					</div>
 				</div>
@@ -48,28 +48,26 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="history">
-						<div class="first d-flex mb-3">
-							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
-							<div class="d-flex flex-column align-items-center">
-								<div class="victory">VICTORY</div>
-								<div class="score"><b>11 - 5</b></div>
+						{% for last_three_matches in user.last_three_matches %}
+							<div class="first d-flex mb-3">
+								{% if last_three_matches.winner.username == user.username %}
+									<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+								{% else %}
+									<img class="img-type" src="{% static 'img/joker_vec.png' %}">
+								{% endif %}
+								<div class="d-flex flex-column align-items-center">
+									{% if last_three_matches.winner.username == user.username %}
+										<div class="victory">VICTORY</div>
+									{% else %}
+										<div class="defeat">DEFEAT</div>
+									{% endif %}
+									<div class="score"><b>{{ last_three_matches.score }}</b></div>
+								</div>
 							</div>
-						</div>
-						<div class="second d-flex mb-3">
-							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
-							<div class="d-flex flex-column align-items-center">
-								<div class="defeat">DEFEAT</div>
-								<div class="score"><b>9 - 11</b></div>
-							</div>
-						</div>
-						<div class="third d-flex">
-							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
-							<div class="d-flex flex-column align-items-center">
-								<div class="victory">VICTORY</div>
-								<div class="score"><b>11 - 5</b></div>
-							</div>
-						</div>
-					</div>
+							{% empty %}
+								<p class="no_match_history">No match history.</p>
+						{% endfor %}
+					</div>					
 				</div>
 			</div>
 		</div>
@@ -79,8 +77,13 @@
 					<h3 class="graphic_view">GRAPHIC VIEW</h3>
 				</div>
 				<div class="box d-flex flex-column flex-nowrap justify-content-around align-items-center">
-					<canvas id="pieChart" class="pie-chart" width="300px" height="300px"></canvas>
-					<canvas id="curveGraph" width="300" height="200"></canvas>
+					{% if user.total_matches_played < 2 %}
+						<p class="not_enough_data">Not enough data.</p>			
+					{% else %}
+						<div style="display: none;" id="userData" wins="{{ user.total_wins }}" losses="{{ user.total_losses }}" played_games="{{ user.total_matches_played}}" last_ten_matches="{{ user.last_ten_matches }}"></div>
+						<canvas id="pieChart" class="pie-chart" width="300px" height="300px"></canvas>
+						<canvas id="curveGraph" width="300" height="200"></canvas>
+					{% endif %}
 				</div>
 			</div>
 		</div>
