@@ -74,6 +74,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else if (e.target.getAttribute('id') === 'signin42apiForm') {
 			const view = new Signin();
 			await view.submitForm42API(formData);
+		} else if (e.target.getAttribute('id') === 'MatchForm') {
+			const view = new Batpong();
+			await view.getMatchResults(formData);
 		}
 	});
 

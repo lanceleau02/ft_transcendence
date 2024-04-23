@@ -1,5 +1,5 @@
 from django import forms
-from .models import User
+from .models import User, Match
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
@@ -32,6 +32,16 @@ class AvatarForm(forms.ModelForm):
         labels = {
             'avatar': 'Select an image:'
         }
+
+class MatchForm(forms.ModelForm):
+    class Meta:
+        model = Match
+        fields = ['winner', 'loser', 'score']
+
+    def __init__(self, *args, **kwargs):
+        super(MatchForm, self).__init__(*args, **kwargs)
+        self.fields['winner'].queryset = User.objects.all()
+        self.fields['loser'].queryset = User.objects.all()
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(

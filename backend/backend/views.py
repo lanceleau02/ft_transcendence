@@ -1,12 +1,32 @@
 from django.shortcuts import render
-from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm
-from authentication.models import User, Friend_Request
+from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm, MatchForm
+from authentication.models import User, Friend_Request, Match
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
 def home(request):
 	user = request.user
 	return render(request, "index.html", {'user': user})
+
+def batpong(request):
+	form = MatchForm()
+	if request.method == 'POST':
+		form = MatchForm(request.POST)
+		if form.is_valid():
+			form.save()
+			last_match = Match.objects.last()
+			return JsonResponse({'MatchForm': True, 
+				'winner': last_match.winner.username,
+				'loser': last_match.loser.username,
+				'score': last_match.score
+			})
+		else:
+			errors = form.errors.as_json()
+			return JsonResponse({'success': False, 'errors': errors})
+	else:
+		if request.GET.get('Valid') == "true":
+			return render(request, "views/batpong.html", {'MatchForm':MatchForm})
+	return render(request, "index.html")
 
 def batcave(request):
 	if request.GET.get('Valid') == "true":
@@ -58,9 +78,4 @@ def batprofile(request):
 					'all_friend_request':all_friend_request,
 					'friends':friends,
 				})
-	return render(request, "index.html")
-
-def batpong(request):
-	if request.GET.get('Valid') == "true":
-		return render(request, "views/batpong.html")
 	return render(request, "index.html")

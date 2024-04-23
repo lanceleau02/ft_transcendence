@@ -2,7 +2,27 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col p-0 overflow-hidden" style="height: calc(100vh - 85.08px);">
-				<iframe class="w-100 h-100" src="https://sethclydesdale.github.io/browser-pong/" allowfullscreen></iframe>
+				<form id="MatchForm" method="post">
+					{% csrf_token %}
+					<!-- Champs générés par MatchForm -->
+					<div>
+						{{ MatchForm.winner.label_tag }}
+						{{ MatchForm.winner }}
+						{{ MatchForm.winner.errors }}
+					</div>
+					<div>
+						{{ MatchForm.loser.label_tag }}
+						{{ MatchForm.loser }}
+						{{ MatchForm.loser.errors }}
+					</div>
+					<div>
+						{{ MatchForm.score.label_tag }}
+						{{ MatchForm.score }}
+						{{ MatchForm.score.errors }}
+					</div>
+					<!-- Bouton de soumission -->
+					<button type="submit">Submit</button>
+				</form>
 			</div>
 		</div>
 	</div>

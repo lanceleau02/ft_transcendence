@@ -19,4 +19,26 @@ export default class extends AbstractView {
 		const html = await response.text();
 		return html;
 	}
+
+	async getMatchResults(formData) {
+		try {
+			const myHeaders = new Headers();
+			myHeaders.append('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+	
+			const response = await fetch(document.location.origin + '/batpong/?Valid=true', {
+				method: 'POST',
+				headers: myHeaders,
+				body: formData // Pass formData as the body of the request
+			});
+	
+			if (!response.ok) {
+				throw new Error('Failed to submit form');
+			}
+	
+			const data = await response.json();
+			console.log(data);
+		} catch (error) {
+			console.error('Error submitting form:', error);
+		}
+	}
 }
