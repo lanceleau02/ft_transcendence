@@ -63,10 +63,6 @@ export function curveGraph() {
             const value = i;
             ctx.fillText(value.toString(), 20, yPos);
         }
-
-        ctx.fillStyle = '#fff';
-        ctx.font = '18px Comic Sans MS';
-        ctx.fillText("Scored points history", 0, 0);
     }
 
     // Call the drawCurveChart function with the data

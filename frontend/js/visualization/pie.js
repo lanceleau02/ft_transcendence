@@ -11,7 +11,7 @@ export function pieChart() {
 	const ctx = canvas.getContext('2d');
 	const centerX = (canvas.width) / 2;
 	const centerY = (canvas.height) / 2;
-	const radius = Math.min(canvas.width - 75, canvas.height - 75) / 2;
+	const radius = Math.min(canvas.width - 50, canvas.height - 50) / 2;
 	
 	function drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
 		ctx.fillStyle = color;
@@ -35,12 +35,10 @@ export function pieChart() {
 	
 		endAngle = (win_ratio / total) * (Math.PI * 2);
 		drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, '#2ecc71');
-		drawText(ctx, 'Victories', centerX - 135, centerY + 120);
 		startAngle = endAngle;
 	
 		endAngle = (lose_ratio / total) * (Math.PI * 2);
 		drawPieSlice(ctx, centerX, centerY, radius, startAngle, startAngle + endAngle, '#e74c3c');
-		drawText(ctx, 'Defeats', centerX + 75, centerY - 100);
 	}
 	
 	drawPieChart();

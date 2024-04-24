@@ -96,10 +96,12 @@ body {
 	background-color: black;
 }
 
-.graphic-view .box .curve-graph {
-	height: 35%;
-	width: 85%;
-	background-color: chartreuse;
+#userData {
+	display: none;
+}
+
+#curveGraph {
+	margin-left: -20px
 }
 
 /* ************************************************************************** */
