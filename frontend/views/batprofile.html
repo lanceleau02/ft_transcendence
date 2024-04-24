@@ -51,7 +51,7 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div>
-						<img id="avatarBatprofile" class="pic rounded-circle" src="{{user.avatar.url}}">
+						<img id="avatarBatprofile" class="pic" src="{{user.avatar.url}}">
 					</div>
 				</div>
 				<div class="label align-self-center px-4">
@@ -64,11 +64,11 @@
 				<div class="label align-self-center px-4">
 					<h3 class="friends_list">FRIENDS LIST</h3>
 				</div>
-				<div class="box d-flex flex-column position-relative align-items-center py-3">
+				<div class="box d-flex flex-column position-rlative align-items-center py-3">
 					<ul class="p-0">
 						{% for friend in friends %}
 							<div class="friends d-flex justify-content-between align-items-center mb-3 p-2">
-								<div><img class="avatar rounded-circle" src="{{friend.avatar.url}}"></div>
+								<div><img class="avatar" src="{{friend.avatar.url}}"></div>
 								<div class="name">{{ friend.username }}</div>
 								<div class="status rounded-circle"></div>
 							</div>
@@ -88,7 +88,7 @@
 							{% if not user.is_superuser %}
 								{% if user not in request.user.friends.all and user != request.user %}
 									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
-										<div><img class="avatar rounded-circle" src="{{user.avatar.url}}"></div>
+										<div><img class="avatar" src="{{user.avatar.url}}"></div>
 										<div class="name">{{ user }}</div>
 										<div>{% csrf_token %}<a href="#"><img id="send-friend-request" user-id="{{ user.id }}" class="add-friend-icon" src="{% static 'img/add_friend.png' %}" title="Add friend"></a></div>
 									</div>
@@ -107,7 +107,7 @@
 				<div class="box d-flex flex-column position-relative align-items-center py-3">
 					{% for friend_request in all_friend_request %}
 						<div class="requests d-flex justify-content-between align-items-center mb-3 p-2">
-							<div><img class="avatar rounded-circle" src="{{ friend_request.from_user.avatar.url }}"></div>
+							<div><img class="avatar" src="{{ friend_request.from_user.avatar.url }}"></div>
 							<div class="name">{{ friend_request.from_user.username }}</div>
 							<div>{% csrf_token %}<a href="#"><img id="accept-friend-request" request-id="{{ friend_request.id }}" class="accept-icon" src="{% static 'img/accept.png' %}" title="Accept"></a></div>
 							<div>{% csrf_token %}<a href="#"><img id="decline-friend-request" request-id="{{ friend_request.id }}" class="decline-icon" src="{% static 'img/decline.png' %}" title="Decline"></a></div>

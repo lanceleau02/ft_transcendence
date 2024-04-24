@@ -80,7 +80,10 @@ body {
 }
 
 .profile-pic .box .pic {
-	height: 5rem;
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 /* ************************************************************************** */
@@ -105,6 +108,9 @@ body {
 
 .friends-list .box .friends .avatar {
 	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .friends-list .box .friends .status {
@@ -151,6 +157,9 @@ body {
 
 .all-users .box .users .avatar {
 	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .all-users .box .users .add-friend-icon {
@@ -195,6 +204,9 @@ body {
 
 .add-friend .box .requests .avatar {
 	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .add-friend .box .requests .accept-icon {
