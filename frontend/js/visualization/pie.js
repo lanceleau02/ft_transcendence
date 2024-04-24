@@ -7,7 +7,6 @@ export function pieChart() {
 	const win_ratio = (victories / total_games) * 100
 	const lose_ratio = (defeats / total_games) * 100
 
-
 	const canvas = document.getElementById('pieChart');
 	const ctx = canvas.getContext('2d');
 	const centerX = (canvas.width) / 2;

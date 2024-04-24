@@ -20,9 +20,6 @@ class User(AbstractBaseUser):
 	def last_three_matches(self):
 		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:3]
 	
-	def last_ten_matches(self):
-		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:10]
-	
 	def total_matches_played(self):
 		return Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).count()
 
@@ -37,6 +34,18 @@ class User(AbstractBaseUser):
 			win_rate = (self.total_wins() / self.total_matches_played()) * 100
 			return round(win_rate, 0)
 		return 0
+	
+	def user_score(self):
+		matches = Match.objects.filter(models.Q(winner=self) | models.Q(loser=self)).order_by('-match_date')[:10]
+		match_info = []
+		for match in matches:
+			score_parts = match.score.split('-')
+			if match.winner == self:
+				user_score = int(score_parts[0])
+			else:
+				user_score = int(score_parts[1])
+			match_info.append(user_score)
+		return match_info
 
 class Friend_Request(models.Model):
 	from_user = models.ForeignKey(User, related_name='from_user', on_delete=models.CASCADE)

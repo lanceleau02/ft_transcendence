@@ -80,7 +80,7 @@
 					{% if user.total_matches_played < 2 %}
 						<p class="not_enough_data">Not enough data.</p>			
 					{% else %}
-						<div style="display: none;" id="userData" wins="{{ user.total_wins }}" losses="{{ user.total_losses }}" played_games="{{ user.total_matches_played}}" last_ten_matches="{{ user.last_ten_matches }}"></div>
+						<div style="display: none;" id="userData" wins="{{ user.total_wins }}" losses="{{ user.total_losses }}" played_games="{{ user.total_matches_played}}" user_score="{{ user.user_score }}"></div>
 						<canvas id="pieChart" class="pie-chart" width="300px" height="300px"></canvas>
 						<canvas id="curveGraph" width="300" height="200"></canvas>
 					{% endif %}

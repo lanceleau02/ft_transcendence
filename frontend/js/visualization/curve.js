@@ -1,19 +1,14 @@
 export function curveGraph() {
-    const userDataDiv = document.getElementById('userData')
-	const matches = userDataDiv.getAttribute('last_ten_matches')
+    const userScore = document.getElementById('userData').getAttribute('user_score');
+    const userData = JSON.parse(userScore)
 
-    const data = [
-        { x: 0, y: 3 },
-        { x: 1, y: 2 },
-        { x: 2, y: 1 },
-        { x: 3, y: 2 },
-        { x: 4, y: 2 },
-        { x: 5, y: 3 },
-        { x: 6, y: 2 },
-        { x: 7, y: 1 },
-        { x: 8, y: 3 },
-        { x: 9, y: 1 },
-    ];
+    const data = [];
+
+    const maxLength = Math.min(userData.length, 10);
+
+    for (let i = maxLength - 1; i >= 0; i--) {
+        data.push({ x: maxLength - 1 - i, y: userData[i] });
+    }
 
     // Function to draw the curve chart
     function drawCurveChart(data) {
@@ -65,7 +60,7 @@ export function curveGraph() {
         const legendCount = 4; // Number of legend values
         for (let i = 0; i < legendCount; i++) {
             const yPos = (canvas.height - 15) - (i * (canvas.height - 30) / (legendCount - 1));
-            const value = Math.round(i * maxY / (legendCount - 1));
+            const value = i;
             ctx.fillText(value.toString(), 20, yPos);
         }
 
