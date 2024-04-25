@@ -45,7 +45,8 @@
 	color: white;
 }
 
-.sign-up-now {
+.sign-up-now,
+.sign-up-now:hover {
 	font-family: "Aclonica", sans-serif;
 	color: white;
 }

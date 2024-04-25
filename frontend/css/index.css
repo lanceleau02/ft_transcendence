@@ -42,13 +42,13 @@
 }
 
 .dropdown-menu.languages.show {
-	margin-left: -35px;
+	right: 0;
+	left: auto;
 }
 
 .dropdown-menu.signout.show {
-	display: flex;
-	justify-content: center;
-	margin-left: -100px;
+	right: 0;
+	left: auto;
 }
 
 .dropdown-menu> li> a:hover {
