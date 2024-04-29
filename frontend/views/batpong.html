@@ -1,14 +1,12 @@
 {% load static %}
-<link id="batpongcss" rel="stylesheet" href="{% static 'css/views/batpong.css' %}">
+<link rel="stylesheet" href="{% static 'css/views/batpong.css' %}">
 
 <section>
-	<canvas id="boardpong" width="1440px" height="720px"></canvas>
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col p-0 overflow-hidden" style="height: calc(100vh - 85.08px);">
-				<form id="MatchForm" method="post">
+		<div class="row" style="height: calc(100vh - 85.08px);">
+				<canvas id="boardpong" width="1920px" height="1080px"></canvas>
+				<!-- <form id="MatchForm" method="post">
 					{% csrf_token %}
-					<!-- Champs générés par MatchForm -->
 					<div>
 						{{ MatchForm.winner.label_tag }}
 						{{ MatchForm.winner }}
@@ -24,10 +22,8 @@
 						{{ MatchForm.score }}
 						{{ MatchForm.score.errors }}
 					</div>
-					<!-- Bouton de soumission -->
 					<button type="submit">Submit</button>
-				</form>
-			</div>
+				</form> -->
 		</div>
 	</div>
 </section>
