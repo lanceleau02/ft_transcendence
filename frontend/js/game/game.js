@@ -1,19 +1,41 @@
-async function wait2get(id) {
-	// Try to get the element a first time
-	var element = document.getElementById(id);
+import { wait2get } from "./game_utils.js";
 
-	// Loop while it's not loaded
-	while (element == null) {
-		await new Promise(r => setTimeout(r, 100));
-		element = document.getElementById(id);
+async function menu(canvas, ctx) {
+	canvas.style.display = 'none';
+
+	const modeButtons = document.querySelectorAll('.mode');
+	const versionButtons = document.querySelectorAll('.version');
+
+	modeButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            modeButtons.forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        });
+    });
+
+    versionButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            versionButtons.forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        });
+    });
+
+	function isGameModeActive() {
+		let isActive = false;
+        modeButtons.forEach(function (button) {
+            if (button.classList.contains('active')) {
+                isActive = true;
+            }
+        });
+        return isActive;
 	}
-	return element;
 }
 
-async function drawBoard() {
-	const canvas = await wait2get('boardpong');
-    const ctx = canvas.getContext('2d');
-
+async function drawBoard(ctx) {
     // Draw background
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -32,5 +54,9 @@ async function drawBoard() {
 }
 
 export async function game() {
-	drawBoard();
+	const canvas = await wait2get('boardpong');
+    const ctx = canvas.getContext('2d');
+
+	menu(canvas, ctx);
+	drawBoard(ctx);
 }
