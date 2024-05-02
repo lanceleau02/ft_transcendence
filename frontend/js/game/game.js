@@ -3,15 +3,29 @@ import { wait2get } from "./game_utils.js";
 async function menu(canvas, ctx) {
 	canvas.style.display = 'none';
 
-	const modeButtons = document.querySelectorAll('.mode');
-	const versionButtons = document.querySelectorAll('.version');
+    const modeButtons = document.querySelectorAll('.mode');
+    const versionButtons = document.querySelectorAll('.version');
+    const classicButton = document.getElementById('classic');
+    const customButton = document.getElementById('custom');
+    const playButton = document.getElementById('play');
 
-	modeButtons.forEach(function (button) {
+	playButton.style.display = 'none';
+
+    function isModeSelected() {
+        return [...modeButtons].some(button => button.classList.contains('active'));
+    }
+
+    modeButtons.forEach(function (button) {
         button.addEventListener('click', function () {
             modeButtons.forEach(function (btn) {
                 btn.classList.remove('active');
             });
             button.classList.add('active');
+            if (isModeSelected() && classicButton.classList.contains('active')) {
+                runGame();
+            } else if (isModeSelected() && customButton.classList.contains('active')) {
+                displayAdditionalOptions();
+            }
         });
     });
 
@@ -21,18 +35,23 @@ async function menu(canvas, ctx) {
                 btn.classList.remove('active');
             });
             button.classList.add('active');
+            if (isModeSelected() && classicButton.classList.contains('active')) {
+                runGame();
+            } else if (isModeSelected() && customButton.classList.contains('active')) {
+                displayAdditionalOptions();
+            }
         });
     });
 
-	function isGameModeActive() {
-		let isActive = false;
-        modeButtons.forEach(function (button) {
-            if (button.classList.contains('active')) {
-                isActive = true;
-            }
-        });
-        return isActive;
-	}
+    function runGame() {
+	    playButton.style.display = '';
+        console.log('Running the game...');
+    }
+
+    function displayAdditionalOptions() {
+	    playButton.style.display = 'none';
+        console.log('Displaying additional options...');
+    }
 }
 
 async function drawBoard(ctx) {

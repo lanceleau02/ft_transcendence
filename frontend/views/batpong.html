@@ -4,77 +4,29 @@
 <section>
 	<div class="container-fluid">
 		<div id="batpong" class="row">
-			<div class="col d-flex justify-content-center align-items-center">
+			<div class="col d-flex flex-column justify-content-center align-items-center">
 				<div id="first-menu">
 					<h1 class="welcome d-flex flex-column align-items-center pb-3">Welcome to the Batpong!</h1>
-					<h6 class="d-flex flex-column align-items-center pb-3">Please select the game mode of the Pong you want to play.</h2>
+					
+					<h6 class="d-flex flex-column align-items-center pb-3">Please select the game mode of the Pong you want to play.</h6>
 					<div class="d-grid gap-2">
 						<button id="versus" class="btn btn-light mode">1VS1</button>
 						<button id="ai" class="btn btn-light mode">AI Opponent</button>
 						<button id="tournament" class="btn btn-light mode">Tournament</button>
 					</div>
-					<h6 class="d-flex flex-column align-items-center p-3">Please select the version of the Pong you want to play.</h2>
+
+					<h6 class="d-flex flex-column align-items-center p-3">Please select the version of the Pong you want to play.</h6>
 					<div class="d-grid gap-2">
 						<button id="classic" class="btn btn-light version">Classic</button>
 						<button id="custom" class="btn btn-light version">Custom</button>
 					</div>
+
+					<div class="d-flex flex-column align-items-center">
+						<button id="play" class="btn btn-light version mt-3">Let's play!</button>
+					</div>
 				</div>
+				<canvas id="boardpong" width="1920px" height="1080px"></canvas>
 			</div>
-
-			<!-- <div class="d-flex flex-column justify-content-center" style="background-color: black;">
-				
-				<div>
-					<h2 class="modes mb-0">Game modes</h2>
-					<hr class="mt-2">
-					<div class="d-grid gap-2">
-						<button class="btn btn-light">AI</button>
-						<button class="btn btn-light">1vs1</button>
-						<button class="btn btn-light">Tournament</button>
-					</div>
-				</div>
-
-				<div class="mt-5">
-					<h2 class="maps mb-0">Maps</h2>
-					<hr class="mt-2">
-					<div class="d-grid gap-2">
-						<button class="btn btn-light">Gotham</button>
-						<button class="btn btn-light">Arkham</button>
-						<button class="btn btn-light">Batcave</button>
-					</div>
-				</div>
-
-				<div class="mt-5">
-					<h2 class="maps mb-0">Customization</h2>
-					<hr class="mt-2">
-					<div class="d-grid gap-2">
-						<button class="btn btn-light">Gotham</button>
-						<button class="btn btn-light">Arkham</button>
-						<button class="btn btn-light">Batcave</button>
-					</div>
-				</div>
-
-			</div> -->
-			
-			<canvas id="boardpong" width="1920px" height="1080px"></canvas>
-			<!-- <form id="MatchForm" method="post">
-				{% csrf_token %}
-				<div>
-					{{ MatchForm.winner.label_tag }}
-					{{ MatchForm.winner }}
-					{{ MatchForm.winner.errors }}
-				</div>
-				<div>
-					{{ MatchForm.loser.label_tag }}
-					{{ MatchForm.loser }}
-					{{ MatchForm.loser.errors }}
-				</div>
-				<div>
-					{{ MatchForm.score.label_tag }}
-					{{ MatchForm.score }}
-					{{ MatchForm.score.errors }}
-				</div>
-				<button type="submit">Submit</button>
-			</form> -->
 		</div>
 	</div>
 </section>
