@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0014_user_is_staff_user_is_superuser'),
+        ('user_management', '0014_user_is_staff_user_is_superuser'),
     ]
 
     operations = [

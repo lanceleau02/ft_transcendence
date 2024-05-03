@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from authentication.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm, MatchForm
-from authentication.models import User, Friend_Request, Match
+from user_management.forms import LoginForm, AvatarForm, UpdateUsername, CustomPasswordChangeForm, MatchForm
+from user_management.models import User, Friend_Request, Match
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
