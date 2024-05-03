@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('authentication', '0012_user_friends'),
+        ('user_management', '0012_user_friends'),
     ]
 
     operations = [

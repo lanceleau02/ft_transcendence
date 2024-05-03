@@ -20,7 +20,7 @@ from django.conf import settings
 from django.urls import path, include
 from django.conf.urls.static import static
 from auth_API42 import views as API42Views
-from authentication import views as authenticationViews
+from user_management import views as userManagementViews
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
@@ -29,13 +29,13 @@ urlpatterns = [
     path('batpong/', mainViews.batpong, name='batpong'),
     path('batcave/', mainViews.batcave, name='batcave'),
     path('batprofile/', mainViews.batprofile, name='batprofile'),
-    path('signin/', authenticationViews.signin, name='signin'),
-    path('signup/', authenticationViews.signup, name='signup'),
+    path('signin/', userManagementViews.signin, name='signin'),
+    path('signup/', userManagementViews.signup, name='signup'),
     #path('accounts/', include('allauth.urls')),
     path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
     path('callback', API42Views.callback, name='callback'),
-    path('send_friend_request/<int:userID>/', authenticationViews.send_friend_request, name='send friend request'),
-    path('accept_friend_request/<int:requestID>/', authenticationViews.accept_friend_request, name='accept friend request'),
-    path('decline_friend_request/<int:requestID>/', authenticationViews.decline_friend_request, name='decline friend request'),
+    path('send_friend_request/<int:userID>/', userManagementViews.send_friend_request, name='send friend request'),
+    path('accept_friend_request/<int:requestID>/', userManagementViews.accept_friend_request, name='accept friend request'),
+    path('decline_friend_request/<int:requestID>/', userManagementViews.decline_friend_request, name='decline friend request'),
     path('logout/', LogoutView.as_view(), name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

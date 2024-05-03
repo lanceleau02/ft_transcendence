@@ -3,7 +3,7 @@ import os
 import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
-from authentication.models import User
+from user_management.models import User
 from requests_oauthlib import OAuth2Session
 from django.http import JsonResponse
 from django.core.files.base import ContentFile

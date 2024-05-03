@@ -2,7 +2,7 @@ import logging
 from . import forms
 from django.http import HttpResponse
 from django.contrib import messages
-from authentication.models import User, Friend_Request
+from user_management.models import User, Friend_Request
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
