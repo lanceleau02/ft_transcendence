@@ -44,6 +44,9 @@ const router = async () => {
 const viewBatprofile = new Batprofile(router);
 await viewBatprofile.onRender();
 
+const viewBatpong = new Batpong(router);
+await viewBatpong.onRender();
+
 window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
