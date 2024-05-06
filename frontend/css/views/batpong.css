@@ -1,6 +1,8 @@
 #batpong {
 	height: calc(100vh - 85.08px);
-	background-color: black;
+	background-image: url('../../img/game/home.gif');
+	background-size: cover;
+	background-position: center;
 }
 
 /* ************************************************************************** */
@@ -19,12 +21,3 @@ h6,
 /*                                 GAME TITLES                                */
 /* ************************************************************************** */
 
-/* #boardpong {
-	background-image: url("/static/img/game/Background_pong.png");
-  background-size: cover;
-	position: fixed;
-} */
-
-/* #batpongcss {
-	text-align: center;
-} */
