@@ -1,4 +1,6 @@
 export function curveGraph() {
+    if (document.getElementById('userData') === null)
+		return;
     const userScore = document.getElementById('userData').getAttribute('user_score');
     const userData = JSON.parse(userScore)
 

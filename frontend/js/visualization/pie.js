@@ -1,5 +1,7 @@
 export function pieChart() {
 	const userDataDiv = document.getElementById('userData')
+	if (userDataDiv === null)
+		return;
 	const victories = userDataDiv.getAttribute('wins')
 	const defeats = userDataDiv.getAttribute('losses')
 	const total_games = userDataDiv.getAttribute('played_games')

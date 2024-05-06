@@ -138,7 +138,7 @@ export async function main() {
 	document.addEventListener("keydown", movep1); */
 }
 
-/* export async function centerAndResizeBoard() {
+export async function centerAndResizeBoard() {
 	// Get the dimensions of the window
 	windowWidth = window.innerWidth;
 	windowHeight = window.innerHeight;
@@ -165,4 +165,4 @@ export async function main() {
 	// Set the new position for the board
 	(await board).style.left = leftPosition + "px";
 	(await board).style.top = topPosition + "px";
-} */
+}

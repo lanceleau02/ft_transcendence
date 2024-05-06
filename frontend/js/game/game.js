@@ -1,14 +1,11 @@
-import { wait2get } from "./game_utils.js";
+import { wait2get, centerAndResizeBoard } from "./game_utils.js";
 
 // Global variables
-let playButtonClicked = false;
-let playCustomButtonClicked = false;
-
 let mode = "";
 let map = "";
 let colors = "";
 
-async function menu() {
+async function menu(canvas) {
     // Declare variables
     const modeButtons = document.querySelectorAll('.mode');
     const versionButtons = document.querySelectorAll('.version');
@@ -16,6 +13,7 @@ async function menu() {
     const customButton = document.getElementById('custom');
     const playButton = document.getElementById('play');
     const optionsMenu = document.getElementById('options-menu');
+    const firstMenu = document.getElementById('first-menu');
     const mapButtons = document.querySelectorAll('.map');
     const colorsButtons = document.querySelectorAll('.colors');
     const playCustomButton = document.getElementById('play-custom');
@@ -74,10 +72,6 @@ async function menu() {
     function runGame() {
         playButton.style.display = '';
         optionsMenu.style.display = 'none';
-
-        playButton.addEventListener('click', () => {
-            playButtonClicked = true;
-        });
     }
 
     // displayOptionsMenu() function
@@ -102,14 +96,26 @@ async function menu() {
                 }
             });
         });
-
-        playCustomButton.addEventListener('click', () => {
-            playCustomButtonClicked = true;
-        });
     }
+
+    // Display game and hide menu
+    playButton.addEventListener('click', () => {
+        firstMenu.style.display = 'none';
+        canvas.style.display = '';
+    });
+
+    playCustomButton.addEventListener('click', () => {
+        firstMenu.style.display = 'none';
+        optionsMenu.style.display = 'none';
+        canvas.style.display = '';
+    });
+    //
 }
 
 async function drawBoard(canvas, ctx) {
+    console.log(canvas.width)
+    console.log(canvas.height)
+    
     // Draw background
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -133,9 +139,7 @@ export async function game() {
 
     canvas.style.display = 'none';
 
-    menu();
-	if (playCustomButtonClicked || playButtonClicked) {
-	    console.log("ouho");
-        drawBoard(canvas, ctx);
-    }
+    menu(canvas);
+    // centerAndResizeBoard(window.innerWidth, window.innerHeight);
+    drawBoard(canvas, ctx);
 }

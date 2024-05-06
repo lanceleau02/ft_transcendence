@@ -1,5 +1,6 @@
 import AbstractView from "./AbstractView.js";
 import { game } from '../game/game.js'
+import { centerAndResizeBoard } from '../game/game_utils.js'
 
 export default class extends AbstractView {
 	constructor() {
