@@ -12,6 +12,14 @@
 					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
 					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
 					<div class="name" id="username">{{ user.username }}</div>
+					<div class="form-check form-switch">
+						{% if user.log2fa %}
+							<input class="form-check-input" type="checkbox" role="switch" id="Switch2FA" checked>
+						{% else %}
+							<input class="form-check-input" type="checkbox" role="switch" id="Switch2FA">
+						{% endif %}
+						<label class="form-check-label" for="Switch2FA">2FA</label>
+					</div>
 				</div>
 				<div class="label align-self-center px-4">
 					<h3 class="change_username" data-bs-toggle="modal" data-bs-target="#usernameModal">CHANGE USERNAME...</h3>
@@ -193,6 +201,28 @@
 						<button type="submit button" class="btn btn-primary update update_button">Update</button>
 					</form>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="otpModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title qr_codeOtpModal">2FA</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form id="otpEnable" method="post" action="verify_2fa">
+					{% csrf_token %}
+					<div class="modal-body">
+						<!-- <img src="{% url 'qr_code' %}" alt="QR Code" width=70% height=70%> -->
+						<img id="qrcode2FA" src="" alt="QR Code" width=70% height=70%>
+						<input type="text" name="otp" id="otpInput" placeholder=": OTP code" class="form-control mt-3">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Send</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

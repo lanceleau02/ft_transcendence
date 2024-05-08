@@ -4,6 +4,7 @@ import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
 import { translation } from "./translation/translation.js";
+import { checklogout } from "./loading/logout.js";
 
 const navigateTo = async (url) => {
     history.pushState(null, null, url);
@@ -56,6 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (e.target.matches("[data-link]")) {
 			e.preventDefault();
 			navigateTo(e.target.href);
+			const logoutStatus = document.cookie.includes('logout_status=true');
+			if (logoutStatus) {
+				checklogout();
+			}
 		}
 	});
 
@@ -80,11 +85,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else if (e.target.getAttribute('id') === 'MatchForm') {
 			const view = new Batpong();
 			await view.getMatchResults(formData);
+		} else if (e.target.getAttribute('id') === 'otpEnable') {
+			const view = new Batprofile();
+			await view.submit2FAForm(formData);
+		} else if (e.target.getAttribute('id') === 'otpChecksignin') {
+			const view = new Signin();
+			await view.submitOtpForm(formData);
 		}
 	});
 
 	// FRIEND REQUESTS
 	document.body.addEventListener("click", async (e) => {
+		let switchElement = document.getElementById('Switch2FA');
 		const view = new Batprofile();
 		if (e.target.getAttribute('id') === 'send-friend-request') {
 			e.preventDefault();
@@ -98,6 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			e.preventDefault();
 			const requestID = e.target.getAttribute('request-id');
 			await view.declineFriendRequest(requestID);
+		} else if (e.target.getAttribute('id') === 'Switch2FA') {
+			await view.switch2FA(switchElement);
 		}
 	});
 

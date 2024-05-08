@@ -34,8 +34,37 @@ export default class extends AbstractView {
 			const data = await response.json();
 	
 			if (data.loginForm) {
+				if (data.OTPEnabled) {
+					const modalElement = document.getElementById('otpCodeModal');
+					if (modalElement) {
+						const modal = new bootstrap.Modal(modalElement, {backdrop: 'static'});
+						modal.show();
+					}
+				} else {
+					window.location.href = document.location.origin + '/batpong/';
+				}
+			}
+		} catch (error) {
+			console.error('Error submitting form:', error);
+		}
+	}
+
+	async submitOtpForm(formData) {
+		try {
+			const response = await fetch(document.location.origin + '/otp_login_check', {
+				method: 'POST',
+				body: formData
+			});
+			
+			if (!response.ok) {
+				throw new Error('Failed to submit form');
+			}
+			
+			const data = await response.json();
+			
+			if (data.loginForm) {
 				window.location.href = document.location.origin + '/batpong/';
-			} 
+			}
 		} catch (error) {
 			console.error('Error submitting form:', error);
 		}

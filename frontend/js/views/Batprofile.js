@@ -166,6 +166,64 @@ export default class extends AbstractView {
         }
     }
 
+    async switch2FA(switchElement) {
+        try {
+            let switchState = switchElement.checked;
+            const url = switchState? '/on_model_2fa/' : '/off_model_2fa/';
+            
+            var myHeaders = new Headers();
+            myHeaders.append('Content-Type', 'application/json');
+            myHeaders.append('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+
+            const response = await fetch(document.location.origin + url, {
+                method: 'POST',
+                headers: myHeaders
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to switch 2fa');
+            }
+            
+            const data = await response.json();
+            
+            if (!data.success) {
+                console.log('Failed to switch 2FA user');
+            }
+            if (switchState) {
+                const modal = new bootstrap.Modal(document.getElementById('otpModal'));
+ 	        	modal.show();
+
+                const qrCodeImage = data.qr_code;
+                document.getElementById('qrcode2FA').src = `data:image/png;base64,${qrCodeImage}`;
+                
+            }
+            
+        } catch (error) {
+            console.error('Error display on/off 2fa', error);
+        }
+    }
+
+    async submit2FAForm(formData) {
+		try {
+			const response = await fetch(document.location.origin + '/verify_2fa', {
+				method: 'POST',
+				body: formData
+			});
+	
+			if (!response.ok) {
+				throw new Error('Failed to submit form');
+			}
+			
+			const data = await response.json();
+
+			if (!data.success) {
+
+			}
+		} catch (error) {
+			console.error('Error submitting form:', error);
+		}
+	}
+
     async startAutoRefresh() {
         setInterval(async () => {
             await this.refreshFriendRequests();

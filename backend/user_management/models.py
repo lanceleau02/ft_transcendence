@@ -1,6 +1,15 @@
+import pyotp
+import qrcode
+import qrcode.image.svg
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.db import models
 from django.http import JsonResponse
+from typing import Optional
+from django.conf import settings
+from django_otp.plugins.otp_totp.models import TOTPDevice
+import logging
+
+logger = logging.getLogger(__name__)
 
 class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
@@ -10,6 +19,8 @@ class User(AbstractBaseUser):
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 	is_superuser = models.BooleanField(default=False)
+	log2fa = models.BooleanField(default=False)
+	log42api = models.BooleanField(default=False)
 	language = models.CharField(max_length=2, null=False, default="en")
 
 	USERNAME_FIELD = 'username'
@@ -56,3 +67,34 @@ class Match(models.Model):
 	loser = models.ForeignKey(User, related_name='lost_matches', on_delete=models.CASCADE)
 	score = models.CharField(max_length=50)
 	match_date = models.DateTimeField(auto_now_add=True)
+
+class UserTwoFactorAuthData(models.Model):
+	user = models.OneToOneField(
+		settings.AUTH_USER_MODEL,
+		related_name='two_factor_auth_data',
+		on_delete=models.CASCADE
+	)
+
+	otp_secret = models.CharField(max_length=255)
+
+	def generate_qr_code(self, name: Optional[str] = None) -> str:
+		totp = pyotp.TOTP(self.otp_secret, interval=30)
+		uri = totp.provisioning_uri(
+			name=name,
+			issuer_name='Batpong 2fa'
+		)
+		#image_factory = qrcode.image.svg.SvgPathImage
+		qr_code_image = qrcode.make(uri)
+		#qr_code_string = qr_code_image.to_string(encoding='unicode')	
+		return qr_code_image
+
+	def validate_otp(self, otp: str) -> bool:
+		totp = pyotp.TOTP(self.otp_secret)
+		is_valid = totp.verify(otp)
+		
+		logger.debug(f"-------is_valid: {is_valid}")
+		
+		if is_valid:
+			return True
+		else:
+			return False

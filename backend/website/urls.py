@@ -21,7 +21,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from auth_API42 import views as API42Views
 from user_management import views as userManagementViews
-from django.contrib.auth.views import LogoutView
+from auth_2FA import views as auth2FA
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,5 +37,11 @@ urlpatterns = [
     path('send_friend_request/<int:userID>/', userManagementViews.send_friend_request, name='send friend request'),
     path('accept_friend_request/<int:requestID>/', userManagementViews.accept_friend_request, name='accept friend request'),
     path('decline_friend_request/<int:requestID>/', userManagementViews.decline_friend_request, name='decline friend request'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', userManagementViews.CustomLogoutView.as_view(), name='logout'),
+    path('check-logout/', userManagementViews.CheckLogoutView, name='check-logout'),
+    path('verify_2fa', auth2FA.verify_2fa, name='verify_2fa'),
+    path('qr_code/', auth2FA.view_qrcode, name='qr_code'),
+    path('on_model_2fa/', auth2FA.on_model_2fa, name='on_2fa'),
+    path('off_model_2fa/', auth2FA.off_model_2fa, name='off_2fa'),
+    path('otp_login_check', auth2FA.otp_login_check, name='otp_login_check'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

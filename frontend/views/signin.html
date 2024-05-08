@@ -14,7 +14,7 @@
 							{{ field }}
 						</div>
 					{% endfor %}
-					<button class="btn btn-primary sign_in sign-in" type="submit" >Sign in</button>
+					<button class="btn btn-primary sign_in sign-in" type="submit" data-bs-target="otpCodeModal">Sign in</button>
 				</form>
 				<form id="signin42apiForm" method="post" action="{% url 'cursus_and_users' %}"> 
 					{% csrf_token %}
@@ -24,6 +24,25 @@
 					<p class="not_a_member not-a-member pt-3 mb-2">Not a member yet?</p>
 					<a class="nav-link active sign_up_now sign-up-now pt-2 ps-2" href="{% url 'signup' %}" data-link>Sign up now!</a>
 				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="otpCodeModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title qr_codeOtpModal">OTP code</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form id="otpChecksignin" method="post" action="otp_login_check">
+					{% csrf_token %}
+					<div class="modal-body">
+						<input type="text" name="otp" id="otpInput" placeholder=": OTP code" class="form-control mt-3">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Send</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

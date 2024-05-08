@@ -2,12 +2,16 @@ import logging
 from . import forms
 from django.http import HttpResponse
 from django.contrib import messages
-from user_management.models import User, Friend_Request
+from user_management.models import User, Friend_Request, UserTwoFactorAuthData
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import AnonymousUser
+#from django.contrib.auth.models import AnonymousUser
 from django.http import JsonResponse
+from django.contrib.auth.views import LogoutView
+from auth_2FA.jwt import set_all_cookies_jwt
+
+logger = logging.getLogger(__name__)
 
 def signin(request):
     form = forms.LoginForm()
@@ -18,8 +22,15 @@ def signin(request):
                 password=form.cleaned_data['password']
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
-                    login(request, user)
-                    return JsonResponse({'loginForm': True})
+                    if user.log2fa is True:
+                        if hasattr(user, 'two_factor_auth_data'):
+                            request.session['user_id'] = user.id
+                            return JsonResponse({'loginForm': True, 'OTPEnabled': True})
+                    else:
+                        login(request, user)
+                        response = JsonResponse({'loginForm': True})
+                        response = set_all_cookies_jwt(request, response, user)
+                        return response
                 else:
                     return JsonResponse({'loginForm': False})
     else:
@@ -59,3 +70,22 @@ def decline_friend_request(request, requestID):
     friend_request = Friend_Request.objects.get(id=requestID)
     friend_request.delete()
     return JsonResponse({'success': True})
+
+class CustomLogoutView(LogoutView):
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        response.delete_cookie('jwt_access', path='/', domain='localhost')
+        response.delete_cookie('jwt_refresh', path='/', domain='localhost')
+        
+        status = request.COOKIES.get('logout_status', '')
+        if status:
+            response.delete_cookie('logout_status')
+        
+        return response
+
+def CheckLogoutView(request):
+    status = request.COOKIES.get('logout_status', '')
+    if status:
+        return JsonResponse({'formuser': True})
+    else:
+        return JsonResponse({'formuser': False})

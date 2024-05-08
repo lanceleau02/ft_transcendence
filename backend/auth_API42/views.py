@@ -53,7 +53,7 @@ def callback(request):
 
     users = User.objects.filter(username=username)
     if not users.exists():
-        user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar)
+        user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar, log42api=True)
         exist = User.objects.filter(username=username).exists()
         if not exist:
             return render(request, 'index.html')
