@@ -80,26 +80,13 @@ export default class extends AbstractView {
 			if (!response1.ok) {
 				throw new Error('Failed to get authorization URL');
 			}
-	
+
+			console.log('1connexion avec api 42 passage dans le js evaluer');
+			
 			const data1 = await response1.json();
+			
 			if (data1.authorization_url) {
 				window.location.href = data1.authorization_url;
-				return ;
-			}
-	
-			const response2 = await fetch(document.location.origin + '/callback', {
-				method: 'POST',
-				body: formData
-			});
-	
-			if (!response2.ok) {
-				throw new Error('Failed to get authorization URL');
-			}
-	
-			const data2 = await response2.json();
-			if (data2.loginForm) {
-				history.pushState(null, null, document.location.origin + '/batpong/');
-				await router();
 			}
 		} catch (error) {
 			console.error('Error getting authorization URL:', error);

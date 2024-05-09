@@ -8,6 +8,8 @@ from requests_oauthlib import OAuth2Session
 from django.http import JsonResponse
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from auth_2FA.jwt import set_all_cookies_jwt
+from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +47,7 @@ def callback(request):
         return JsonResponse({'error': 'Invalid data user'}, status=400)
     username = user_info.get('login')
     if username is None:
-        return JsonResponse({'error': 'Invalid data user'}, status=400)
+        return JsonResponse({'error': 'Invalid username'}, status=400)
     email = user_info.get('email')
     
     image = user_info.get('image', {}).get('versions', {}).get('medium')   
@@ -56,7 +58,7 @@ def callback(request):
         user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar, log42api=True)
         exist = User.objects.filter(username=username).exists()
         if not exist:
-            return render(request, 'index.html')
+            return JsonResponse({'loginForm': False})
     else:
         user = users.first()
     login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
@@ -66,7 +68,10 @@ def callback(request):
     user.refresh_token = token.get('refresh_token')
     user.save()
 
-    return redirect('batpong')
+    response = HttpResponseRedirect('/batpong')
+    response = set_all_cookies_jwt(request, response, user)
+
+    return response
 
 def get_avatar(request, image):
     response = requests.get(image)

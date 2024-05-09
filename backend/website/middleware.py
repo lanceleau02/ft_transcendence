@@ -28,7 +28,7 @@ class CustomMiddlewareJWT(MiddlewareMixin):
     def process_view(self, request, view_func, view_args, view_kwargs):
         User = get_user_model()    
         token = request.COOKIES.get('jwt_access', '')
-        print('------------------------------------------start')
+
         if token:
             try:
                 payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
@@ -59,9 +59,6 @@ class CustomMiddlewareJWT(MiddlewareMixin):
                 if user:
                     if user.is_authenticated:
                         logout(request)
-                        #current_url = request.get_full_path()
-                        #response = HttpResponseRedirect(current_url)
-                        #response.set_cookie('logout_status', 'true')
                         response = logout_jwt_error(request)
                         return response
             return None
