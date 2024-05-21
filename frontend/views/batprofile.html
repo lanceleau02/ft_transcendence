@@ -208,19 +208,18 @@
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title qr_codeOtpModal">2FA</h5>
+					<h5 class="modal-title qr_codeOtpModal">Activate 2FA</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<form id="otpEnable" method="post" action="verify_2fa">
 					{% csrf_token %}
-					<div class="modal-body">
+					<div class="modal-body d-flex flex-column align-items-center">
 						<!-- <img src="{% url 'qr_code' %}" alt="QR Code" width=70% height=70%> -->
 						<img id="qrcode2FA" src="" alt="QR Code" width=70% height=70%>
-						<input type="text" name="otp" id="otpInput" placeholder=": OTP code" class="form-control mt-3">
+						<input type="text" name="otp" id="otpInput" placeholder="OTP code" class="form-control mt-3">
 					</div>
 					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">Send</button>
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary">Activate</button>
 					</div>
 				</form>
 			</div>
