@@ -43,6 +43,9 @@ class MatchForm(forms.ModelForm):
         self.fields['winner'].queryset = User.objects.all()
         self.fields['loser'].queryset = User.objects.all()
 
+        self.fields['winner'].required = False
+        self.fields['loser'].required = False
+
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
