@@ -53,6 +53,6 @@ window.onload = function () {
 	game();
 }
 
-/* window.onresize = function() {
-	centerAndResizeBoard();
-} */
+window.onresize = function() {
+	centerAndResizeBoard(window.innerWidth, window.innerHeight);
+}

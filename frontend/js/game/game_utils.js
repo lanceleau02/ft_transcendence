@@ -28,7 +28,7 @@ export async function centerAndResizeBoard(windowWidth, windowHeight) {
 	
 	// Set the new size for the board
 	(await board).style.width = boardWidth + "px";
-	(await board).style.height = boardHeight +"px";
+	(await board).style.height = boardHeight - 86 +"px";
 
 	// Calculate the new left and top positions to center the board
 	var leftPosition = (windowWidth - boardWidth) / 2;
