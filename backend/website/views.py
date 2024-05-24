@@ -56,7 +56,7 @@ def batprofile(request):
 			if formPassword.is_valid():
 				formPassword.save()
 				return JsonResponse({'formPassword': True})
-			if formAvatar.is_valid():
+			if 'avatar' in request.FILES and formAvatar.is_valid():
 				user.avatar = formAvatar.cleaned_data['avatar']
 				user.save()
 				return JsonResponse({'formAvatar': True, 'avatar': user.avatar.url})

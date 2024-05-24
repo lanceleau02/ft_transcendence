@@ -49,19 +49,19 @@ class MatchForm(forms.ModelForm):
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False,
+        required=True,
         label="Current password"
     )
     new_password1 = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False,
+        required=True,
         label="New password"
     )
     new_password2 = forms.CharField(
         max_length=100,
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),
-        required=False,
+        required=True,
         label="Confirm new password"
     )
 
