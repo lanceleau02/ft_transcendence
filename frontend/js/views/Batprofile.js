@@ -216,8 +216,9 @@ export default class extends AbstractView {
 			
 			const data = await response.json();
 
-			if (!data.success) {
-
+			if (data.success) {
+                const modal = bootstrap.Modal.getInstance(document.getElementById('otpModal'));
+ 	        	modal.hide();
 			}
 		} catch (error) {
 			console.error('Error submitting form:', error);
@@ -227,7 +228,7 @@ export default class extends AbstractView {
     async startAutoRefresh() {
         setInterval(async () => {
             await this.refreshFriendRequests();
-        }, 1000);
+        }, 5000);
     }
 
     async onRender() {

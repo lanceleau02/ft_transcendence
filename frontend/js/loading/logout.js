@@ -2,7 +2,6 @@ export async function logout() {
 	try {
 		var myHeaders = new Headers();
 	    myHeaders.append('Content-Type', 'application/json');
-	    //myHeaders.append('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
 		var csrfTokenElement = document.querySelector('[name="csrfmiddlewaretoken"]');
     	if (csrfTokenElement) {
         	myHeaders.append('X-CSRFToken', csrfTokenElement.value);
@@ -24,11 +23,8 @@ export async function logout() {
 
 export async function checklogout() {
     try {
-        //const urlParams = new URLSearchParams(window.location.search);
-        //if (urlParams.has('status') && urlParams.get('status') === 'true') {
         var myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json');
-        //myHeaders.append('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
         var csrfTokenElement = document.querySelector('[name="csrfmiddlewaretoken"]');
         if (csrfTokenElement) {
             myHeaders.append('X-CSRFToken', csrfTokenElement.value);

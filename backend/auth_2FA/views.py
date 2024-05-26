@@ -47,7 +47,6 @@ def view_qrcode(request):
         qr_code = two_factor_auth_data.generate_qr_code(name=user.username)
         response = HttpResponse(content_type="image/png")
         qr_code.save(response, "PNG")
-        logger.debug('donutstststststtstststtss')
         return response
 
 @login_required
@@ -75,9 +74,7 @@ def otp_login_check(request):
         user_id = request.session.get('user_id')
         if user_id:
             user = User.objects.get(id=user_id)
-            logger.debug("user")
         else:
-            logger.debug("no user")
             return JsonResponse({'loginForm': False})
 
         two_factor_auth_data = UserTwoFactorAuthData.objects.filter(user=user).first()

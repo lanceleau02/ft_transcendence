@@ -214,7 +214,6 @@
 				<form id="otpEnable" method="post" action="verify_2fa">
 					{% csrf_token %}
 					<div class="modal-body d-flex flex-column align-items-center">
-						<!-- <img src="{% url 'qr_code' %}" alt="QR Code" width=70% height=70%> -->
 						<img id="qrcode2FA" src="" alt="QR Code" width=70% height=70%>
 						<input type="text" name="otp" id="otpInput" placeholder="OTP code" class="form-control mt-3">
 					</div>

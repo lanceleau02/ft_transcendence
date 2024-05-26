@@ -21,7 +21,7 @@ def get_cursus_and_users(request):
     client = OAuth2Session(UID, redirect_uri=redirect_uri)
     authorization_url, state = client.authorization_url('https://api.intra.42.fr/oauth/authorize')
     
-    request.session['oauth_redirect_uri'] = redirect_uri
+    #request.session['oauth_redirect_uri'] = redirect_uri
     request.session['oauth_state'] = state
     request.session.save()
     
@@ -34,7 +34,7 @@ def callback(request):
     state = request.GET.get('state')
     stored = request.session.get('oauth_state')
     UID = os.environ.get("UID_CLIENT")
-    redirect_uri = request.session.get('oauth_redirect_uri')
+    redirect_uri = "https://localhost:8000/callback"
 
     code = request.GET.get('code')
     if not code:
@@ -45,22 +45,31 @@ def callback(request):
     user_info = get_token(request, UID, code, redirect_uri)
     if user_info is None:
         return JsonResponse({'error': 'Invalid data user'}, status=400)
+    
     username = user_info.get('login')
     if username is None:
         return JsonResponse({'error': 'Invalid username'}, status=400)
-    email = user_info.get('email')
     
+    email = user_info.get('email')
+    if email is None:
+        return JsonResponse({'error': 'Invalid email'}, status=400)
+
     image = user_info.get('image', {}).get('versions', {}).get('medium')   
     avatar = get_avatar(request, image)
 
     users = User.objects.filter(username=username)
     if not users.exists():
-        user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar, log42api=True)
-        exist = User.objects.filter(username=username).exists()
-        if not exist:
-            return JsonResponse({'loginForm': False})
+        users = User.objects.filter(email=email)
+        if not users.exists():
+            user = User.objects.create_user(username=username, email=email, password=None, avatar=avatar, log42api=True)
+            exist = User.objects.filter(username=username).exists()
+            if not exist:
+                return JsonResponse({'loginForm': False})
+        else:
+            user = users.first()
     else:
         user = users.first()
+    
     login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
     
     token = request.session.get('oauth_token')
@@ -68,9 +77,9 @@ def callback(request):
     user.refresh_token = token.get('refresh_token')
     user.save()
 
-    response = HttpResponseRedirect('/batpong')
-    response = set_all_cookies_jwt(request, response, user)
+    response = HttpResponseRedirect('/batpong/')
 
+    response = set_all_cookies_jwt(request, response, user)
     return response
 
 def get_avatar(request, image):
