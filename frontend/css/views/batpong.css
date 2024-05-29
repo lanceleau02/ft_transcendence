@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "digital-dream";
+	src: url('../fonts/Digital-Dream/DIGITALDREAM.ttf') format('truetype');
+}
+
 #batpong {
 	height: calc(100vh - 85.08px);
 	background-image: url('../../img/game/home.gif');
@@ -15,6 +20,27 @@ h6,
 .maps {
 	font-family: Aclonica;
 	color: white;
+}
+
+.playerContainers {
+	display: flex;
+}
+
+.player1Container {
+	color: white;
+    height: 10px;
+    flex: 1;
+    top: 98%;
+    width: relative;
+}
+
+.player2Container {
+	color: white;
+    height: 10px;
+    flex: 1;
+    top: 98%;
+	right: 0;
+    width: relative;
 }
 
 /* ************************************************************************** */

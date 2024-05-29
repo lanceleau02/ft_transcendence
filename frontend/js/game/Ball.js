@@ -5,9 +5,11 @@ export class	Ball extends Object {
 	constructor(x, y, w, h, speed, img) {
 		super(x, y, w, h, img);
 		this.angle = 45;
+        this.baseSpeed = speed;
 		this.speed = speed;
         this.speedX = this.speed * Math.cos(this.angle);
         this.speedY = this.speed * -Math.sin(this.angle);
+        this.speedCap = 12;
         this.lastTouched = 0;
 	}
 
@@ -37,6 +39,9 @@ export class	Ball extends Object {
         else
             this.setAngle(180 - intersectY / (player.h / 2) * 40);
         this.lastTouched = n;
+        this.speed *= 1.2;
+        if (this.speed > this.speedCap)
+            this.speed = this.speedCap;
         console.log(intersectY / (player.h / 2))
     }
 

@@ -1,4 +1,4 @@
-import { game_init } from './game.js'
+import { startGame } from './game.js'
 
 export async function menu(canvas) {
     // Declare variables
@@ -10,8 +10,12 @@ export async function menu(canvas) {
     const optionsMenu = document.getElementById('options-menu');
     const firstMenu = document.getElementById('first-menu');
     const mapButtons = document.querySelectorAll('.map');
-    const colorsButtons = document.querySelectorAll('.colors');
+    // const colorsButtons = document.querySelectorAll('.colors');
+    const colorSelect1 = document.getElementById('p1color');
+    const colorSelect2 = document.getElementById('p2color');
     const playCustomButton = document.getElementById('play-custom');
+
+    const aiButton = document.getElementById('ai');
 
     // Hide elements
     playButton.style.display = 'none';
@@ -27,9 +31,9 @@ export async function menu(canvas) {
         return [...mapButtons].some(button => button.classList.contains('active'));
     }
 
-    function isColorsSelected() {
-        return [...colorsButtons].some(button => button.classList.contains('active'));
-    }
+    // function isColorsSelected() {
+    //     return [...colorsButtons].some(button => button.classList.contains('active'));
+    // }
     //
 
     // Unselect a button when an another is clicked
@@ -77,32 +81,34 @@ export async function menu(canvas) {
         mapButtons.forEach(button => {
             button.addEventListener('click', () => {
                 toggleActiveClass(mapButtons, button);
-                if (isMapSelected() && isColorsSelected()) {
+                if (isMapSelected()) {
                     playCustomButton.style.display = '';
                 }
             });
         });
 
-        colorsButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                toggleActiveClass(colorsButtons, button);
-                if (isMapSelected() && isColorsSelected()) {
-                    playCustomButton.style.display = '';
-                }
-            });
-        });
+        // colorsButtons.forEach(button => {
+        //     button.addEventListener('click', () => {
+        //         toggleActiveClass(colorsButtons, button);
+        //         if (isMapSelected() && isColorsSelected()) {
+        //             playCustomButton.style.display = '';
+        //         }
+        //     });
+        // });
     }
 
     // Display game and hide menu
     playButton.addEventListener('click', () => {
         firstMenu.style.display = 'none';
         canvas.style.display = '';
-        game_init();
+        startGame(modeButtons[1].classList.contains('active'), 'blue', 'red');
     });
 
     playCustomButton.addEventListener('click', () => {
         firstMenu.style.display = 'none';
         optionsMenu.style.display = 'none';
         canvas.style.display = '';
+        console.log(colorSelect1.value, ' ', colorSelect2.value)
+        startGame(modeButtons[1].classList.contains('active'), colorSelect1.value, colorSelect2.value);
     });
 }
