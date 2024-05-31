@@ -56,8 +56,6 @@ export function getMouseCoord(e) {
     var rect = canvas.getBoundingClientRect();
     var x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
     var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
-    console.log(x, ' ', y);
-    console.log(buttonReplay.x, ' ', buttonReplay.y);
     if (!running && buttonReplay.isAt(x, y))
         replayGame();
 }

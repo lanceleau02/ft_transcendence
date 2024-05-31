@@ -108,7 +108,6 @@ export async function menu(canvas) {
         firstMenu.style.display = 'none';
         optionsMenu.style.display = 'none';
         canvas.style.display = '';
-        console.log(colorSelect1.value, ' ', colorSelect2.value)
         startGame(modeButtons[1].classList.contains('active'), colorSelect1.value, colorSelect2.value);
     });
 }

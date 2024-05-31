@@ -5,6 +5,7 @@ import { drawBoard, drawEndScreen, renderGame } from "./draw.js";
 import { Keystatus, keys_down, keys_up, players_input, getMouseCoord } from "./input.js";
 import { menu } from './menu.js'
 import { Object } from "./Object.js";
+import { Player } from "./Player.js";
 
 // Global variables
 let mode = "";
@@ -14,6 +15,7 @@ let colors = "";
 export let keystatus;
 export let running = 1;
 
+let players;
 export let player1;
 export let player2;
 export let ball;
@@ -27,6 +29,32 @@ let ctx;
 export let canvas;
 export let height = 1080;
 export let width = 1920;
+
+let currentUserId;
+let csrfesse;
+
+function submitMatchForm(winnerId, loserId, score) {
+    $.ajax({
+        url: "https://localhost:8000/batpong/",  // Update with the URL name of your view
+        type: "POST",
+        data: {
+            'winner': winnerId,
+            'loser': loserId,
+            'score': score,
+            'csrfmiddlewaretoken': csrfesse
+        },
+        success: function(response) {
+            if (response.MatchForm) {
+                alert("Match saved! Winner: " + response.winner + ", Loser: " + response.loser + ", Score: " + response.score);
+            } else {
+                alert("Error: " + response.errors);
+            }
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ": " + xhr.responseText);
+        }
+    });
+}
 
 export function pause() {
     if (running == 2) {
@@ -53,12 +81,16 @@ function checkScored(scored) {
         ball.setAngle(180);
     }
     if (player1.score == 3) {
-        running = 0;
         drawEndScreen(ctx, "caa");
+        if (running)
+            submitMatchForm(currentUserId, '', player1.score + '-' + player2.score);
+        running = 0;
     }
     else if (player2.score == 3) {
-        running = 0;
         drawEndScreen(ctx, "caa");
+        if (running)
+            submitMatchForm('', currentUserId, player2.score + '-' + player1.score);
+        running = 0;
     }
 }
 
@@ -107,9 +139,10 @@ export function replayGame() {
 }
 
 function game_init(colorp1, colorp2) {
+    console.log('init game !');
     player1 = new Batarang(30, height / 2 - 100, 90, 200, -1, "/static/img/game/batarang_" + colorp1 + ".png", "Player 1");
 	player2 = new Batarang(width - 30 - 90, height / 2 - 100, 90, 200, 1, "/static/img/game/batarang_" + colorp2 + ".png", "Player 2");
-    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, 3, "/static/img/game/batsign.webp");
+    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, 6, "/static/img/game/batsign.webp");
 
     buttonReplay = new Object(width / 2 - 80, height / 2 - 80, 160, 160, "/static/img/game/replayButton.png");
 
@@ -130,6 +163,8 @@ export function startGame(aiparam, colorp1, colorp2) {
 export async function game() {
 	canvas = await wait2get('boardpong');
     ctx = canvas.getContext('2d');
+    currentUserId = document.getElementById("userid").textContent;
+    csrfesse = document.getElementById("csrfesse").firstChild.value;
 
     canvas.style.display = 'none';
 

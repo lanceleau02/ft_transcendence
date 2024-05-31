@@ -46,6 +46,19 @@ class MatchForm(forms.ModelForm):
         self.fields['winner'].required = False
         self.fields['loser'].required = False
 
+    def clean(self):
+        cleaned_data = super().clean()
+        winner = cleaned_data.get('winner')
+        loser = cleaned_data.get('loser')
+
+        # Replace 'null' strings with None
+        if winner == '':
+            cleaned_data['winner'] = None
+        if loser == '':
+            cleaned_data['loser'] = None
+
+        return cleaned_data
+
 class CustomPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(
         widget=forms.PasswordInput(attrs={'class': 'form-control', 'type':'password'}),

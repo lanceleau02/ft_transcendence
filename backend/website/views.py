@@ -18,9 +18,11 @@ def batpong(request):
 		if form.is_valid():
 			form.save()
 			last_match = Match.objects.last()
+			username = last_match.winner.username if last_match.winner else "guest"
+			username2 = last_match.loser.username if last_match.loser else "guest"
 			return JsonResponse({'MatchForm': True, 
-				'winner': last_match.winner.username,
-				'loser': last_match.loser.username,
+				'winner': username,
+				'loser': username2,
 				'score': last_match.score
 			})
 		else:

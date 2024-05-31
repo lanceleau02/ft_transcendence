@@ -23,7 +23,6 @@ export class	Ball extends Object {
             this.angle = angle;
         this.speedX = this.speed * Math.cos(this.angle * (Math.PI / 180));
         this.speedY = this.speed * -Math.sin(this.angle * (Math.PI / 180));
-        console.log(angle, ', ', this.angle, ' | ', this.speed, ': ', this.speedX, ', ', this.speedY);
 	}
 
     checkCollisionPlayer(player, n) {
@@ -42,7 +41,6 @@ export class	Ball extends Object {
         this.speed *= 1.2;
         if (this.speed > this.speedCap)
             this.speed = this.speedCap;
-        console.log(intersectY / (player.h / 2))
     }
 
 	checkCollision(player1, player2) {

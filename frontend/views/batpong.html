@@ -36,14 +36,10 @@
 						</div>
 
 						<h6 class="d-flex flex-column pb-3 pt-4">Select the Batarangs' colors:</h6>
-						<!--<div class="d-flex">
-							<button class="red_green btn btn-light flex-fill me-1 colors">Red & Green</button>
-							<button class="green_violet btn btn-light flex-fill me-1 colors">Green & Violet</button>
-							<button class="blue_yellow btn btn-light flex-fill colors">Blue & Yellow</button>
-						</div> -->
-
 						<div class="playerContainers">
 							<div class="player1Container">
+								<label for="fname">Player 1 alias:</label>
+								<input type="text" id="player1alias" value="{{ user.username }}">
 								<label for="p1color">Player 1 color:</label>
 								<select name="player1color" id="p1color">
 									<option value="blue">Blue</option>
@@ -54,6 +50,8 @@
 								</select>
 							</div>
 							<div class="player2Container">
+								<label for="fname">Player 2 alias:</label>
+								<input type="text" id="player2alias" value="guest">
 								<label for="p2color">Player 2 color:</label>
 								<select name="player2color" id="p2color">
 									<option value="red">Red</option>
@@ -70,6 +68,12 @@
 					</div>
 				</div>
 				<!-- <div class="test"> -->
+					<form id="matchForm" method="POST">
+						{% csrf_token %}
+						{{ form.as_p }}
+					</form>
+					<h6 id="userid" style="display: none;">{{ user.id }}</h6>
+					<h6 id="csrfesse" style="display: none;">{% csrf_token %}</h6>
 					<canvas id="boardpong" width="1920px" height="1080px"></canvas>
 					<!-- </div> -->
 			</div>
