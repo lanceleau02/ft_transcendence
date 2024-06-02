@@ -52,6 +52,12 @@ window.addEventListener("popstate", router);
 
 document.addEventListener("DOMContentLoaded", () => {
 	
+	const otp_callback_42 = document.cookie.includes('otp_callback_42=true');
+	if (otp_callback_42) {
+		const view = new Signin();
+		view.fetchOTPJSON();
+	}
+
 	// SPA NAVIGATION
 	document.body.addEventListener("click", e => {
 		if (e.target.matches("[data-link]")) {
@@ -97,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	// FRIEND REQUESTS
 	document.body.addEventListener("click", async (e) => {
 		let switchElement = document.getElementById('Switch2FA');
+		const offcanvasElement = document.getElementById('UserDetails');
 		const view = new Batprofile();
 		if (e.target.getAttribute('id') === 'send-friend-request') {
 			e.preventDefault();
@@ -112,6 +119,15 @@ document.addEventListener("DOMContentLoaded", () => {
 			await view.declineFriendRequest(requestID);
 		} else if (e.target.getAttribute('id') === 'Switch2FA') {
 			await view.switch2FA(switchElement);
+		} else if (e.target.getAttribute('id') === 'open-canvas-profil') {
+			e.preventDefault();
+			const userID = e.target.getAttribute('user-id');
+			const canvas = new bootstrap.Offcanvas(offcanvasElement);
+			
+			console.log('open canva profile users');
+			
+			await view.loadUserProfile(userID);
+ 	        canvas.toggle();
 		}
 	});
 

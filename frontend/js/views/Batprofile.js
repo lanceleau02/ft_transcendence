@@ -234,4 +234,49 @@ export default class extends AbstractView {
     async onRender() {
         await this.startAutoRefresh();
     }
+
+    async loadUserProfile(userID) {
+        try {
+            var myHeaders = new Headers();
+			myHeaders.append('Content-Type', 'application/json');
+			myHeaders.append('X-CSRFToken', document.getElementsByName('csrfmiddlewaretoken')[0].value);
+            const response = await fetch (document.location.origin + '/display_user_profil/' + userID + '/', {
+				method: 'GET',
+				headers: myHeaders
+			});
+            
+            if (!response.ok) {
+				throw new Error('Failed to submit form');
+			}
+
+            const data = await response.json();
+            if (data) {
+                const offcanvasBody = document.querySelector('.offcanvas-body');
+                const friendsData = data.friends;
+
+                const friendsListElement = document.createElement('ul');
+                friendsData.forEach(friend => {
+                    const friendItem = document.createElement('li');
+                    friendItem.textContent = `${friend.username} (${friend.avatar})`;
+                    friendsListElement.appendChild(friendItem);
+                });
+
+                offcanvasBody.innerHTML = `
+                <div id="dynamicContent">
+                    <p>${data.name}</p>
+                    <img src="${data.avatar}" class="img-fluid">
+                    <p>is_online : ${data.is_online}</p>
+                    <p>Friends list : </p>
+                    ${friendsListElement.outerHTML}
+                    <p>Statistiques :</p>
+                    <ul>
+                        <li>${data.stat1}</li>
+                        <li>${data.stat2}</li>
+                    </ul>
+                </div>`;
+            }
+        } catch (error) {
+            console.error('Error rec profile user:', error);
+        }
+    }
 }

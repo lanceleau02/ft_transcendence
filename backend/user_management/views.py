@@ -89,3 +89,17 @@ def CheckLogoutView(request):
         return JsonResponse({'formuser': True})
     else:
         return JsonResponse({'formuser': False})
+
+from django.core.serializers.json import DjangoJSONEncoder
+
+@login_required
+def display_user_profil(request, userID):
+    userprofil = User.objects.get(id=userID)
+    friends_json = list(userprofil.friends.values())
+    response = JsonResponse({
+        'name': userprofil.username,
+        'is_online': userprofil.is_online,
+        'avatar': userprofil.avatar.url,
+        'friends': friends_json,
+    }, encoder=DjangoJSONEncoder)
+    return response

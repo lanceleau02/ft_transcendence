@@ -21,6 +21,7 @@ class User(AbstractBaseUser):
 	is_superuser = models.BooleanField(default=False)
 	log2fa = models.BooleanField(default=False)
 	log42api = models.BooleanField(default=False)
+	is_online = models.BooleanField(default=False)
 	language = models.CharField(max_length=2, null=False, default="en")
 
 	USERNAME_FIELD = 'username'

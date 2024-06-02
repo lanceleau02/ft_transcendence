@@ -9,9 +9,9 @@ def home(request):
 	return render(request, "index.html", {'user': user})
 
 def batpong(request):
-	if request.user.is_authenticated == False:
-		form = LoginForm()
-		return render(request, 'views/signin.html', context={'form': form})
+	#if request.user.is_authenticated == False:
+	#	form = LoginForm()
+	#	return render(request, 'views/signin.html', context={'form': form})
 	form = MatchForm()
 	if request.method == 'POST':
 		form = MatchForm(request.POST)

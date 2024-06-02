@@ -160,6 +160,7 @@ body {
 	height: 50px;
 	object-fit: cover;
 	border-radius: 50%;
+	pointer-events: none;
 }
 
 .all-users .box .users .add-friend-icon {
@@ -306,4 +307,72 @@ body {
 	background-color: #FFEEA7;
 	border: #ffdf60;
 	--bs-btn-active-bg: #ffe787;
+}
+
+
+/* ************************************************************************** */
+/*                                    OFFCANVAS                               */
+/* ************************************************************************** */
+
+#open-canvas-profil {
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+	position: relative;
+	z-index: 10;
+}
+
+.offcanvas {
+	background-color: #90d0c3ee; /* Couleur de fond */
+	border-top-left-radius: 20px;
+  	border-bottom-left-radius: 20px;
+	border-width: 5px;
+	border-color: #000000;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+	transition: transform 0.3s ease-in-out;
+}
+
+.offcanvas-header {
+	border-bottom: 3px solid #FFFFFF; /* Séparation entre le header et le corps */
+	padding-bottom: 10px;
+	color: #e9db11;
+}
+
+.offcanvas-body {
+	max-height: calc(100vh - 120px); /* Hauteur maximale pour éviter le défilement */
+	overflow-y: auto; /* Permet le défilement si nécessaire */
+	padding: 30 px;
+	background-color: #FFFFFF;
+	color: #30751a;
+	font-size: 16px;
+	transform: translateY(0);
+  }
+
+#dynamicContent p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#dynamicContent img.img-fluid {
+    max-width: 70%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+#dynamicContent ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#dynamicContent ul li {
+    padding: 5px 0;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#dynamicContent ul li:last-child {
+    margin-bottom: 0;
 }

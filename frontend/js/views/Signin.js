@@ -92,4 +92,27 @@ export default class extends AbstractView {
 			console.error('Error getting authorization URL:', error);
 		}
 	}
+
+	async fetchOTPJSON() {
+		try {
+			const response = await fetch('/callback_otp');
+
+			if (!response.ok) {
+				throw new Error('API42 OTP rec response fail');
+			}
+
+			const data = await response.json();
+
+			console.log('1connexion with opt 42api');
+			
+			const modalElement = document.getElementById('otpCodeModal');
+			if (modalElement) {
+				const modal = new bootstrap.Modal(modalElement, {backdrop: 'static'});
+				modal.show();
+			}
+        	console.log('OTP 42api exécutée');
+		} catch (error) {
+			console.error('Error getting callback_otp fail', error);
+		}
+	}
 }

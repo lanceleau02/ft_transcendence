@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from auth_2FA.jwt import set_all_cookies_jwt
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -69,17 +69,28 @@ def callback(request):
             user = users.first()
     else:
         user = users.first()
-    
-    login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
-    
+  
     token = request.session.get('oauth_token')
     user.access_token = token['access_token']
     user.refresh_token = token.get('refresh_token')
     user.save()
 
-    response = HttpResponseRedirect('/batpong/')
+    if user.log2fa is True:
+        if hasattr(user, 'two_factor_auth_data'):
+            request.session['user_id'] = user.id
+            response = redirect('signin')
+            response.set_cookie('otp_callback_42', 'true')
+            return response
 
+    login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
+
+    response = HttpResponseRedirect('/batpong/')
     response = set_all_cookies_jwt(request, response, user)
+    return response
+
+def callback_otp(request):
+    response = JsonResponse({'OTPEnabled': True})
+    response.delete_cookie('otp_callback_42')
     return response
 
 def get_avatar(request, image):

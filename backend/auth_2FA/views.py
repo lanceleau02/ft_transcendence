@@ -85,8 +85,12 @@ def otp_login_check(request):
             return JsonResponse({'success': False})
         if two_factor_auth_data.validate_otp(otp) is False:
             return JsonResponse({'success': False})
+  
+        if user.log42api is True:
+            login(request, user, backend='allauth.account.auth_backends.AuthenticationBackend')
+        else:
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         
-        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         response = JsonResponse({'loginForm': True})
         response = set_all_cookies_jwt(request, response, user)
         return response

@@ -34,6 +34,7 @@ urlpatterns = [
     #path('accounts/', include('allauth.urls')),
     path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
     path('callback', API42Views.callback, name='callback'),
+    path('callback_otp/', API42Views.callback_otp, name='callback_otp'),
     path('send_friend_request/<int:userID>/', userManagementViews.send_friend_request, name='send friend request'),
     path('accept_friend_request/<int:requestID>/', userManagementViews.accept_friend_request, name='accept friend request'),
     path('decline_friend_request/<int:requestID>/', userManagementViews.decline_friend_request, name='decline friend request'),
@@ -44,4 +45,5 @@ urlpatterns = [
     path('on_model_2fa/', auth2FA.on_model_2fa, name='on_2fa'),
     path('off_model_2fa/', auth2FA.off_model_2fa, name='off_2fa'),
     path('otp_login_check', auth2FA.otp_login_check, name='otp_login_check'),
+    path('display_user_profil/<int:userID>/', userManagementViews.display_user_profil, name='display_user_profil'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
