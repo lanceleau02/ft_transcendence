@@ -129,7 +129,8 @@ export default class extends AbstractView {
     async refreshFriendRequests() {
         try {
             const modals = document.querySelectorAll('.modal.show');
-            if (modals.length > 0 || window.location.href !== document.location.origin + '/batprofile/') {
+            const offcanvas = document.querySelectorAll('.offcanvas.show');
+            if (modals.length > 0 || offcanvas.length > 0 || window.location.href !== document.location.origin + '/batprofile/') {
                 return;
             }
 
@@ -267,38 +268,80 @@ export default class extends AbstractView {
             const response = await fetch (document.location.origin + '/display_user_profil/' + userID + '/', {
 				method: 'GET',
 				headers: myHeaders
-			});
-            
+			});      
             if (!response.ok) {
 				throw new Error('Failed to submit form');
 			}
-
+            
             const data = await response.json();
+            
             if (data) {
                 const offcanvasBody = document.querySelector('.offcanvas-body');
                 const friendsData = data.friends;
 
-                const friendsListElement = document.createElement('ul');
+                const summaryElement = document.createElement('summary');
+                summaryElement.textContent = 'Friend List';
+
+                const friendsDetails = document.createElement('details');
+                friendsDetails.appendChild(summaryElement);
+                
+                function createFriendListItem(friend) {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'friend-list-item';
+                    listItem.innerHTML = `
+                        <span>${friend.username}</span>
+                        <img src="${friend.avatar_url}" alt="Friend Avatar" class="friend-avatar">
+                    `;
+                    return listItem;
+                }
+                
                 friendsData.forEach(friend => {
-                    const friendItem = document.createElement('li');
-                    friendItem.textContent = `${friend.username} (${friend.avatar})`;
-                    friendsListElement.appendChild(friendItem);
+                    const friendItem = createFriendListItem(friend);
+                    friendsDetails.appendChild(friendItem);
                 });
 
+                function generateSummaryHtml(match) {
+                    const loser = match.loser? match.loser : "Guest";
+                    const winner = match.winner? match.winner : "Guest";
+                    return `<br>${winner} vs ${loser}: ${match.score}  :${new Date(match.date).toLocaleDateString()}`;
+                }
+                const summaryElements = data.stat3.map(generateSummaryHtml);
+                const joinedHtml = summaryElements.join('');
+
                 offcanvasBody.innerHTML = `
-                <div id="dynamicContent">
-                    <p>${data.name}</p>
-                    <img src="${data.avatar}" class="img-fluid">
-                    <p>is_online : ${data.is_online}</p>
-                    <p>Friends list : </p>
-                    ${friendsListElement.outerHTML}
-                    <p>Statistiques :</p>
-                    <ul>
-                        <li>${data.stat1}</li>
-                        <li>${data.stat2}</li>
-                    </ul>
+                <div id="dynamicContent" class="profile-card">
+                    <div class="user-info">
+                        <p><strong>Name:</strong> ${data.name}</p>
+                        <div class="avatar-profil-container">
+                            <img src="${data.avatar}" alt="User Avatar" class="avatar-profil">
+                        </div>
+                    </div>
+                    <p><strong>Status:</strong> ${data.is_online? 'Online' : 'Offline'}</p>
+                    <div class="row">
+                        ${friendsDetails.outerHTML}
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <h5>Statistics</h5>
+                            <ul>
+                                <li class="stat-item win-rate"><strong>Win Rate:</strong> ${data.stat1}</li>
+                                <li class="stat-item total-matches"><strong>Total matches played:</strong> ${data.stat2}</li>
+                                <li class="stat-item">
+                                    <details>
+                                        <summary><strong>Last 3 matches:</strong></summary>
+                                        <ul>${joinedHtml}</ul>
+                                    </details>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>`;
             }
+            
+            const canvas = new bootstrap.Offcanvas(document.getElementById('UserDetails'));
+            canvas.show();
+        
         } catch (error) {
             console.error('Error rec profile user:', error);
         }

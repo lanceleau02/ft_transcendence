@@ -76,7 +76,11 @@
 					<ul class="p-0">
 						{% for friend in friends %}
 							<div class="friends d-flex justify-content-between align-items-center mb-3 p-2">
-								<div><img class="avatar" src="{{friend.avatar.url}}"></div>
+								<div>
+									<button type="button" id="open-canvas-profil" user-id="{{ friend.id }}" title="Profil">
+										<img class="avatar" src="{{friend.avatar.url}}" alt="Avatar" />
+									</button>
+								</div>
 								<div class="name">{{ friend.username }}</div>
 								<div class="status rounded-circle"></div>
 							</div>

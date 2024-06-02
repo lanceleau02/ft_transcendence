@@ -70,6 +70,15 @@ class Match(models.Model):
 	score = models.CharField(max_length=50)
 	match_date = models.DateTimeField(auto_now_add=True)
 
+	def to_dict(self):
+		return {
+			'id': self.pk,
+			'winner': self.winner.username if self.winner else None,
+    	    'loser': self.loser.username if self.loser else None,
+    	    'score': self.score,
+    	    'date': self.match_date.strftime('%Y-%m-%d %H:%M:%S'), 
+		}
+
 class UserTwoFactorAuthData(models.Model):
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,

@@ -4,7 +4,7 @@ import Batprofile from "./views/Batprofile.js";
 import Signin from "./views/Signin.js";
 import Signup from "./views/Signup.js";
 import { translation } from "./translation/translation.js";
-import { checklogout } from "./loading/logout.js";
+import { logout } from "./loading/logout.js";
 
 const navigateTo = async (url) => {
     history.pushState(null, null, url);
@@ -65,11 +65,8 @@ window.addEventListener("beforeunload", async function(event) {
 
 		const data = await response.json();
 		if (data.success) {
-			console.log('unload user activity');
+
 		}
-		else {
-			console.log('unload user activity');
-		} 
 	} catch (error) {
 		console.error('Fail to call unload user activity:', error);
 	}
@@ -89,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			navigateTo(e.target.href);
 			const logoutStatus = document.cookie.includes('logout_status=true');
 			if (logoutStatus) {
-				checklogout();
+				logout();
 			}
 		}
 	});
@@ -127,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	// FRIEND REQUESTS
 	document.body.addEventListener("click", async (e) => {
 		let switchElement = document.getElementById('Switch2FA');
-		const offcanvasElement = document.getElementById('UserDetails');
 		const view = new Batprofile();
 		if (e.target.getAttribute('id') === 'send-friend-request') {
 			e.preventDefault();
@@ -146,12 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		} else if (e.target.getAttribute('id') === 'open-canvas-profil') {
 			e.preventDefault();
 			const userID = e.target.getAttribute('user-id');
-			const canvas = new bootstrap.Offcanvas(offcanvasElement);
-			
-			console.log('open canva profile users');
-			
 			await view.loadUserProfile(userID);
- 	        canvas.toggle();
 		}
 	});
 

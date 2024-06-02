@@ -6,10 +6,11 @@ from user_management.models import User, Friend_Request, UserTwoFactorAuthData
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-#from django.contrib.auth.models import AnonymousUser
 from django.http import JsonResponse
 from django.contrib.auth.views import LogoutView
 from auth_2FA.jwt import set_all_cookies_jwt
+from django.utils import timezone
+from django.core.serializers.json import DjangoJSONEncoder
 
 logger = logging.getLogger(__name__)
 
@@ -90,21 +91,34 @@ def CheckLogoutView(request):
     else:
         return JsonResponse({'formuser': False})
 
-from django.core.serializers.json import DjangoJSONEncoder
-
 @login_required
 def display_user_profil(request, userID):
     userprofil = User.objects.get(id=userID)
-    friends_json = list(userprofil.friends.values())
+    friends = userprofil.friends.all()
+
+    friends_data = []
+    for friend in friends:
+        friend_data = {
+            'username': friend.username,
+            'avatar_url': friend.avatar.url,
+        }
+        friends_data.append(friend_data)
+    
+    matches = userprofil.last_three_matches()
+
+    last_three_matches = [match.to_dict() for match in matches]
+
     response = JsonResponse({
         'name': userprofil.username,
         'is_online': userprofil.is_online,
         'avatar': userprofil.avatar.url,
-        'friends': friends_json,
+        'friends': friends_data,
+        'stat1': userprofil.win_rate(),
+        'stat2': userprofil.total_matches_played(),
+        'stat3': last_three_matches,
     }, encoder=DjangoJSONEncoder)
     return response
 
-@login_required
 def unload_user(request):
     if request.user.is_anonymous:
         return JsonResponse({'success': False})
@@ -112,8 +126,6 @@ def unload_user(request):
     user.is_online = False
     user.save()
     return JsonResponse({'success': True})
-
-from django.utils import timezone
 
 def check_activity(request):
     if request.user.is_anonymous:
