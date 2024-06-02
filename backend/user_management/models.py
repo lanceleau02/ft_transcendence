@@ -23,6 +23,7 @@ class User(AbstractBaseUser):
 	log42api = models.BooleanField(default=False)
 	is_online = models.BooleanField(default=False)
 	language = models.CharField(max_length=2, null=False, default="en")
+	last_active_at = models.DateTimeField(null=True, blank=True)
 
 	USERNAME_FIELD = 'username'
 	REQUIRED_FIELDS = ['email']

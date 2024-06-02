@@ -225,10 +225,34 @@ export default class extends AbstractView {
 		}
 	}
 
+    async checkActivity() {
+        try {
+            const response = await fetch(document.location.origin + '/check_activity', {
+                method: 'GET',
+                headers: {
+                    'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to check activity for courant user');
+            }
+
+            const data = await response.json()
+
+            if (data.statut === 'online') {
+                
+            }
+        } catch (error) {
+            console.error('Error check activity:', error);
+        }
+    }
+
     async startAutoRefresh() {
         setInterval(async () => {
             await this.refreshFriendRequests();
-        }, 5000);
+            await this.checkActivity();
+        }, 10000);
     }
 
     async onRender() {

@@ -50,6 +50,30 @@ await viewBatpong.onRender();
 
 window.addEventListener("popstate", router);
 
+window.addEventListener("beforeunload", async function(event) {
+	try {
+		const response = await fetch(document.location.origin + '/unload_user', {
+			method: 'GET',
+			headers: {
+				'X-CSRFToken': document.getElementsByName('csrfmiddlewaretoken')[0].value
+			}
+		});
+		
+		if (!response.ok) {
+			console.log('Fail to has response for unload activity user');
+		}
+
+		const data = await response.json();
+		if (data.success) {
+			console.log('unload user activity');
+		}
+		else {
+			console.log('unload user activity');
+		} 
+	} catch (error) {
+		console.error('Fail to call unload user activity:', error);
+	}
+});
 document.addEventListener("DOMContentLoaded", () => {
 	
 	const otp_callback_42 = document.cookie.includes('otp_callback_42=true');

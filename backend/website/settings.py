@@ -62,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'website.middleware.CustomMiddlewareJWT',
+    'website.middleware.UpdateLastActiveMiddleware',
 ]
 
 ROOT_URLCONF = 'website.urls'

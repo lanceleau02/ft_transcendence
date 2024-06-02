@@ -66,6 +66,8 @@ def set_all_cookies_jwt(request, response, user):
             samesite='Lax',
         )
     csrf.get_token(request)
+    user.is_online = True
+    user.save()
     return response
 
 

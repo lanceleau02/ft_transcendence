@@ -7,11 +7,12 @@ from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+#from django.shortcuts import render, redirect
 from auth_2FA.jwt import set_cookie_jwt_access, logout_jwt_error
 import logging
-from django.urls import reverse
+#from django.urls import reverse
 from user_management.views import CheckLogoutView
+from django.utils import timezone
 
 logger = logging.getLogger(__name__)
 
@@ -63,3 +64,13 @@ class CustomMiddlewareJWT(MiddlewareMixin):
                         return response
             return None
 
+class   UpdateLastActiveMiddleware(MiddlewareMixin):
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        if request.user.is_authenticated:
+            request.user.last_active_at = timezone.now()
+            request.user.save(update_fields=['last_active_at'])
+        response = self.get_response(request)
+        return response

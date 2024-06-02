@@ -31,7 +31,6 @@ urlpatterns = [
     path('batprofile/', mainViews.batprofile, name='batprofile'),
     path('signin/', userManagementViews.signin, name='signin'),
     path('signup/', userManagementViews.signup, name='signup'),
-    #path('accounts/', include('allauth.urls')),
     path('cursus-and-users', API42Views.get_cursus_and_users, name='cursus_and_users'),
     path('callback', API42Views.callback, name='callback'),
     path('callback_otp/', API42Views.callback_otp, name='callback_otp'),
@@ -46,4 +45,6 @@ urlpatterns = [
     path('off_model_2fa/', auth2FA.off_model_2fa, name='off_2fa'),
     path('otp_login_check', auth2FA.otp_login_check, name='otp_login_check'),
     path('display_user_profil/<int:userID>/', userManagementViews.display_user_profil, name='display_user_profil'),
+    path('check_activity', userManagementViews.check_activity, name='check_activity'),
+    path('unload_user', userManagementViews.unload_user, name='unload_user'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -103,3 +103,34 @@ def display_user_profil(request, userID):
         'friends': friends_json,
     }, encoder=DjangoJSONEncoder)
     return response
+
+@login_required
+def unload_user(request):
+    if request.user.is_anonymous:
+        return JsonResponse({'success': False})
+    user = request.user
+    user.is_online = False
+    user.save()
+    return JsonResponse({'success': True})
+
+from django.utils import timezone
+
+def check_activity(request):
+    if request.user.is_anonymous:
+        return JsonResponse({'status': 'offline'})
+    user = request.user
+    
+    if user.last_active_at:
+        delta = timezone.now() - user.last_active_at
+        if delta.seconds > 10:
+            user.is_online = False
+            user.save()
+            return JsonResponse({'status': 'offline'})
+        else:
+            user.is_online = True
+            user.save()
+            return JsonResponse({'status': 'online'})
+    else:
+        user.is_online = False
+        user.save()
+        return JsonResponse({'status': 'offline'})
