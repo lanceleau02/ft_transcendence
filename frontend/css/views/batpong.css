@@ -22,25 +22,21 @@ h6,
 	color: white;
 }
 
-.playerContainers {
-	display: flex;
+#playerContainers {
+	display: list-item;
+	overflow-y:auto;
+	height: 100px;
+	color: white;
 }
 
-.player1Container {
-	color: white;
-    height: 10px;
-    flex: 1;
-    top: 98%;
-    width: relative;
+#playerContainers input {
+	height: 20px;
+	width: 200px;
 }
 
-.player2Container {
-	color: white;
-    height: 10px;
-    flex: 1;
-    top: 98%;
-	right: 0;
-    width: relative;
+#playerContainers select {
+	height: 20px;
+	width: 90px;
 }
 
 /* ************************************************************************** */

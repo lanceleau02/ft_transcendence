@@ -6,6 +6,7 @@ import { Keystatus, keys_down, keys_up, players_input, getMouseCoord } from "./i
 import { menu } from './menu.js'
 import { Object } from "./Object.js";
 import { Player } from "./Player.js";
+import { Tournament } from "./Tournament.js";
 
 // Global variables
 let mode = "";
@@ -15,13 +16,16 @@ let colors = "";
 export let keystatus;
 export let running = 1;
 
-let players;
-export let player1;
-export let player2;
+export let tournament;
+export let match;
+export let batarang1;
+export let batarang2;
 export let ball;
 export let ai = 0;
 export let aimove = 0;
+let aimovefor = 0;
 let frame = 0;
+let countdown;
 
 export let buttonReplay;
 
@@ -59,50 +63,102 @@ function submitMatchForm(winnerId, loserId, score) {
 export function pause() {
     if (running == 2) {
         running = 1;
-        requestAnimationFrame(update);
+        if (countdown < 180)
+            requestAnimationFrame(startMatch);
+        else
+            requestAnimationFrame(update);
     }
-    else if (running == 1)
+    else if (running == 1) {
         running = 2
+        ctx.globalAlpha = 0.5;
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = 'yellow';
+        ctx.fillRect(canvas.width - 150, 150, 20, 80);
+        ctx.fillRect(canvas.width - 110, 150, 20, 80);
+        ctx.textAlign = "center";
+        ctx.font = "40px Comic Sans MS";
+        ctx.fillStyle = 'yellow';
+        ctx.fillText("Current match:", width / 2, height - 300, width / 2);
+        var str = match.p1.alias + " vs " + match.p2.alias;
+        ctx.fillText(str, width / 2, height - 250, width / 2);
+        var nextmatch = tournament.get_next_match();
+        if (!nextmatch && !tournament.qualified.length)
+            return ;
+        ctx.fillText("Next match:", width / 2, height - 100, width / 2);
+        if (!nextmatch && tournament.qualified.length)
+            str = tournament.qualified[0].alias + " vs winner";
+        else
+            str = nextmatch.p1.alias + " vs " + nextmatch.p2.alias;
+        ctx.fillText(str, width / 2, height - 50, width / 2);
+    }
 }
 
 function checkScored(scored) {
     if (scored == 1) {
-        player1.score++;
+        batarang1.score++;
         ball.x = width / 2 - 30;
         ball.y = height / 2 - 30;
         ball.speed = ball.baseSpeed;
         ball.setAngle(0);
     }
     else if (scored == 2) {
-        player2.score++;
+        batarang2.score++;
         ball.x = width / 2 - 30;
         ball.y = height / 2 - 30;
         ball.speed = ball.baseSpeed;
         ball.setAngle(180);
     }
-    if (player1.score == 3) {
-        drawEndScreen(ctx, "caa");
-        if (running)
-            submitMatchForm(currentUserId, '', player1.score + '-' + player2.score);
+    if (batarang1.score == 3) {
+        drawEndScreen(ctx, match.p1.alias, match.p1.color);
+        if (running && (match.p1.is_auth || match.p2.is_auth))
+            if (match.p1.is_auth)
+                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score);
+            else
+                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score);
         running = 0;
     }
-    else if (player2.score == 3) {
-        drawEndScreen(ctx, "caa");
-        if (running)
-            submitMatchForm('', currentUserId, player2.score + '-' + player1.score);
+    else if (batarang2.score == 3) {
+        drawEndScreen(ctx, match.p2.alias, match.p2.color);
+        if (running && (match.p1.is_auth || match.p2.is_auth))
+            if (match.p1.is_auth)
+                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score);
+            else
+                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score);
         running = 0;
     }
 }
 
 function aiThink() {
-    var dY = ball.intersectY(player2);
+    var dY = ball.intersectY(batarang2);
     if (dY > 200)
         aimove = 1;
     else if (dY < -200)
         aimove = 2;
-    else
+    else {
         aimove = 0;
+        aimovefor = 0;
+    }
     frame = 0;
+}
+
+function startMatch() {
+    if (running == 2)
+        return ;
+    renderGame(canvas, ctx);
+    if (countdown < 60)
+        ctx.fillText("3", width / 2, height / 2, width / 2);
+    else if (countdown < 120)
+        ctx.fillText("2", width / 2, height / 2, width / 2);
+    else if (countdown < 180)
+        ctx.fillText("1", width / 2, height / 2, width / 2);
+    else {
+        requestAnimationFrame(update);
+        return;
+    }
+    countdown++;
+    requestAnimationFrame(startMatch);
 }
 
 export function	update() {
@@ -111,7 +167,7 @@ export function	update() {
         aiThink();
     players_input();
     //draw the board, the players and the ball
-    checkScored(ball.move(player1, player2))
+    checkScored(ball.move(batarang1, batarang2))
     if (!running || running == 2)
         return;
     frame++;
@@ -120,12 +176,12 @@ export function	update() {
 }
 
 export function replayGame() {
-    player1.y = height / 2 - 100;
-    player1.score = 0;
-    player1.speed = 10;
-    player2.y = height / 2 - 100;
-    player2.score = 0;
-    player2.speed = 10;
+    batarang1.y = height / 2 - 100;
+    batarang1.score = 0;
+    batarang1.speed = 10;
+    batarang2.y = height / 2 - 100;
+    batarang2.score = 0;
+    batarang2.speed = 10;
     ball.x = width / 2 - 30;
     ball.y = height / 2 - 30;
     ball.baseSpeed = 12;
@@ -135,29 +191,40 @@ export function replayGame() {
     ball.setAngle(45);
     running = 1;
     frame = 0;
-    requestAnimationFrame(update);
+    countdown = 0;
+    requestAnimationFrame(startMatch);
+}
+
+export function nextMatch() {
+    match = tournament.get_current_match();
+
+    game_init(match.p1.color, match.p2.color);
+    replayGame()
 }
 
 function game_init(colorp1, colorp2) {
-    console.log('init game !');
-    player1 = new Batarang(30, height / 2 - 100, 90, 200, -1, "/static/img/game/batarang_" + colorp1 + ".png", "Player 1");
-	player2 = new Batarang(width - 30 - 90, height / 2 - 100, 90, 200, 1, "/static/img/game/batarang_" + colorp2 + ".png", "Player 2");
-    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, 6, "/static/img/game/batsign.webp");
+    // players = { new Player() };
+    batarang1 = new Batarang(30, height / 2 - 100, 90, 200, -1, "/static/img/game/batarang_" + colorp1 + ".png", "Player 1");
+	batarang2 = new Batarang(width - 30 - 90, height / 2 - 100, 90, 200, 1, "/static/img/game/batarang_" + colorp2 + ".png", "Player 2");
+    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, 12, "/static/img/game/batsign.webp");
 
-    buttonReplay = new Object(width / 2 - 80, height / 2 - 80, 160, 160, "/static/img/game/replayButton.png");
+    buttonReplay = new Object(width / 2 - 175, height / 2 + 200, 350, 120, "/static/img/game/button_template.png");
 
     keystatus = new Keystatus();
     document.addEventListener("keydown", keys_down);
     document.addEventListener("keyup", keys_up);
     document.addEventListener("click", getMouseCoord);
-	requestAnimationFrame(update);
+    countdown = 0;
 }
 
-export function startGame(aiparam, colorp1, colorp2) {
-    game_init(colorp1, colorp2);
+export function startGame(aiparam, players) {
+    tournament = new Tournament(players);
+    match = tournament.get_current_match();
+
+    game_init(players[0].color, players[1].color);
     ai = aiparam;
     canvas.style.display = '';
-    requestAnimationFrame(update);
+    requestAnimationFrame(startMatch);
 }
 
 export async function game() {

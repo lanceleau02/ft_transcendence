@@ -5,7 +5,7 @@ export class	Batarang extends Object {
 	constructor(x, y, w, h, lr, img, name) {
 		super(x, y, w, h, img);
 		this.lr = lr;
-		this.speed = 5;
+		this.speed = 10;
 		this.score = 0;
 		this.name = name;
 	}

@@ -1,8 +1,7 @@
 export class Player {
-	constructor(alias, batarang, is_logged) {
+	constructor(alias, color, is_auth) {
 		this.alias = alias;
-		this.batarang = batarang;
-		this.is_logged = is_logged;
-		this.eliminated = false;
+		this.color = color;
+		this.is_auth = is_auth;
 	}
 }

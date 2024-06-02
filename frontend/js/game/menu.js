@@ -1,11 +1,15 @@
-import { startGame } from './game.js'
+import { startGame } from './game.js';
+import { Player } from './Player.js';
+
+let playerCount = 2;
+let players;
 
 export async function menu(canvas) {
     // Declare variables
     const modeButtons = document.querySelectorAll('.mode');
-    const versionButtons = document.querySelectorAll('.version');
-    const classicButton = document.getElementById('classic');
-    const customButton = document.getElementById('custom');
+    // const versionButtons = document.querySelectorAll('.version');
+    // const classicButton = document.getElementById('classic');
+    // const customButton = document.getElementById('custom');
     const playButton = document.getElementById('play');
     const optionsMenu = document.getElementById('options-menu');
     const firstMenu = document.getElementById('first-menu');
@@ -15,12 +19,24 @@ export async function menu(canvas) {
     const colorSelect2 = document.getElementById('p2color');
     const playCustomButton = document.getElementById('play-custom');
 
-    const aiButton = document.getElementById('ai');
+    const playerContainers = document.getElementById('playerContainers');
+    const addPlayerButton = document.getElementById('add-player');
+    const removePlayerButton = document.getElementById('remove-player');
+
+    addPlayerButton.addEventListener('click', addPlayer);
+    removePlayerButton.addEventListener('click', removePlayer);
 
     // Hide elements
     playButton.style.display = 'none';
-    optionsMenu.style.display = 'none';
     playCustomButton.style.display = 'none';
+    optionsMenu.style.display = 'none';
+    // playCustomButton.style.display = 'none';
+
+    if (document.getElementById("userid").textContent == 'None') {
+        document.getElementById("player1alias").value = "guest";
+        document.getElementById("player2alias").value = "guest2";
+    }
+
 
     // Check selected buttons
     function isModeSelected() {
@@ -44,11 +60,24 @@ export async function menu(canvas) {
 
     // Select game type
     function handleModeSelection() {
-        if (isModeSelected() && classicButton.classList.contains('active')) {
-            runGame();
-        } else if (isModeSelected() && customButton.classList.contains('active')) {
+        // if (isModeSelected() && classicButton.classList.contains('active')) {
+        //     runGame();
+        // } else if (isModeSelected() && customButton.classList.contains('active')) {
+        //     displayOptionsMenu();
+        // }
+        if (isModeSelected())
             displayOptionsMenu();
+        if (modeButtons[2].classList.contains('active')) {
+            addPlayerButton.style.display= '';
+            removePlayerButton.style.display= '';
+        } else {
+            addPlayerButton.style.display= 'none';
+            removePlayerButton.style.display= 'none';
+            for (let i = 0; i < 8; i++) {
+                removePlayer();
+            }
         }
+
     }
 
     // Handle clicked buttons
@@ -59,19 +88,19 @@ export async function menu(canvas) {
         });
     });
 
-    versionButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            toggleActiveClass(versionButtons, button);
-            handleModeSelection();
-        });
-    });
+    // versionButtons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         toggleActiveClass(versionButtons, button);
+    //         handleModeSelection();
+    //     });
+    // });
     //
 
     // runGame() function
-    function runGame() {
-        playButton.style.display = '';
-        optionsMenu.style.display = 'none';
-    }
+    // function runGame() {
+    //     playButton.style.display = '';
+    //     optionsMenu.style.display = 'none';
+    // }
 
     // displayOptionsMenu() function
     function displayOptionsMenu() {
@@ -98,16 +127,65 @@ export async function menu(canvas) {
     }
 
     // Display game and hide menu
-    playButton.addEventListener('click', () => {
-        firstMenu.style.display = 'none';
-        canvas.style.display = '';
-        startGame(modeButtons[1].classList.contains('active'), 'blue', 'red');
-    });
+    // playButton.addEventListener('click', () => {
+    //     firstMenu.style.display = 'none';
+    //     canvas.style.display = '';
+    //     startGame(modeButtons[1].classList.contains('active'), 'blue', 'red');
+    // });
 
     playCustomButton.addEventListener('click', () => {
         firstMenu.style.display = 'none';
         optionsMenu.style.display = 'none';
         canvas.style.display = '';
-        startGame(modeButtons[1].classList.contains('active'), colorSelect1.value, colorSelect2.value);
+        savePlayers();
+        startGame(modeButtons[1].classList.contains('active'), players);
     });
+
+    function addPlayer() {
+        if (playerCount == 8)
+            return ;
+        playerCount++;
+    
+        const playerContainer = document.createElement('div');
+        playerContainer.classList.add('player-container');
+        playerContainer.id = `player${playerCount}`;
+    
+        playerContainer.innerHTML = `
+            <label>Player ${playerCount} alias:</label>
+            <input type="text" id="player${playerCount}alias" value="guest${playerCount}">
+            <label>Player ${playerCount} color:</label>
+            <select id="p${playerCount}color">
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="yellow">Yellow</option>
+                <option value="green">Green</option>
+                <option value="purple">Purple</option>
+            </select>
+        `;
+    
+        console.log(playerContainer);
+        console.log(playerContainers);
+        playerContainers.appendChild(playerContainer);
+    }
+
+    function removePlayer() {
+        if (playerCount == 2)
+            return ;
+        const playerContainer = document.getElementById(`player${playerCount}`);
+        playerContainer.remove();
+        playerCount--;
+    }
+
+    function savePlayers() {
+        players = []; // Clear the previous players array
+    
+        for (let i = 1; i <= playerCount; i++) {
+            const alias = document.getElementById(`player${i}alias`).value;
+            const color = document.getElementById(`p${i}color`).value;
+    
+            const player = new Player(alias, color, false);
+            players.push(player);
+        }
+        players[0].is_auth = document.getElementById("userid").textContent != 'None';
+    }
 }

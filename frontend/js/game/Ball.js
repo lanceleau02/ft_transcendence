@@ -9,7 +9,7 @@ export class	Ball extends Object {
 		this.speed = speed;
         this.speedX = this.speed * Math.cos(this.angle);
         this.speedY = this.speed * -Math.sin(this.angle);
-        this.speedCap = 12;
+        this.speedCap = 24;
         this.lastTouched = 0;
 	}
 
@@ -43,7 +43,7 @@ export class	Ball extends Object {
             this.speed = this.speedCap;
     }
 
-	checkCollision(player1, player2) {
+	checkCollision(batarang1, batarang2) {
 		if (this.y < 0 || this.y + this.h > height) {
             this.setAngle(-this.angle);
             this.y += this.speedY;
@@ -53,14 +53,14 @@ export class	Ball extends Object {
         else if (this.x + this.w > width)
             return 1;
         if (this.lastTouched != 1)
-            this.checkCollisionPlayer(player1, 1);
+            this.checkCollisionPlayer(batarang1, 1);
         if (this.lastTouched != 2)
-            this.checkCollisionPlayer(player2, 2);
+            this.checkCollisionPlayer(batarang2, 2);
         return 0;
 	}
 
-    move(player1, player2) {
-        var res = this.checkCollision(player1, player2);
+    move(batarang1, batarang2) {
+        var res = this.checkCollision(batarang1, batarang2);
         this.x += this.speedX;
         this.y += this.speedY;
         return res;
