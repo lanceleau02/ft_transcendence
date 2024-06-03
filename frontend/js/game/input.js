@@ -1,4 +1,4 @@
-import { keystatus, pause, batarang1, batarang2, buttonReplay, canvas, running, replayGame, ai, aimove, tournament, nextMatch } from './game.js';
+import { keystatus, pause, batarang1, batarang2, buttonReplay, canvas, running, replayGame, tournament, nextMatch, ai } from './game.js';
 
 export class   Keystatus {
     constructor() {
@@ -33,22 +33,26 @@ export function	keys_up(e) {
 		keystatus.arrowDown = false;
 }
 
-export function players_input() {
+export function players_input(batarang1, batarang2) {
     if (keystatus.w)
         batarang1.move_up();
     if (keystatus.s)
         batarang1.move_down();
-    if (!ai) {
+    if (!ai.isactive) {
         if (keystatus.arrowUp)
             batarang2.move_up();
         if (keystatus.arrowDown)
             batarang2.move_down();
     }
     else {
-        if (aimove == 1)
+        if (ai.move < -1) {
+            ai.move++;
             batarang2.move_up();
-        else if (aimove == 2)
+        }
+        else if (ai.move > 1) {
+            ai.move--;
             batarang2.move_down();
+        }
     }
 }
 

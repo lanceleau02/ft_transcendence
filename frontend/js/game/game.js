@@ -7,6 +7,7 @@ import { menu } from './menu.js'
 import { Object } from "./Object.js";
 import { Player } from "./Player.js";
 import { Tournament } from "./Tournament.js";
+import { AI } from "./AI.js";
 
 // Global variables
 let mode = "";
@@ -15,16 +16,14 @@ let colors = "";
 
 export let keystatus;
 export let running = 1;
+export let nInterval;
 
 export let tournament;
 export let match;
 export let batarang1;
 export let batarang2;
 export let ball;
-export let ai = 0;
-export let aimove = 0;
-let aimovefor = 0;
-let frame = 0;
+export let ai;
 let countdown;
 
 export let buttonReplay;
@@ -64,12 +63,13 @@ export function pause() {
     if (running == 2) {
         running = 1;
         if (countdown < 180)
-            requestAnimationFrame(startMatch);
+            nInterval = setInterval(requestAnimationFrame, 14, startMatch);
         else
-            requestAnimationFrame(update);
+            nInterval = setInterval(requestAnimationFrame, 14, update);
     }
     else if (running == 1) {
         running = 2
+        clearInterval(nInterval);
         ctx.globalAlpha = 0.5;
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -102,6 +102,7 @@ function checkScored(scored) {
         ball.y = height / 2 - 30;
         ball.speed = ball.baseSpeed;
         ball.setAngle(0);
+        ai.frame = 30;
     }
     else if (scored == 2) {
         batarang2.score++;
@@ -130,19 +131,6 @@ function checkScored(scored) {
     }
 }
 
-function aiThink() {
-    var dY = ball.intersectY(batarang2);
-    if (dY > 200)
-        aimove = 1;
-    else if (dY < -200)
-        aimove = 2;
-    else {
-        aimove = 0;
-        aimovefor = 0;
-    }
-    frame = 0;
-}
-
 function startMatch() {
     if (running == 2)
         return ;
@@ -154,25 +142,25 @@ function startMatch() {
     else if (countdown < 180)
         ctx.fillText("1", width / 2, height / 2, width / 2);
     else {
-        requestAnimationFrame(update);
+        clearInterval(nInterval);
+        nInterval = setInterval(requestAnimationFrame, 14, update);
         return;
     }
     countdown++;
-    requestAnimationFrame(startMatch);
 }
 
 export function	update() {
     //check and execute enventual input, then let the ball move
-    if (ai && frame == 30)
-        aiThink();
-    players_input();
+    ai.check(batarang2, ball);
+    players_input(batarang1, batarang2);
     //draw the board, the players and the ball
     checkScored(ball.move(batarang1, batarang2))
-    if (!running || running == 2)
+    if (!running || running == 2) {
+        clearInterval(nInterval);
+        nInterval = -1;
         return;
-    frame++;
+    }
     renderGame(canvas, ctx);
-    requestAnimationFrame(update);
 }
 
 export function replayGame() {
@@ -184,15 +172,16 @@ export function replayGame() {
     batarang2.speed = 10;
     ball.x = width / 2 - 30;
     ball.y = height / 2 - 30;
-    ball.baseSpeed = 12;
-    ball.speed = 12;
-    ball.speedCap = 48;
+    ball.speed = 10;
+    ball.baseSpeed = ball.speed;
+    ball.speedCap = ball.speed * 3;
     ball.lastTouched = 0;
-    ball.setAngle(45);
+    ball.angle = 45 - Math.floor(Math.random() * 91);
     running = 1;
-    frame = 0;
+    ai.frame = 0;
+    ai.move = 0;
     countdown = 0;
-    requestAnimationFrame(startMatch);
+    nInterval = setInterval(requestAnimationFrame, 14, startMatch);
 }
 
 export function nextMatch() {
@@ -206,7 +195,7 @@ function game_init(colorp1, colorp2) {
     // players = { new Player() };
     batarang1 = new Batarang(30, height / 2 - 100, 90, 200, -1, "/static/img/game/batarang_" + colorp1 + ".png", "Player 1");
 	batarang2 = new Batarang(width - 30 - 90, height / 2 - 100, 90, 200, 1, "/static/img/game/batarang_" + colorp2 + ".png", "Player 2");
-    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, 12, "/static/img/game/batsign.webp");
+    ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, "/static/img/game/batsign.webp");
 
     buttonReplay = new Object(width / 2 - 175, height / 2 + 200, 350, 120, "/static/img/game/button_template.png");
 
@@ -222,9 +211,9 @@ export function startGame(aiparam, players) {
     match = tournament.get_current_match();
 
     game_init(players[0].color, players[1].color);
-    ai = aiparam;
+    ai = new AI(aiparam);
     canvas.style.display = '';
-    requestAnimationFrame(startMatch);
+    nInterval = setInterval(requestAnimationFrame, 14, startMatch);
 }
 
 export async function game() {

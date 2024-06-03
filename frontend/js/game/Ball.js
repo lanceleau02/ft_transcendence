@@ -2,14 +2,14 @@ import { Object } from "./Object.js";
 import { height, width } from './game.js';
 
 export class	Ball extends Object {
-	constructor(x, y, w, h, speed, img) {
+	constructor(x, y, w, h, img) {
 		super(x, y, w, h, img);
-		this.angle = 45;
-        this.baseSpeed = speed;
-		this.speed = speed;
-        this.speedX = this.speed * Math.cos(this.angle);
-        this.speedY = this.speed * -Math.sin(this.angle);
-        this.speedCap = 24;
+		this.angle = 45 - Math.floor(Math.random() * 91);
+		this.speed = 10;
+        this.baseSpeed = this.speed;
+        this.speedX = this.speed * Math.cos(this.angle * (Math.PI / 180));
+        this.speedY = this.speed * -Math.sin(this.angle * (Math.PI / 180));
+        this.speedCap = this.speed * 3;
         this.lastTouched = 0;
 	}
 
