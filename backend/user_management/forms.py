@@ -17,6 +17,12 @@ class SignupForm(UserCreationForm):
         model = get_user_model()
         fields = ('username', 'email')
 
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if get_user_model().objects.filter(username=username).exists():
+            raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+        return username
+
 class UpdateUsername(forms.ModelForm):
     class Meta:
         model = get_user_model()
@@ -24,6 +30,12 @@ class UpdateUsername(forms.ModelForm):
         labels = {
             'username': 'New Username',
         }
+    
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if get_user_model().objects.filter(username=username).exists():
+            raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+        return username
 
 class AvatarForm(forms.ModelForm):
     class Meta:
@@ -80,6 +92,7 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
     def clean(self):
         cleaned_data = super().clean()
+        user = self.user
         old_password = cleaned_data.get("old_password")
         new_password1 = cleaned_data.get("new_password1")
         new_password2 = cleaned_data.get("new_password2")
@@ -87,8 +100,8 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         if new_password1 and new_password2 and new_password1 != new_password2:
             raise forms.ValidationError("The passwords do not match.")
 
-        if not old_password:
-            del self._errors["old_password"]
+        if old_password and not user.check_password(old_password):
+            self.add_error('old_password', "The old password is incorrect.")
 
         return cleaned_data
 
