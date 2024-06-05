@@ -1,6 +1,17 @@
 import { buttonReplay, batarang1, batarang2, ball, width, height, canvas, match, tournament, dict, background } from "./game.js";
 
-export function drawPauseMenu(ctx) {
+export function drawCountdown(ctx, countdown) {
+    if (countdown < 60)
+        ctx.fillText("3", width / 2, height / 2, width / 2);
+    else if (countdown < 120)
+        ctx.fillText("2", width / 2, height / 2, width / 2);
+    else if (countdown < 180)
+        ctx.fillText("1", width / 2, height / 2, width / 2);
+}
+
+export function drawPauseMenu(ctx, countdown) {
+    renderGame(canvas, ctx);
+    drawCountdown(ctx, countdown);
     ctx.globalAlpha = 0.5;
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -9,7 +20,7 @@ export function drawPauseMenu(ctx) {
     ctx.fillRect(canvas.width - 150, 150, 20, 80);
     ctx.fillRect(canvas.width - 110, 150, 20, 80);
     ctx.textAlign = "center";
-    ctx.font = "40px Comic Sans MS";
+    ctx.font = "60px gotham-knights";
     ctx.fillStyle = 'yellow';
     ctx.fillText(dict[0], width / 2, height - 300, width / 2);
     var str = match.p1.alias + " vs " + match.p2.alias;
@@ -28,15 +39,21 @@ export function drawPauseMenu(ctx) {
 export function drawEndScreen(ctx, text, color) {
     renderGame(canvas, ctx);
     // drawRotatedImage(ctx, buttonReplay, 0, width / 2 - buttonReplay.w / 2, height / 2 - buttonReplay.h / 2);
-    ctx.fillStyle = color;
-	ctx.fillRect(width / 3, height / 2 - 120, width / 3, height / 4);
-    if (tournament.simple_match || tournament.get_next_match() || tournament.qualified.length)
+    // ctx.fillStyle = color;
+	// ctx.fillRect(width / 3, height / 2 - 120, width / 3, height / 4);
+    if (tournament.simple_match || tournament.get_next_match() || tournament.qualified.length) {
+        ctx.drawImage(ball.img, width / 3 - 50, height / 2 - 400, width / 3 + 100, height / 2);
         ctx.drawImage(buttonReplay.img, buttonReplay.x, buttonReplay.y, buttonReplay.w, buttonReplay.h);
+    }
     ctx.textAlign = "center";
-    ctx.font = "60px Comic Sans MS";
+    ctx.font = "80px gotham-knights";
+    ctx.fillStyle = 'seagreen';
+    ctx.fillText(dict[3], width / 2, height / 2 - 250, width / 2);
+    ctx.font = "100px gotham-knights";
+    ctx.fillStyle = color;
+    ctx.fillText(text, width / 2, height / 2 - 100, width / 2);
+    ctx.font = "80px gotham-knights";
     ctx.fillStyle = 'black';
-    ctx.fillText(dict[3], width / 2, height / 2, width / 2);
-    ctx.fillText(text, width / 2, height / 2 + 100, width / 2);
     if (tournament.simple_match)
         ctx.fillText(dict[4], width / 2, buttonReplay.y + 85);
     else if (tournament.get_next_match() || tournament.qualified.length)
@@ -44,9 +61,9 @@ export function drawEndScreen(ctx, text, color) {
     ctx.fillStyle = 'yellow';
     var nextmatch = tournament.get_next_match();
     if (!nextmatch && tournament.qualified.length)
-        ctx.fillText(tournament.qualified[0].alias + " vs " + text, width / 2, buttonReplay.y + 175);
+        ctx.fillText(tournament.qualified[0].alias + " vs " + text, width / 2, buttonReplay.y + 300);
     else if (nextmatch)
-        ctx.fillText(nextmatch.p1.alias + " vs " + nextmatch.p2.alias, width / 2, buttonReplay.y + 175);
+        ctx.fillText(nextmatch.p1.alias + " vs " + nextmatch.p2.alias, width / 2, buttonReplay.y + 300);
 }
 
 export function drawRotatedImage(ctx, object, angle, x, y) {
@@ -82,7 +99,7 @@ export function drawBoard(canvas, ctx) {
 export function renderGame(canvas, ctx) {
     drawBoard(canvas, ctx);
     ctx.textAlign = "center";
-    ctx.font = "40px Comic Sans MS";
+    ctx.font = "60px gotham-knights";
     ctx.fillStyle = 'yellow';
     ctx.fillText(match.p1.alias, width / 4, height / 2 - 150, width / 2);
     ctx.fillText(match.p2.alias, 3 * width / 4, height / 2 - 150, width / 2);
@@ -96,5 +113,5 @@ export function renderGame(canvas, ctx) {
     // ctx.fillRect(batarang2.x, batarang2.y, batarang2.w, batarang2.h);
     drawRotatedImage(ctx, batarang1, 90, batarang1.x, batarang1.y);
     drawRotatedImage(ctx, batarang2, -90, batarang2.x, batarang2.y);
-    drawRotatedImage(ctx, ball, ball.angle, ball.x, ball.y);
+    drawRotatedImage(ctx, ball, 0, ball.x, ball.y);
 }

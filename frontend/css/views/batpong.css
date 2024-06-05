@@ -3,6 +3,11 @@
 	src: url('../fonts/Digital-Dream/DIGITALDREAM.ttf') format('truetype');
 }
 
+@font-face {
+	font-family: "gotham-knights";
+	src: url('../fonts/Gotham-Knights/Gotham-Knights.otf') format('opentype');
+}
+
 #batpong {
 	height: calc(100vh - 85.08px);
 	background-image: url('../../img/game/home.gif');
