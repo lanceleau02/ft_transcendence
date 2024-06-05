@@ -48,7 +48,7 @@ class AvatarForm(forms.ModelForm):
 class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
-        fields = ['winner', 'loser', 'score']
+        fields = ['winner', 'loser', 'score', 'score_w', 'score_l']
 
     def __init__(self, *args, **kwargs):
         super(MatchForm, self).__init__(*args, **kwargs)

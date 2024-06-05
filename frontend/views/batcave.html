@@ -58,10 +58,11 @@
 								<div class="d-flex flex-column align-items-center">
 									{% if last_three_matches.winner.username == user.username %}
 										<div class="victory">VICTORY</div>
+										<div class="score"><b>{{ last_three_matches.score }}</b></div>
 									{% else %}
 										<div class="defeat">DEFEAT</div>
+										<div class="score"><b>{{ last_three_matches.score_l }}-{{ last_three_matches.score_w }}</b></div>
 									{% endif %}
-									<div class="score"><b>{{ last_three_matches.score }}</b></div>
 								</div>
 							</div>
 							{% empty %}
