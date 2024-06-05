@@ -43,7 +43,7 @@ let langAct;
 let currentUserId;
 let csrfesse;
 
-function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
+function submitMatchForm(winnerId, loserId, score, score_w, score_l, rival) {
     $.ajax({
         url: "https://localhost:8000/batpong/",  // Update with the URL name of your view
         type: "POST",
@@ -53,6 +53,7 @@ function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
             'score': score,
             'score_w': score_w,
             'score_l': score_l,
+            'rival' : rival,
             'csrfmiddlewaretoken': csrfesse
         },
         success: function(response) {
@@ -115,18 +116,18 @@ function checkScored(scored) {
         drawEndScreen(ctx, match.p1.alias, match.p1.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
+                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score, match.p2.alias);
             else
-                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
+                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score, match.p1.alias);
         running = 0;
     }
     else if (batarang2.score == 3) {
         drawEndScreen(ctx, match.p2.alias, match.p2.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
+                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score, match.p2.alias);
             else
-                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
+                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score, match.p1.alias);
         running = 0;
     }
 }
