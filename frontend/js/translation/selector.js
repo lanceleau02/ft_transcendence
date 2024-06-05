@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 spanish.innerHTML = '<img class="lang-icon" src="/static/img/spanish.png"> Español';
             }
 
-            // Envoyer la langue choisie au serveur
+            // Send chosen language to sever
             const language = langItem.getAttribute("id");
             fetch('/update_language/', {
                 method: 'POST',

@@ -44,7 +44,7 @@
 							<ul class="navbar-nav">
 								<li class="nav-item dropdown">
 									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<img id="selectedImg" class="lang-icon" src="{% static 'img/english.png' %}">
+										<img id="selectedImg" class="lang-icon" src="{% if user.language == 'fr' %}{% static 'img/french.png' %}{% elif user.language == 'es' %}{% static 'img/spanish.png' %}{% else %}{% static 'img/english.png' %}{% endif %}">
 									</a>
 									<ul class="dropdown-menu languages" aria-labelledby="navbarDropdown">
 										<li class="lang-item {% if user.language == 'en' %}active-lang{% endif %}" id="en">
