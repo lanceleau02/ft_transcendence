@@ -38,7 +38,6 @@ urlpatterns = [
     path('accept_friend_request/<int:requestID>/', userManagementViews.accept_friend_request, name='accept friend request'),
     path('decline_friend_request/<int:requestID>/', userManagementViews.decline_friend_request, name='decline friend request'),
     path('logout/', userManagementViews.CustomLogoutView.as_view(), name='logout'),
-    path('check-logout/', userManagementViews.CheckLogoutView, name='check-logout'),
     path('verify_2fa', auth2FA.verify_2fa, name='verify_2fa'),
     path('qr_code/', auth2FA.view_qrcode, name='qr_code'),
     path('on_model_2fa/', auth2FA.on_model_2fa, name='on_2fa'),

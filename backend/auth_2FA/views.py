@@ -59,8 +59,6 @@ def verify_2fa(request):
         if two_factor_auth_data is None:
             return JsonResponse({'success': False})
         
-        logger.debug(f"-------otp1: {otp}")
-        
         if two_factor_auth_data.validate_otp(otp) is False:
             return JsonResponse({'success': False})
         
@@ -78,8 +76,6 @@ def otp_login_check(request):
             return JsonResponse({'loginForm': False})
 
         two_factor_auth_data = UserTwoFactorAuthData.objects.filter(user=user).first()
-
-        logger.debug(f"-------otplogin: {otp}")
 
         if two_factor_auth_data is None:
             return JsonResponse({'success': False})

@@ -49,10 +49,6 @@ export default class extends AbstractView {
 	}
 }
 
-// window.onload = function () { 
-// 	game();
-// }
-
 window.onresize = function() {
 	centerAndResizeBoard(window.innerWidth, window.innerHeight);
 }

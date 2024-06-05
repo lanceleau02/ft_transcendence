@@ -80,8 +80,6 @@ export default class extends AbstractView {
 			if (!response1.ok) {
 				throw new Error('Failed to get authorization URL');
 			}
-
-			console.log('1connexion avec api 42 passage dans le js evaluer');
 			
 			const data1 = await response1.json();
 			
@@ -102,15 +100,12 @@ export default class extends AbstractView {
 			}
 
 			const data = await response.json();
-
-			console.log('1connexion with opt 42api');
 			
 			const modalElement = document.getElementById('otpCodeModal');
 			if (modalElement) {
 				const modal = new bootstrap.Modal(modalElement, {backdrop: 'static'});
 				modal.show();
 			}
-        	console.log('OTP 42api exécutée');
 		} catch (error) {
 			console.error('Error getting callback_otp fail', error);
 		}

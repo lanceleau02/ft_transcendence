@@ -20,8 +20,7 @@ def get_cursus_and_users(request):
 
     client = OAuth2Session(UID, redirect_uri=redirect_uri)
     authorization_url, state = client.authorization_url('https://api.intra.42.fr/oauth/authorize')
-    
-    #request.session['oauth_redirect_uri'] = redirect_uri
+
     request.session['oauth_state'] = state
     request.session.save()
     
