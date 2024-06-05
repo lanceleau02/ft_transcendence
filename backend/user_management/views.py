@@ -84,13 +84,6 @@ class CustomLogoutView(LogoutView):
         
         return response
 
-def CheckLogoutView(request):
-    status = request.COOKIES.get('logout_status', '')
-    if status:
-        return JsonResponse({'formuser': True})
-    else:
-        return JsonResponse({'formuser': False})
-
 @login_required
 def display_user_profil(request, userID):
     userprofil = User.objects.get(id=userID)

@@ -1,7 +1,7 @@
 import { wait2get, centerAndResizeBoard } from "./game_utils.js";
 import { Batarang } from "./Batarang.js";
 import { Ball } from "./Ball.js";
-import { drawEndScreen, drawPauseMenu, renderGame } from "./draw.js";
+import { drawEndScreen, drawPauseMenu, renderGame, drawCountdown } from "./draw.js";
 import { Keystatus, keys_down, keys_up, players_input, getMouseCoord } from "./input.js";
 import { menu } from './menu.js'
 import { Object } from "./Object.js";
@@ -38,11 +38,12 @@ let ctx;
 export let canvas;
 export let height = 1080;
 export let width = 1920;
+let langAct;
 
 let currentUserId;
 let csrfesse;
 
-function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
+function submitMatchForm(winnerId, loserId, score, score_w, score_l, rival) {
     $.ajax({
         url: "https://localhost:8000/batpong/",  // Update with the URL name of your view
         type: "POST",
@@ -52,6 +53,7 @@ function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
             'score': score,
             'score_w': score_w,
             'score_l': score_l,
+            'rival' : rival,
             'csrfmiddlewaretoken': csrfesse
         },
         success: function(response) {
@@ -67,6 +69,18 @@ function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
     });
 }
 
+function checkLang() {
+    const langAct = document.querySelector('.active-lang').id;
+    if (langAct == "en")
+        dict = dictEN;
+    else if (langAct == "fr")
+        dict = dictFR;
+    else
+        dict = dictES;
+    if (running == 2)
+        return ;
+}
+
 export function pause() {
     if (running == 2) {
         running = 1;
@@ -78,7 +92,7 @@ export function pause() {
     else if (running == 1) {
         running = 2
         clearInterval(nInterval);
-        drawPauseMenu(ctx);
+        drawPauseMenu(ctx, countdown);
     }
 }
 
@@ -102,33 +116,27 @@ function checkScored(scored) {
         drawEndScreen(ctx, match.p1.alias, match.p1.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
+                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score, match.p2.alias);
             else
-                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
+                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score, match.p1.alias);
         running = 0;
     }
     else if (batarang2.score == 3) {
         drawEndScreen(ctx, match.p2.alias, match.p2.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
+                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score, match.p2.alias);
             else
-                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
+                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score, match.p1.alias);
         running = 0;
     }
 }
 
 function startMatch() {
-    if (running == 2)
-        return ;
+    checkLang();
     renderGame(canvas, ctx);
-    if (countdown < 60)
-        ctx.fillText("3", width / 2, height / 2, width / 2);
-    else if (countdown < 120)
-        ctx.fillText("2", width / 2, height / 2, width / 2);
-    else if (countdown < 180)
-        ctx.fillText("1", width / 2, height / 2, width / 2);
-    else {
+    drawCountdown(ctx, countdown);
+    if (countdown >= 180) {
         clearInterval(nInterval);
         nInterval = setInterval(requestAnimationFrame, 14, update);
         return;
@@ -138,6 +146,7 @@ function startMatch() {
 
 export function	update() {
     //check and execute enventual input, then let the ball move
+    checkLang();
     ai.check(batarang2, ball);
     players_input(batarang1, batarang2);
     //draw the board, the players and the ball
@@ -160,10 +169,12 @@ export function replayGame() {
     ball.x = width / 2 - 30;
     ball.y = height / 2 - 30;
     ball.speed = 10;
+    ball.angle = 45 - Math.floor(Math.random() * 91);
+    ball.speedX = ball.speed * Math.cos(ball.angle * (Math.PI / 180));
+    ball.speedY = ball.speed * -Math.sin(ball.angle * (Math.PI / 180));
     ball.baseSpeed = ball.speed;
     ball.speedCap = ball.speed * 3;
     ball.lastTouched = 0;
-    ball.angle = 45 - Math.floor(Math.random() * 91);
     running = 1;
     ai.frame = 0;
     ai.move = 0;
@@ -216,14 +227,9 @@ export async function game() {
     csrfesse = document.getElementById("csrfesse").firstChild.value;
 
     canvas.style.display = 'none';
-    const langAct = document.querySelector('.active-lang').id;
+    langAct = document.querySelector('.active-lang').id;
 
-    if (langAct == "en")
-        dict = dictEN;
-    else if (langAct == "fr")
-        dict = dictFR;
-    else
-        dict = dictES;
+    checkLang();
     menu(canvas);
     centerAndResizeBoard(window.innerWidth, window.innerHeight);
 }

@@ -22,9 +22,7 @@ def batpong(request):
 			return JsonResponse({'MatchForm': True, 
 				'winner': username,
 				'loser': username2,
-				'score': last_match.score,
-				'score_w': last_match.score_w,
-				'score_l': last_match.score_l
+				'score': last_match.score
 			})
 		else:
 			errors = form.errors.as_json()

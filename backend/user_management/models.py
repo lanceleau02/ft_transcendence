@@ -67,6 +67,7 @@ class Friend_Request(models.Model):
 class Match(models.Model):
 	winner = models.ForeignKey(User, related_name='won_matches', on_delete=models.CASCADE, null=True)
 	loser = models.ForeignKey(User, related_name='lost_matches', on_delete=models.CASCADE, null=True)
+	rival = models.CharField(max_length=50, default='Guest')
 	score = models.CharField(max_length=50)
 	score_w = models.CharField(max_length=50, default='0')
 	score_l = models.CharField(max_length=50, default='0')
@@ -80,6 +81,7 @@ class Match(models.Model):
     	    'score': self.score,
 			'score_w': self.score_w,
 			'score_l': self.score_l,
+			'rival' : self.rival,
     	    'date': self.match_date.strftime('%Y-%m-%d %H:%M:%S'), 
 		}
 

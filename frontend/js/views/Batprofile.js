@@ -301,9 +301,9 @@ export default class extends AbstractView {
                 });
 
                 function generateSummaryHtml(match) {
-                    const loser = match.loser? match.loser : "Guest";
-                    const winner = match.winner? match.winner : "Guest";
-                    if (winner === "Guest")
+                    const loser = match.loser? match.loser : match.rival;
+                    const winner = match.winner? match.winner : match.rival;
+                    if (winner === match.rival)
                         return `<br>${loser} vs ${winner}: ${match.score_l}-${match.score_w}  :${new Date(match.date).toLocaleDateString()}`;
                     else
                         return `<br>${winner} vs ${loser}: ${match.score}  :${new Date(match.date).toLocaleDateString()}`;

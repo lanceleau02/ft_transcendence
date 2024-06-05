@@ -7,11 +7,8 @@ from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
-#from django.shortcuts import render, redirect
 from auth_2FA.jwt import set_cookie_jwt_access, logout_jwt_error
 import logging
-#from django.urls import reverse
-from user_management.views import CheckLogoutView
 from django.utils import timezone
 
 logger = logging.getLogger(__name__)
