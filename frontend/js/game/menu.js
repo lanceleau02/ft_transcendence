@@ -1,5 +1,6 @@
 import { startGame } from './game.js';
 import { Player } from './Player.js';
+import { translation } from '../translation/translation.js'
 
 let playerCount = 2;
 let players;
@@ -149,11 +150,14 @@ export async function menu(canvas) {
         const playerContainer = document.createElement('div');
         playerContainer.classList.add('player-container');
         playerContainer.id = `player${playerCount}`;
-    
+		
         playerContainer.innerHTML = `
-            <label>Player ${playerCount} alias:</label>
+			<label class="player">Player </label>
+			<label>${playerCount} alias:</label>
             <input type="text" id="player${playerCount}alias" value="guest${playerCount}">
-            <label>Player ${playerCount} color:</label>
+            <label class="ms-3 player">Player </label>
+            <label>${playerCount}</label>
+            <label class="color"> color:</label>
             <select id="p${playerCount}color">
                 <option value="red">Red</option>
                 <option value="blue">Blue</option>
@@ -162,10 +166,11 @@ export async function menu(canvas) {
                 <option value="purple">Purple</option>
             </select>
         `;
-    
+		
         console.log(playerContainer);
         console.log(playerContainers);
         playerContainers.appendChild(playerContainer);
+		translation();
     }
 
     function removePlayer() {
