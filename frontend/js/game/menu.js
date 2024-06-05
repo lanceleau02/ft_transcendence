@@ -84,6 +84,10 @@ export async function menu(canvas) {
     // Handle clicked buttons
     modeButtons.forEach(button => {
         button.addEventListener('click', () => {
+            if (!isModeSelected()) {
+                mapButtons[0].classList.add('active');
+                playCustomButton.style.display = '';
+            }
             toggleActiveClass(modeButtons, button);
             handleModeSelection();
         });
@@ -139,8 +143,19 @@ export async function menu(canvas) {
         optionsMenu.style.display = 'none';
         canvas.style.display = '';
         savePlayers();
-        startGame(modeButtons[1].classList.contains('active'), players);
+        startGame(modeButtons[1].classList.contains('active'), players, getBackgroundPath());
     });
+
+    function getBackgroundPath() {
+        if (mapButtons[0].classList.contains('active'))
+            return "";
+        else if (mapButtons[1].classList.contains('active'))
+            return "/static/img/game/Bat-Cave.jpg";
+        else if (mapButtons[2].classList.contains('active'))
+            return "/static/img/game/Arkham.jpg";
+        else
+            return "/static/img/game/manor.jpg";
+    }
 
     function addPlayer() {
         if (playerCount == 8)

@@ -40,26 +40,49 @@
 					<!-- PROFILE & LANGUAGE CONTAINER -->
 					<div class="d-flex justify-content-between align-items-center">
 						<!-- LANGUAGE -->
-						<div class="me-3">
-							<ul class="navbar-nav">
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-										<img id="selectedImg" class="lang-icon" src="{% static 'img/english.png' %}">
-									</a>
-									<ul class="dropdown-menu languages" aria-labelledby="navbarDropdown">
-										<li class="lang-item active-lang" id="en">
-											<a class="dropdown-item english"><img class="lang-icon" src="{% static 'img/english.png' %}">	English</a>
-										</li>
-										<li class="lang-item" id="fr">
-											<a class="dropdown-item french"><img class="lang-icon" src="{% static 'img/french.png' %}">	French</a>
-										</li>
-										<li class="lang-item" id="es">
-											<a class="dropdown-item spanish"><img class="lang-icon" src="{% static 'img/spanish.png' %}">	Spanish</a>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</div>
+						{% if user.is_authenticated %}
+							<div class="me-3">
+								<ul class="navbar-nav">
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<img id="selectedImg" class="lang-icon" src="{% if user.language == 'fr' %}{% static 'img/french.png' %}{% elif user.language == 'es' %}{% static 'img/spanish.png' %}{% else %}{% static 'img/english.png' %}{% endif %}">
+										</a>
+										<ul class="dropdown-menu languages" aria-labelledby="navbarDropdown">
+											<li class="lang-item {% if user.language == 'en' %}active-lang{% endif %}" id="en">
+												<a class="dropdown-item english"><img class="lang-icon" src="{% static 'img/english.png' %}"> English</a>
+											</li>
+											<li class="lang-item {% if user.language == 'fr' %}active-lang{% endif %}" id="fr">
+												<a class="dropdown-item french"><img class="lang-icon" src="{% static 'img/french.png' %}"> French</a>
+											</li>
+											<li class="lang-item {% if user.language == 'es' %}active-lang{% endif %}" id="es">
+												<a class="dropdown-item spanish"><img class="lang-icon" src="{% static 'img/spanish.png' %}"> Spanish</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						{% else %}
+							<div class="me-3">
+								<ul class="navbar-nav">
+									<li class="nav-item dropdown">
+										<a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+											<img id="selectedImg" class="lang-icon" src="{% static 'img/english.png' %}">
+										</a>
+										<ul class="dropdown-menu languages" aria-labelledby="navbarDropdown">
+											<li class="lang-item active-lang" id="en">
+												<a class="dropdown-item english"><img class="lang-icon" src="{% static 'img/english.png' %}">	English</a>
+											</li>
+											<li class="lang-item" id="fr">
+												<a class="dropdown-item french"><img class="lang-icon" src="{% static 'img/french.png' %}">	French</a>
+											</li>
+											<li class="lang-item" id="es">
+												<a class="dropdown-item spanish"><img class="lang-icon" src="{% static 'img/spanish.png' %}">	Spanish</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+						{% endif %}
 						<!-- PROFILE -->
 						<div>
 							<ul class="navbar-nav">
