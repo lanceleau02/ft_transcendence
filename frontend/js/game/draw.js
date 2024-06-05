@@ -1,4 +1,4 @@
-import { buttonReplay, batarang1, batarang2, ball, width, height, canvas, match, tournament, dict } from "./game.js";
+import { buttonReplay, batarang1, batarang2, ball, width, height, canvas, match, tournament, dict, background } from "./game.js";
 
 export function drawPauseMenu(ctx) {
     ctx.globalAlpha = 0.5;
@@ -59,8 +59,12 @@ export function drawRotatedImage(ctx, object, angle, x, y) {
 
 export function drawBoard(canvas, ctx) {
     // Draw background
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (!background) {
+        ctx.fillStyle = 'black';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    else 
+        ctx.drawImage(background, 0, 0, width, height);
 
 	// Draw border
 	ctx.lineWidth = 20;

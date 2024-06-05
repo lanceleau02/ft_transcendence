@@ -68,6 +68,8 @@ class Match(models.Model):
 	winner = models.ForeignKey(User, related_name='won_matches', on_delete=models.CASCADE, null=True)
 	loser = models.ForeignKey(User, related_name='lost_matches', on_delete=models.CASCADE, null=True)
 	score = models.CharField(max_length=50)
+	score_w = models.CharField(max_length=50, default='0')
+	score_l = models.CharField(max_length=50, default='0')
 	match_date = models.DateTimeField(auto_now_add=True)
 
 	def to_dict(self):
@@ -76,6 +78,8 @@ class Match(models.Model):
 			'winner': self.winner.username if self.winner else None,
     	    'loser': self.loser.username if self.loser else None,
     	    'score': self.score,
+			'score_w': self.score_w,
+			'score_l': self.score_l,
     	    'date': self.match_date.strftime('%Y-%m-%d %H:%M:%S'), 
 		}
 
@@ -94,17 +98,13 @@ class UserTwoFactorAuthData(models.Model):
 			name=name,
 			issuer_name='Batpong 2fa'
 		)
-		#image_factory = qrcode.image.svg.SvgPathImage
-		qr_code_image = qrcode.make(uri)
-		#qr_code_string = qr_code_image.to_string(encoding='unicode')	
+		qr_code_image = qrcode.make(uri)	
 		return qr_code_image
 
 	def validate_otp(self, otp: str) -> bool:
 		totp = pyotp.TOTP(self.otp_secret)
 		is_valid = totp.verify(otp)
-		
-		logger.debug(f"-------is_valid: {is_valid}")
-		
+			
 		if is_valid:
 			return True
 		else:

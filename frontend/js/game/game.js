@@ -29,6 +29,7 @@ export let batarang1;
 export let batarang2;
 export let ball;
 export let ai;
+export let background;
 let countdown;
 
 export let buttonReplay;
@@ -41,7 +42,7 @@ export let width = 1920;
 let currentUserId;
 let csrfesse;
 
-function submitMatchForm(winnerId, loserId, score) {
+function submitMatchForm(winnerId, loserId, score, score_w, score_l) {
     $.ajax({
         url: "https://localhost:8000/batpong/",  // Update with the URL name of your view
         type: "POST",
@@ -49,6 +50,8 @@ function submitMatchForm(winnerId, loserId, score) {
             'winner': winnerId,
             'loser': loserId,
             'score': score,
+            'score_w': score_w,
+            'score_l': score_l,
             'csrfmiddlewaretoken': csrfesse
         },
         success: function(response) {
@@ -99,18 +102,18 @@ function checkScored(scored) {
         drawEndScreen(ctx, match.p1.alias, match.p1.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score);
+                submitMatchForm(currentUserId, '', batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
             else
-                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score);
+                submitMatchForm('', currentUserId, batarang1.score + '-' + batarang2.score, batarang1.score, batarang2.score);
         running = 0;
     }
     else if (batarang2.score == 3) {
         drawEndScreen(ctx, match.p2.alias, match.p2.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
             if (match.p1.is_auth)
-                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score);
+                submitMatchForm('', currentUserId, batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
             else
-                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score);
+                submitMatchForm(currentUserId, '', batarang2.score + '-' + batarang1.score, batarang2.score, batarang1.score);
         running = 0;
     }
 }
@@ -190,10 +193,16 @@ function game_init(colorp1, colorp2) {
     countdown = 0;
 }
 
-export function startGame(aiparam, players) {
+export function startGame(aiparam, players, backgroundpath) {
     tournament = new Tournament(players);
     match = tournament.get_current_match();
 
+    if (backgroundpath) {
+        background = new Image();
+		background.src = backgroundpath;
+    }
+    else
+        background = 0;
     game_init(players[0].color, players[1].color);
     ai = new AI(aiparam);
     canvas.style.display = '';

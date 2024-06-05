@@ -11,9 +11,6 @@ def home(request):
 	return render(request, "index.html", {'user': user})
 
 def batpong(request):
-	#if request.user.is_authenticated == False:
-	#	form = LoginForm()
-	#	return render(request, 'views/signin.html', context={'form': form})
 	form = MatchForm()
 	if request.method == 'POST':
 		form = MatchForm(request.POST)
@@ -25,7 +22,9 @@ def batpong(request):
 			return JsonResponse({'MatchForm': True, 
 				'winner': username,
 				'loser': username2,
-				'score': last_match.score
+				'score': last_match.score,
+				'score_w': last_match.score_w,
+				'score_l': last_match.score_l
 			})
 		else:
 			errors = form.errors.as_json()

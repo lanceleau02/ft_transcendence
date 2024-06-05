@@ -303,7 +303,10 @@ export default class extends AbstractView {
                 function generateSummaryHtml(match) {
                     const loser = match.loser? match.loser : "Guest";
                     const winner = match.winner? match.winner : "Guest";
-                    return `<br>${winner} vs ${loser}: ${match.score}  :${new Date(match.date).toLocaleDateString()}`;
+                    if (winner === "Guest")
+                        return `<br>${loser} vs ${winner}: ${match.score_l}-${match.score_w}  :${new Date(match.date).toLocaleDateString()}`;
+                    else
+                        return `<br>${winner} vs ${loser}: ${match.score}  :${new Date(match.date).toLocaleDateString()}`;
                 }
                 const summaryElements = data.stat3.map(generateSummaryHtml);
                 const joinedHtml = summaryElements.join('');
