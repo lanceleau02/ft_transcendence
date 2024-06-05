@@ -1,7 +1,7 @@
 import { wait2get, centerAndResizeBoard } from "./game_utils.js";
 import { Batarang } from "./Batarang.js";
 import { Ball } from "./Ball.js";
-import { drawBoard, drawEndScreen, renderGame } from "./draw.js";
+import { drawEndScreen, drawPauseMenu, renderGame } from "./draw.js";
 import { Keystatus, keys_down, keys_up, players_input, getMouseCoord } from "./input.js";
 import { menu } from './menu.js'
 import { Object } from "./Object.js";
@@ -13,6 +13,11 @@ import { AI } from "./AI.js";
 let mode = "";
 let map = "";
 let colors = "";
+
+export let dict;
+let dictEN = [ "Current match:", "Next match:", "winner", "Winner:", "Replay", "Next match" ];
+let dictFR = [ "Match actuel:", "Match suivant:", "vaiqueur", "Vainqueur:", "Rejouer", "Match suivant" ];
+let dictES = [ "Partido actual:", "Siguiente partido:", "ganador", "Ganador:", "Repetir", "Siguiente partido" ]
 
 export let keystatus;
 export let running = 1;
@@ -48,9 +53,9 @@ function submitMatchForm(winnerId, loserId, score) {
         },
         success: function(response) {
             if (response.MatchForm) {
-                alert("Match saved! Winner: " + response.winner + ", Loser: " + response.loser + ", Score: " + response.score);
+                console.log("Match saved! Winner: " + response.winner + ", Loser: " + response.loser + ", Score: " + response.score);
             } else {
-                alert("Error: " + response.errors);
+                console.log("Error: " + response.errors);
             }
         },
         error: function(xhr, errmsg, err) {
@@ -70,47 +75,26 @@ export function pause() {
     else if (running == 1) {
         running = 2
         clearInterval(nInterval);
-        ctx.globalAlpha = 0.5;
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = 'yellow';
-        ctx.fillRect(canvas.width - 150, 150, 20, 80);
-        ctx.fillRect(canvas.width - 110, 150, 20, 80);
-        ctx.textAlign = "center";
-        ctx.font = "40px Comic Sans MS";
-        ctx.fillStyle = 'yellow';
-        ctx.fillText("Current match:", width / 2, height - 300, width / 2);
-        var str = match.p1.alias + " vs " + match.p2.alias;
-        ctx.fillText(str, width / 2, height - 250, width / 2);
-        var nextmatch = tournament.get_next_match();
-        if (!nextmatch && !tournament.qualified.length)
-            return ;
-        ctx.fillText("Next match:", width / 2, height - 100, width / 2);
-        if (!nextmatch && tournament.qualified.length)
-            str = tournament.qualified[0].alias + " vs winner";
-        else
-            str = nextmatch.p1.alias + " vs " + nextmatch.p2.alias;
-        ctx.fillText(str, width / 2, height - 50, width / 2);
+        drawPauseMenu(ctx);
     }
 }
 
+function resetPoint(batarang, angle) {
+    batarang.score++;
+    ball.x = width / 2 - 30;
+    ball.y = height / 2 - 30;
+    ball.speed = ball.baseSpeed;
+    ball.setAngle(angle);
+    ai.frame = 30;
+}
+
 function checkScored(scored) {
-    if (scored == 1) {
-        batarang1.score++;
-        ball.x = width / 2 - 30;
-        ball.y = height / 2 - 30;
-        ball.speed = ball.baseSpeed;
-        ball.setAngle(0);
-        ai.frame = 30;
-    }
-    else if (scored == 2) {
-        batarang2.score++;
-        ball.x = width / 2 - 30;
-        ball.y = height / 2 - 30;
-        ball.speed = ball.baseSpeed;
-        ball.setAngle(180);
-    }
+    if (scored == 1)
+        resetPoint(batarang1, 0);
+    else if (scored == 2)
+        resetPoint(batarang2, 180);
+    else
+        return;
     if (batarang1.score == 3) {
         drawEndScreen(ctx, match.p1.alias, match.p1.color);
         if (running && (match.p1.is_auth || match.p2.is_auth))
@@ -223,7 +207,14 @@ export async function game() {
     csrfesse = document.getElementById("csrfesse").firstChild.value;
 
     canvas.style.display = 'none';
+    const langAct = document.querySelector('.active-lang').id;
 
+    if (langAct == "en")
+        dict = dictEN;
+    else if (langAct == "fr")
+        dict = dictFR;
+    else
+        dict = dictES;
     menu(canvas);
     centerAndResizeBoard(window.innerWidth, window.innerHeight);
 }
