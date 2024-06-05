@@ -4,15 +4,13 @@ from user_management.models import User, Friend_Request, Match
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import logging
+""" from django.utils.translation import activate """
 
 def home(request):
 	user = request.user
 	return render(request, "index.html", {'user': user})
 
 def batpong(request):
-	#if request.user.is_authenticated == False:
-	#	form = LoginForm()
-	#	return render(request, 'views/signin.html', context={'form': form})
 	form = MatchForm()
 	if request.method == 'POST':
 		form = MatchForm(request.POST)
@@ -24,7 +22,9 @@ def batpong(request):
 			return JsonResponse({'MatchForm': True, 
 				'winner': username,
 				'loser': username2,
-				'score': last_match.score
+				'score': last_match.score,
+				'score_w': last_match.score_w,
+				'score_l': last_match.score_l
 			})
 		else:
 			errors = form.errors.as_json()
@@ -88,13 +88,17 @@ def batprofile(request):
 
 logger = logging.getLogger(__name__)
 
+from django.utils.translation import activate
+
 def update_language(request):
 	if request.method == "POST":
 		language = request.POST.get("language")
 		if language in ["en", "fr", "es"]:
-			request.user.language = language
-			request.user.save()
-			return JsonResponse({"status": "success"})
+			if request.user.is_authenticated:
+				request.user.language = language
+				request.user.save()
+				return JsonResponse({"status": "success"})
 		else:
-			return JsonResponse({"status": "error", "message": "Invalid language"}, status=400)
-		return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
+			return JsonResponse({"status": "error"})
+	return JsonResponse({"status": "not POST"})
+

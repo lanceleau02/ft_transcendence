@@ -44,8 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(data => {
                 if (data.status === 'success') {
                     console.log('Language updated successfully');
-                } else {
-                    console.error('Error updating language:', data.message);
                 }
             })
             .catch(error => {
