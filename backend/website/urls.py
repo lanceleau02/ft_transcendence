@@ -47,4 +47,5 @@ urlpatterns = [
     path('display_user_profil/<int:userID>/', userManagementViews.display_user_profil, name='display_user_profil'),
     path('check_activity', userManagementViews.check_activity, name='check_activity'),
     path('unload_user', userManagementViews.unload_user, name='unload_user'),
+    path('update_language/', mainViews.update_language, name='update_language'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

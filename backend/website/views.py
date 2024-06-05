@@ -3,6 +3,7 @@ from user_management.forms import LoginForm, AvatarForm, UpdateUsername, CustomP
 from user_management.models import User, Friend_Request, Match
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+import logging
 
 def home(request):
 	user = request.user
@@ -84,3 +85,16 @@ def batprofile(request):
 					'friends':friends,
 				})
 	return render(request, "index.html")
+
+logger = logging.getLogger(__name__)
+
+def update_language(request):
+	if request.method == "POST":
+		language = request.POST.get("language")
+		if language in ["en", "fr", "es"]:
+			request.user.language = language
+			request.user.save()
+			return JsonResponse({"status": "success"})
+		else:
+			return JsonResponse({"status": "error", "message": "Invalid language"}, status=400)
+		return JsonResponse({"status": "error", "message": "Invalid request method"}, status=400)
