@@ -124,24 +124,28 @@ document.addEventListener("DOMContentLoaded", () => {
 	// FRIEND REQUESTS
 	document.body.addEventListener("click", async (e) => {
 		let switchElement = document.getElementById('Switch2FA');
-		const view = new Batprofile();
 		if (e.target.getAttribute('id') === 'send-friend-request') {
 			e.preventDefault();
 			const userID = e.target.getAttribute('user-id');
+			const view = new Batprofile();
 			await view.sendFriendRequest(userID);
 		} else if (e.target.getAttribute('id') === 'accept-friend-request') {
 			e.preventDefault();
 			const requestID = e.target.getAttribute('request-id');
+			const view = new Batprofile();
 			await view.acceptFriendRequest(requestID);
 		} else if (e.target.getAttribute('id') === 'decline-friend-request') {
 			e.preventDefault();
 			const requestID = e.target.getAttribute('request-id');
+			const view = new Batprofile();
 			await view.declineFriendRequest(requestID);
 		} else if (e.target.getAttribute('id') === 'Switch2FA') {
+			const view = new Batprofile();
 			await view.switch2FA(switchElement);
 		} else if (e.target.getAttribute('id') === 'open-canvas-profil') {
 			e.preventDefault();
 			const userID = e.target.getAttribute('user-id');
+			const view = new Batprofile();
 			await view.loadUserProfile(userID);
 		}
 	});
