@@ -29,6 +29,7 @@ export let batarang1;
 export let batarang2;
 export let ball;
 export let ai;
+export let background;
 let countdown;
 
 export let buttonReplay;
@@ -190,10 +191,16 @@ function game_init(colorp1, colorp2) {
     countdown = 0;
 }
 
-export function startGame(aiparam, players) {
+export function startGame(aiparam, players, backgroundpath) {
     tournament = new Tournament(players);
     match = tournament.get_current_match();
 
+    if (backgroundpath) {
+        background = new Image();
+		background.src = backgroundpath;
+    }
+    else
+        background = 0;
     game_init(players[0].color, players[1].color);
     ai = new AI(aiparam);
     canvas.style.display = '';
