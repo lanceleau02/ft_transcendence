@@ -3,9 +3,10 @@ import { game } from '../game/game.js'
 import { centerAndResizeBoard } from '../game/game_utils.js'
 
 export default class extends AbstractView {
-	constructor() {
+	constructor(router) {
 		super();
 		this.setTitle("Batpong");
+        this.router = router;
 	}
 
 	async getHtml() {
