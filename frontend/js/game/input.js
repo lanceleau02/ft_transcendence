@@ -1,4 +1,4 @@
-import { keystatus, pause, batarang1, batarang2, buttonReplay, canvas, running, replayGame, tournament, nextMatch, ai } from './game.js';
+import { keystatus, pause, batarang1, batarang2, buttonReplay, canvas, running, replayGame, tournament, nextMatch, ai, buttonBack, gotoMenu } from './game.js';
 
 export class   Keystatus {
     constructor() {
@@ -60,12 +60,16 @@ export function getMouseCoord(e) {
     var rect = canvas.getBoundingClientRect();
     var x = (e.clientX - rect.left) / (rect.right - rect.left) * canvas.width;
     var y = (e.clientY - rect.top) / (rect.bottom - rect.top) * canvas.height;
-    if (!running && buttonReplay.isAt(x, y)) {
-        if (tournament.get_next_match() || tournament.qualified.length) {
-            tournament.send_result(batarang1.score > batarang2.score + 1);
-            nextMatch();
+    if (!running) {
+        if (buttonReplay.isAt(x, y)) {
+            if (tournament.get_next_match() || tournament.qualified.length) {
+                tournament.send_result(batarang1.score > batarang2.score + 1);
+                nextMatch();
+            }
+            else if (tournament.simple_match)
+                replayGame();
         }
-        else if (tournament.simple_match)
-            replayGame();
     }
+    if ((!running || running == 2) && buttonBack.isAt(x, y))
+        gotoMenu();
 }

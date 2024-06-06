@@ -20,7 +20,7 @@ let dictFR = [ "Match actuel:", "Match suivant:", "vaiqueur", "Vainqueur:", "Rej
 let dictES = [ "Partido actual:", "Siguiente partido:", "ganador", "Ganador:", "Repetir", "Siguiente partido" ]
 
 export let keystatus;
-export let running = 1;
+export let running = -1;
 export let nInterval;
 
 export let tournament;
@@ -33,6 +33,7 @@ export let background;
 let countdown;
 
 export let buttonReplay;
+export let buttonBack;
 
 let ctx;
 export let canvas;
@@ -90,9 +91,9 @@ export function pause() {
             nInterval = setInterval(requestAnimationFrame, 14, update);
     }
     else if (running == 1) {
+        drawPauseMenu(ctx, countdown);
         running = 2
         clearInterval(nInterval);
-        drawPauseMenu(ctx, countdown);
     }
 }
 
@@ -133,6 +134,7 @@ function checkScored(scored) {
 }
 
 function startMatch() {
+    running = 1;
     checkLang();
     renderGame(canvas, ctx);
     drawCountdown(ctx, countdown);
@@ -196,6 +198,7 @@ function game_init(colorp1, colorp2) {
     ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, "/static/img/game/batsign.webp");
 
     buttonReplay = new Object(width / 2 - 175, height / 2 + 200, 350, 120, "/static/img/game/button_template.png");
+    buttonBack = new Object(50, 50, 150, 150, "/static/img/game/button_back.png");
 
     keystatus = new Keystatus();
     document.addEventListener("keydown", keys_down);
@@ -205,6 +208,8 @@ function game_init(colorp1, colorp2) {
 }
 
 export function startGame(aiparam, players, backgroundpath) {
+    if (nInterval > 0)
+        clearInterval(nInterval);
     tournament = new Tournament(players);
     match = tournament.get_current_match();
 
@@ -221,15 +226,85 @@ export function startGame(aiparam, players, backgroundpath) {
 }
 
 export async function game() {
-	canvas = await wait2get('boardpong');
+    canvas = await wait2get('boardpong');
     ctx = canvas.getContext('2d');
     currentUserId = document.getElementById("userid").textContent;
     csrfesse = document.getElementById("csrfesse").firstChild.value;
 
     canvas.style.display = 'none';
     langAct = document.querySelector('.active-lang').id;
-
+    if (running != -1) {
+        document.getElementById('first-menu').style.display = 'none';
+        document.getElementById('options-menu').style.display = 'none';
+        canvas.style.display = '';
+        centerAndResizeBoard(window.innerWidth, window.innerHeight);
+        if (nInterval > 0)
+            clearInterval(nInterval);
+    }
+    if (running == 2) {
+        drawPauseMenu(ctx, countdown);
+        return;
+    }
+    else if (running == 0) {
+        drawEndScreen(ctx, batarang1.score > batarang2.score ? match.p1.alias : match.p2.alias, batarang1.score > batarang2.score ? match.p1.color : match.p2.color);
+        return;
+    }
+    // if (running != -1 && countdown >= 180) {
+    //     nInterval = setInterval(requestAnimationFrame, 14, update);
+    //     return;
+    // } else if (running != -1 && countdown < 180) {
+    //     nInterval = setInterval(requestAnimationFrame, 14, startMatch);
+    //     return;
+    // }
     checkLang();
     menu(canvas);
     centerAndResizeBoard(window.innerWidth, window.innerHeight);
 }
+
+export function gotoMenu() {
+    if (nInterval > 0)
+        clearInterval(nInterval);
+    canvas.style.display = 'none';
+    const modeButtons = document.querySelectorAll('.mode');
+    modeButtons.forEach(btn => btn.classList.remove('active'));
+    const mapButtons = document.querySelectorAll('.map');
+    mapButtons.forEach(btn => btn.classList.remove('active'));
+    document.getElementById('first-menu').style.display = '';
+    document.getElementById('options-menu').style.display = '';
+    menu();
+}
+
+// $(document).ready(function() {
+//     if (window.location.href.indexOf("batpong") > -1) {
+//       alert("your url contains the name batpong");
+//     }
+//   });
+
+let batpong = document.getElementById("linktobatpong");
+let batcave = document.getElementById("linktobatcave");
+let batprofile = document.getElementById("linktobatprofile");
+
+batpong.addEventListener("click", function(event) {
+    // running = -1;
+    if (running != -1 && running)
+        running = 2;
+    if (nInterval > 0)
+        clearInterval(nInterval);
+    console.log(running);
+    // game();
+});
+
+batcave.addEventListener("click", function(event) {
+    if (running != -1 && running)
+        running = 2;
+    if (nInterval > 0)
+        clearInterval(nInterval);
+});
+
+batprofile.addEventListener("click", function(event) {
+    if (running != -1 && running)
+        running = 2;
+    if (nInterval > 0)
+        clearInterval(nInterval);
+    console.log(running);
+});

@@ -2,7 +2,6 @@ import { startGame } from './game.js';
 import { Player } from './Player.js';
 import { translation } from '../translation/translation.js'
 
-let playerCount = 2;
 let players;
 
 export async function menu(canvas) {
@@ -19,25 +18,26 @@ export async function menu(canvas) {
     const colorSelect1 = document.getElementById('p1color');
     const colorSelect2 = document.getElementById('p2color');
     const playCustomButton = document.getElementById('play-custom');
-
+    
     const playerContainers = document.getElementById('playerContainers');
     const addPlayerButton = document.getElementById('add-player');
     const removePlayerButton = document.getElementById('remove-player');
-
+    
     addPlayerButton.addEventListener('click', addPlayer);
     removePlayerButton.addEventListener('click', removePlayer);
-
+    
     // Hide elements
     playButton.style.display = 'none';
     playCustomButton.style.display = 'none';
     optionsMenu.style.display = 'none';
     // playCustomButton.style.display = 'none';
-
+    
     if (document.getElementById("userid").textContent == 'None') {
         document.getElementById("player1alias").value = "guest";
         document.getElementById("player2alias").value = "guest2";
     }
-
+    
+    var playerCount = 2;
 
     // Check selected buttons
     function isModeSelected() {
@@ -138,13 +138,21 @@ export async function menu(canvas) {
     //     startGame(modeButtons[1].classList.contains('active'), 'blue', 'red');
     // });
 
+    // function showMenu() {
+
+    // }
+
     playCustomButton.addEventListener('click', () => {
         firstMenu.style.display = 'none';
         optionsMenu.style.display = 'none';
-        canvas.style.display = '';
+        // canvas.style.display = '';
+        addPlayerButton.removeEventListener('click', addPlayer);
+        removePlayerButton.removeEventListener('click', removePlayer);
         savePlayers();
         startGame(modeButtons[1].classList.contains('active'), players, getBackgroundPath());
     });
+
+    // if (running != -1)
 
     function getBackgroundPath() {
         if (mapButtons[0].classList.contains('active'))

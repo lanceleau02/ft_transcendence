@@ -1,4 +1,4 @@
-import { buttonReplay, batarang1, batarang2, ball, width, height, canvas, match, tournament, dict, background } from "./game.js";
+import { buttonReplay, buttonBack, batarang1, batarang2, ball, width, height, canvas, match, tournament, dict, background } from "./game.js";
 
 export function drawCountdown(ctx, countdown) {
     if (countdown < 60)
@@ -16,6 +16,7 @@ export function drawPauseMenu(ctx, countdown) {
     ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.globalAlpha = 1;
+    ctx.drawImage(buttonBack.img, buttonBack.x, buttonBack.y, buttonBack.w, buttonBack.h);
     ctx.fillStyle = 'yellow';
     ctx.fillRect(canvas.width - 150, 150, 20, 80);
     ctx.fillRect(canvas.width - 110, 150, 20, 80);
@@ -38,13 +39,16 @@ export function drawPauseMenu(ctx, countdown) {
 
 export function drawEndScreen(ctx, text, color) {
     renderGame(canvas, ctx);
+    console.log(text)
     // drawRotatedImage(ctx, buttonReplay, 0, width / 2 - buttonReplay.w / 2, height / 2 - buttonReplay.h / 2);
     // ctx.fillStyle = color;
 	// ctx.fillRect(width / 3, height / 2 - 120, width / 3, height / 4);
-    if (tournament.simple_match || tournament.get_next_match() || tournament.qualified.length) {
-        ctx.drawImage(ball.img, width / 3 - 50, height / 2 - 400, width / 3 + 100, height / 2);
+    var nextMatch = tournament.get_next_match();
+    ctx.drawImage(ball.img, width / 3 - 50, height / 2 - 400, width / 3 + 100, height / 2);
+    if (tournament.simple_match || nextMatch || tournament.qualified.length) {
         ctx.drawImage(buttonReplay.img, buttonReplay.x, buttonReplay.y, buttonReplay.w, buttonReplay.h);
     }
+    ctx.drawImage(buttonBack.img, buttonBack.x, buttonBack.y, buttonBack.w, buttonBack.h);
     ctx.textAlign = "center";
     ctx.font = "80px gotham-knights";
     ctx.fillStyle = 'seagreen';
