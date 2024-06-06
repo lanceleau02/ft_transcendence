@@ -24,7 +24,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Backend de session de 
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-xxc7591m993o0d^9*li0v^%811!r9+i(%#=tub&@fm+x$b$q00'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
