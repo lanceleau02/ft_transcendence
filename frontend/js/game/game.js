@@ -9,11 +9,6 @@ import { Player } from "./Player.js";
 import { Tournament } from "./Tournament.js";
 import { AI } from "./AI.js";
 
-// Global variables
-let mode = "";
-let map = "";
-let colors = "";
-
 export let dict;
 let dictEN = [ "Current match:", "Next match:", "winner", "Winner:", "Replay", "Next match" ];
 let dictFR = [ "Match actuel:", "Match suivant:", "vaiqueur", "Vainqueur:", "Rejouer", "Match suivant" ];
@@ -42,7 +37,7 @@ export let width = 1920;
 let langAct;
 
 let currentUserId;
-let csrfesse;
+let csrftoken;
 
 function submitMatchForm(winnerId, loserId, score, score_w, score_l, rival) {
     $.ajax({
@@ -55,7 +50,7 @@ function submitMatchForm(winnerId, loserId, score, score_w, score_l, rival) {
             'score_w': score_w,
             'score_l': score_l,
             'rival' : rival,
-            'csrfmiddlewaretoken': csrfesse
+            'csrfmiddlewaretoken': csrftoken
         },
         success: function(response) {
             if (response.MatchForm) {
@@ -192,7 +187,6 @@ export function nextMatch() {
 }
 
 function game_init(colorp1, colorp2) {
-    // players = { new Player() };
     batarang1 = new Batarang(30, height / 2 - 100, 90, 200, -1, "/static/img/game/batarang_" + colorp1 + ".png", "Player 1");
 	batarang2 = new Batarang(width - 30 - 90, height / 2 - 100, 90, 200, 1, "/static/img/game/batarang_" + colorp2 + ".png", "Player 2");
     ball = new Ball(width / 2 - 30, height / 2 - 30, 60, 60, "/static/img/game/batsign.webp");
@@ -229,10 +223,10 @@ export async function game() {
     canvas = await wait2get('boardpong');
     ctx = canvas.getContext('2d');
     currentUserId = document.getElementById("userid").textContent;
-    csrfesse = document.getElementById("csrfesse").firstChild.value;
+    csrftoken = document.getElementById("csrftoken").firstChild.value;
+    checkLang();
 
     canvas.style.display = 'none';
-    langAct = document.querySelector('.active-lang').id;
     if (running != -1) {
         document.getElementById('first-menu').style.display = 'none';
         document.getElementById('options-menu').style.display = 'none';
@@ -241,28 +235,16 @@ export async function game() {
         if (nInterval > 0)
             clearInterval(nInterval);
     }
-    if (running == 2 && countdown >= 180) {
+    if (running == 2 && countdown >= 180) 
         drawPauseMenu(ctx, countdown);
-        return;
-    }
-    else if (running == 2 || (running == 1 && countdown < 180)) {
+    else if (running == 2 || (running == 1 && countdown < 180))
         nInterval = setInterval(requestAnimationFrame, 14, startMatch);
-        return;
-    }
-    else if (running == 0) {
+    else if (running == 0)
         drawEndScreen(ctx, batarang1.score > batarang2.score ? match.p1.alias : match.p2.alias, batarang1.score > batarang2.score ? match.p1.color : match.p2.color);
-        return;
+    else {
+        menu(canvas);
+        centerAndResizeBoard(window.innerWidth, window.innerHeight);
     }
-    // if (running != -1 && countdown >= 180) {
-    //     nInterval = setInterval(requestAnimationFrame, 14, update);
-    //     return;
-    // } else if (running != -1 && countdown < 180) {
-    //     nInterval = setInterval(requestAnimationFrame, 14, startMatch);
-    //     return;
-    // }
-    checkLang();
-    menu(canvas);
-    centerAndResizeBoard(window.innerWidth, window.innerHeight);
 }
 
 export function gotoMenu() {
@@ -279,26 +261,16 @@ export function gotoMenu() {
     menu();
 }
 
-// $(document).ready(function() {
-//     if (window.location.href.indexOf("batpong") > -1) {
-//       alert("your url contains the name batpong");
-//     }
-//   });
-
 let batpong = document.getElementById("linktobatpong");
 let batcave = document.getElementById("linktobatcave");
 let batprofile = document.getElementById("linktobatprofile");
 
 batpong.addEventListener("click", function(event) {
-    // running = -1;
     if (running != -1 && running)
         running = 2;
     if (nInterval > 0)
         clearInterval(nInterval);
     console.log(running);
-    // game();
-    // if (running == 1)
-
 });
 
 batcave.addEventListener("click", function(event) {
