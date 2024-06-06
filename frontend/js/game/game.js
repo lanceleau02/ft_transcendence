@@ -83,17 +83,17 @@ function checkLang() {
 }
 
 export function pause() {
-    if (running == 2) {
+    if (running == 2 && countdown >= 180) {
         running = 1;
         if (countdown < 180)
             nInterval = setInterval(requestAnimationFrame, 14, startMatch);
         else
             nInterval = setInterval(requestAnimationFrame, 14, update);
     }
-    else if (running == 1) {
+    else if (running == 1 && countdown >= 180) {
+        clearInterval(nInterval);
         drawPauseMenu(ctx, countdown);
         running = 2
-        clearInterval(nInterval);
     }
 }
 
@@ -241,8 +241,12 @@ export async function game() {
         if (nInterval > 0)
             clearInterval(nInterval);
     }
-    if (running == 2) {
+    if (running == 2 && countdown >= 180) {
         drawPauseMenu(ctx, countdown);
+        return;
+    }
+    else if (running == 2) {
+        nInterval = setInterval(requestAnimationFrame, 14, startMatch);
         return;
     }
     else if (running == 0) {
