@@ -40,13 +40,15 @@ const router = async () => {
 	
 	document.querySelector("#app").innerHTML = await view.getHtml();
 	translation();
+
+	if (match.route.path === "/" || match.route.path === "/batpong/") {
+		const viewBatpong = new Batpong(router);
+		await viewBatpong.onRender();
+	}
 };
 
 const viewBatprofile = new Batprofile(router);
 await viewBatprofile.onRender();
-
-const viewBatpong = new Batpong(router);
-await viewBatpong.onRender();
 
 window.addEventListener("popstate", router);
 
