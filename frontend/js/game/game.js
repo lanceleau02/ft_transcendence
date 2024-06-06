@@ -245,7 +245,7 @@ export async function game() {
         drawPauseMenu(ctx, countdown);
         return;
     }
-    else if (running == 2) {
+    else if (running == 2 || (running == 1 && countdown < 180)) {
         nInterval = setInterval(requestAnimationFrame, 14, startMatch);
         return;
     }
@@ -275,6 +275,7 @@ export function gotoMenu() {
     mapButtons.forEach(btn => btn.classList.remove('active'));
     document.getElementById('first-menu').style.display = '';
     document.getElementById('options-menu').style.display = '';
+    running = -1;
     menu();
 }
 
@@ -296,6 +297,8 @@ batpong.addEventListener("click", function(event) {
         clearInterval(nInterval);
     console.log(running);
     // game();
+    // if (running == 1)
+
 });
 
 batcave.addEventListener("click", function(event) {
