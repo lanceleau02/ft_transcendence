@@ -178,8 +178,8 @@ LOGGING = {
      }, 
  }
 
-MEDIA_URL = '/backend/media/'
-MEDIA_ROOT = BASE_DIR.joinpath('media/')
+MEDIA_URL = 'backend/media/'
+MEDIA_ROOT = 'fronthand/media/'
 
 CSRF_COOKIE_SECURE = True
 
