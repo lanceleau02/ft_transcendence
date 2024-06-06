@@ -8,6 +8,7 @@ services:
       context: containers/batpong
     volumes:
       - .:/app
+      - static_data:/app/fronthand
     env_file:
       - .env
     environment:
@@ -43,6 +44,7 @@ services:
     build: ./containers/nginx
     volumes:
       - .:/app
+      - static_data:/static
     ports:
       - "8000:443"
     depends_on:
@@ -50,6 +52,8 @@ services:
   
 volumes:
   postgres_data:
+
+  static_data:
 
 networks:
     ft_transcendence:

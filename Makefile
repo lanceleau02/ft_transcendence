@@ -10,10 +10,8 @@ clean: down
 	docker system prune -af
 
 fclean: clean
-	docker stop $$(docker ps -a -q)
-	docker rm $$(docker ps -a -q)
-	docker rmi -f $$(docker images -q)
-	docker network prune
+	docker network prune -f
+	docker volume rm $$(docker volume ls -qf dangling=true)
 
 re: down up
 

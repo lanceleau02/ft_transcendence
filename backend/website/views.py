@@ -100,3 +100,8 @@ def update_language(request):
 			return JsonResponse({"status": "error"})
 	return JsonResponse({"status": "not POST"})
 
+def custom_404_view(request, exception):
+	return render(request, 'index.html', status=404)
+
+def custom_500_view(request, exception):
+	return redirect(request, 'index.html', status=500)

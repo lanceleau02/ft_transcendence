@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 class User(AbstractBaseUser):
 	email = models.EmailField(max_length=50, unique=True, null=False)
-	username = models.CharField(max_length=50, unique=True, null=True)
+	username = models.CharField(max_length=20, unique=True, null=True)
 	avatar = models.ImageField(default='default.jpg')
 	friends = models.ManyToManyField("self", blank=True)
 	is_active = models.BooleanField(default=True)

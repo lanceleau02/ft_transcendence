@@ -27,7 +27,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Backend de session de 
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -60,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.http.ConditionalGetMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'website.middleware.CustomMiddlewareJWT',
     'website.middleware.UpdateLastActiveMiddleware',
@@ -131,6 +133,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, '../frontend'),
 ]
 
+STATIC_ROOT = 'fronthand'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -20,7 +20,7 @@ class SignupForm(UserCreationForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if get_user_model().objects.filter(username=username).exists():
-            raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+            raise ValidationError("This username is already taken. Please chose another one.")
         return username
 
 class UpdateUsername(forms.ModelForm):
@@ -34,7 +34,7 @@ class UpdateUsername(forms.ModelForm):
     def clean_username(self):
         username = self.cleaned_data.get('username')
         if get_user_model().objects.filter(username=username).exists():
-            raise ValidationError("Ce nom d'utilisateur est déjà pris. Veuillez en choisir un autre.")
+            raise ValidationError("This username is already taken. Please chose another one.")
         return username
 
 class AvatarForm(forms.ModelForm):
