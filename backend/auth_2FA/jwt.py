@@ -45,7 +45,6 @@ def generate_refresh_JWT(request):
         except User.DoesNotExist:
             return None
     return None
-    #tester avec un refresh token expire
 
 def set_all_cookies_jwt(request, response, user):
     token = request.COOKIES.get('jwt_access')
